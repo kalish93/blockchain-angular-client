@@ -4,6 +4,7 @@ import { Observable} from 'rxjs';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { AuthFacade } from '../../facades/auth.facade';
+import { ELECTION_HOME } from '../../../core/constants/routes';
 
 interface LoginComponentState {
   isAuthenticated: boolean;
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthenticated$.subscribe((result) => {
       if (result) {
-        this.router.navigate([]);
+        this.router.navigate([ELECTION_HOME]);
       }
     });
   }

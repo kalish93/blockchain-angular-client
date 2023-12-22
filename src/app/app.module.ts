@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './auth/services/jwt.interceptor';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
+import { ElectionModule } from './election/election.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AppRoutingModule } from './app-routing.module';
     RouterOutlet,
     AuthModule,
     AppRoutingModule,
+    ElectionModule
   ],
 })
 export class AppModule {}

@@ -4,6 +4,7 @@ import { tap } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { Login, Logout } from './auth.actions';
 import { LoginResponse } from '../models/login-response';
+import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 
 export interface AuthStateModel {
   accessToken: string | null;
@@ -32,14 +33,13 @@ export class AuthState {
 
   @Action(Login)
   login({ patchState }: StateContext<AuthStateModel>, { request }: Login) {
-    // this.store.dispatch(new SetProgressOn());
+    this.store.dispatch(new SetProgressOn());
     return this.authService.login(request).pipe(
       tap((result: LoginResponse) => {
         patchState({
           accessToken: result.accessToken,
-          refreshToken: result.refreshToken,
         });
-        // this.store.dispatch(new SetProgressOff());
+        this.store.dispatch(new SetProgressOff());
       }),
     );
   }
