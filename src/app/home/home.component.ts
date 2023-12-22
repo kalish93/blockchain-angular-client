@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthenticated$.subscribe((isAuthenticated) => {
       if (!isAuthenticated) {
-        // this.router.navigate([LOGIN_ROUTE]);
+        this.router.navigate([LOGIN_ROUTE]);
       }
     });
   }

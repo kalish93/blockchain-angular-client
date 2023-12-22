@@ -42,10 +42,6 @@ export class RegisterComponent implements OnInit{
  }
   ngOnInit(): void {
     this.user$.subscribe((result) => {
-      if(result.email){
-        console.log(result.email,result.id)
-      }
-     
       if(result.email && result.id){
         this.router.navigate(['login']);
       }

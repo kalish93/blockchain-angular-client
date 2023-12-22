@@ -15,7 +15,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   register(request: UserRequest): Observable<UserResponse> {
-    console.log("surafel");
     return this.http.post<UserResponse>(REGISTER_URL, request, this.httpOptions);
   }
 
