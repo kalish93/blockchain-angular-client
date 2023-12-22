@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { HomeComponent } from "../home/home.component";
 import { RouterModule, Routes } from "@angular/router";
 import { ELECTION_HOME } from "../core/constants/routes";
-import { ElectionHomeComponent } from "./election-home/election-home.component";
+import { ElectionHomeComponent } from "./components/election-home/election-home.component";
 
 const routes: Routes = [
   {

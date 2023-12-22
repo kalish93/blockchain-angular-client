@@ -1,0 +1,107 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 3rem;
+    padding: 2rem;
+}
+.catagories{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+    gap: 1rem;
+}
+
+.card{
+    padding: 2rem 0;
+    max-width: 250px;
+    margin: auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(200deg, #FFFFFF 50%, rgba(142, 156, 207, 0.08) 50%);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        z-index: 1;
+    }
+
+    .image {
+        width: 70%;
+        aspect-ratio: 3/2;
+        object-fit: contain;
+        mix-blend-mode: color-burn;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 1rem;
+        margin: 1rem;
+        text-align: center;
+    }
+
+    mat-card-actions {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.card-odd{
+    background: linear-gradient(20deg, #FFFFFF 50%, rgba(142, 156, 207, 0.08) 50%);
+}
+
+.card:hover{
+    background: linear-gradient(200deg, rgba(124, 140, 199, 0.6) 50%, #7C8CC7 50%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+}
+
+.elections{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    align-content: space-between;
+}
+
+.election-card {
+    max-width: 300px;
+    border-radius: 17px;
+    overflow: hidden; // Ensures the image adheres to the border radius
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+    transition: box-shadow 0.3s ease; // Smooth transition for hover effect
+
+    img {
+        width: 100%; // Ensure the image covers the card width
+        border-top-left-radius: 17px; // Rounded corners on the image
+        border-top-right-radius: 17px;
+    }
+
+    .award-title {
+        font-weight: bold;
+        margin-bottom: 8px; // Space between the title and category
+    }
+
+    .award-category,
+    .award-organizer,
+    .award-votes {
+        margin-bottom: 4px; // Space between the text lines
+        font-size: 0.9rem; // Smaller text for details
+    }
+}
+
+.election-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Larger shadow on hover
+}
