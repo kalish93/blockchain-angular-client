@@ -12,12 +12,19 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { JwtInterceptor } from './auth/services/jwt.interceptor';
+import { AuthModule } from './auth/auth.module';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   providers: [
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -32,7 +39,9 @@ import { HomeComponent } from './home/home.component';
     UserModule,
     SharedModule,
     CommonModule, 
-    RouterOutlet
+    RouterOutlet,
+    AuthModule,
+    AppRoutingModule,
   ],
 })
 export class AppModule {}
