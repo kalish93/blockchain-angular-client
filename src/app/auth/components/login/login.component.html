@@ -6,7 +6,7 @@
     <div class="right-half">
       <h1 class="signin-title">Sign In</h1>
       <div class="input-group">
-        <p class="signup">Don't have an account? <a href="#">Sign Up</a></p>
+        <p class="signup">Don't have an account? <a (click)="navigateToRegistration()">Sign Up</a></p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input id="email" formControlName="email" matInput />

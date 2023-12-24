@@ -5,6 +5,7 @@ import { RxState } from '@rx-angular/state';
 import { UserResponse } from '../../models/user-response';
 import { UserFacade } from '../../facades/users.facades';
 import { Observable } from 'rxjs';
+import { LOGIN_ROUTE } from '../../../core/constants/routes';
 
 interface RegisterComponentState{
   isPasswordVisible : boolean;
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit{
   });
 
   user$: Observable< UserResponse> = this.state.select('user');
+  user: UserResponse | undefined = undefined;
 
  constructor(
   private fb : NonNullableFormBuilder,
@@ -42,9 +44,7 @@ export class RegisterComponent implements OnInit{
  }
   ngOnInit(): void {
     this.user$.subscribe((result) => {
-      if(result.email && result.id){
-        this.router.navigate(['login']);
-      }
+      this.user = result
     })
   }
 
@@ -79,9 +79,12 @@ export class RegisterComponent implements OnInit{
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
       });
+      this.router.navigate([LOGIN_ROUTE]);
     }
   }
 
-
+  navigateToLogin(){
+    this.router.navigate([LOGIN_ROUTE]);
+  }
 
 }

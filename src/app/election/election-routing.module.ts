@@ -6,14 +6,9 @@ import { ElectionHomeComponent } from "./components/election-home/election-home.
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent,
-    children: [
-      {
-        path: ELECTION_HOME,
-        component: ElectionHomeComponent,
-      }
-]},
+    path: ELECTION_HOME,
+    component: ElectionHomeComponent,
+},
 ];
 
 @NgModule({

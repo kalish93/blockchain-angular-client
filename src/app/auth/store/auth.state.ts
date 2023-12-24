@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Login, Logout } from './auth.actions';
 import { LoginResponse } from '../models/login-response';
 import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
+import { OperationStatusService } from '../../core/services/operation-status.service';
+import { successStyle } from '../../core/services/status-style-names';
 
 export interface AuthStateModel {
   accessToken: string | null;
@@ -28,6 +30,7 @@ const AUTH_STATE_TOKEN = new StateToken<AuthStateModel>('authState');
 export class AuthState {
   constructor(
     private authService: AuthenticationService,
+    private oprationStatus: OperationStatusService,
     private store: Store,
   ) {}
 
@@ -39,6 +42,7 @@ export class AuthState {
         patchState({
           accessToken: result.accessToken,
         });
+        this.oprationStatus.displayStatus('logged in successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
       }),
     );

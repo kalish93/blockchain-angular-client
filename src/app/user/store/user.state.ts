@@ -5,6 +5,8 @@ import { UserService} from '../services/user.service';
 import {  Register} from './user.actions';
 import { UserResponse} from '../models/user-response';
 import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
+import { successStyle } from '../../core/services/status-style-names';
+import { OperationStatusService } from '../../core/services/operation-status.service';
 
 export interface UserStateModel {
     user : UserResponse | null,
@@ -23,6 +25,7 @@ export class UserState {
   constructor(
     private userService: UserService,
     private store: Store,
+    private oprationStatus: OperationStatusService
   ) {}
 
   @Action(Register)
@@ -33,6 +36,7 @@ export class UserState {
         patchState({
            user : result
         });
+        this.oprationStatus.displayStatus('User registered successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
       }),
     );

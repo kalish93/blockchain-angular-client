@@ -4,7 +4,7 @@ import { Observable} from 'rxjs';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { AuthFacade } from '../../facades/auth.facade';
-import { ELECTION_HOME } from '../../../core/constants/routes';
+import { ELECTION_HOME, REGISTER_ROUTE } from '../../../core/constants/routes';
 
 interface LoginComponentState {
   isAuthenticated: boolean;
@@ -79,5 +79,8 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.value.password,
       });
     }
+  }
+  navigateToRegistration() {
+    this.router.navigate([REGISTER_ROUTE]);
   }
 }
