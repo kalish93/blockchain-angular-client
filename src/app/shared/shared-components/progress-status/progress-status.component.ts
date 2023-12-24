@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RxState } from '@rx-angular/state';
-import { ProgressStatusFacade } from 'src/app/core/facades/progress-status.facade';
 import { Observable } from 'rxjs';
+import { ProgressStatusFacade } from '../../../core/facades/progress-status.facade';
 
 interface ProgressStatusComponentState {
   inprogress: boolean;

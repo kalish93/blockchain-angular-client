@@ -16,6 +16,7 @@ import { JwtInterceptor } from './auth/services/jwt.interceptor';
 import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ElectionModule } from './election/election.module';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 
 @NgModule({
@@ -24,6 +25,11 @@ import { ElectionModule } from './election/election.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true,
     },
   ],
