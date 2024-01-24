@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import  Web3 from 'web3';
 import { environment } from '../../../environment';
+import { GANACHE_URL } from '../../core/constants/api-endpoints';
 declare global {
   interface Window {
       ethereum: any;
@@ -22,7 +23,7 @@ export class BlockchainService {
   
 
   constructor() {
-    this.web3 = new Web3("http://localhost:8545");
+    this.web3 = new Web3(GANACHE_URL);
     this.contract =  new this.web3.eth.Contract(this.abi,this.contractAddress);
     
   }
