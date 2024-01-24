@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BlockchainService } from '../../services/blockchain.service';
 
 @Component({
   selector: 'app-election-home',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './election-home.component.scss'
 })
 export class ElectionHomeComponent {
+  constructor(private blockService: BlockchainService) {}
 
 }
