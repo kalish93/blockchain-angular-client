@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { ElectionFacade } from '../../facades/election.facade';
 
 @Component({
   selector: 'app-create-election-dialog',
@@ -9,7 +10,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 export class CreateElectionDialogComponent {
   electionForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private electionFacade: ElectionFacade) {
     this.electionForm = this.fb.group({
       title: [''],
       description: [''],
@@ -29,13 +30,24 @@ export class CreateElectionDialogComponent {
     const candidateForm = this.fb.group({
       name: [''],
       description: [''],
-      image: [null],
+      image: [undefined],
     });
 
     this.candidates.push(candidateForm);
   }
+  removeCandidate(index: number): void {
+    this.candidates.removeAt(index);
+  }
 
-  submitElection(){
-    
+  submitElection(): void {
+    if (this.electionForm.valid) {
+      const formData = this.electionForm.value;
+
+      console.log(formData);
+      console.log(typeof formData.candidates[0].image);
+      this.electionFacade.dispatchCreateElection(formData);
+    } else {
+      console.error('Form is not valid');
+    }
   }
 }

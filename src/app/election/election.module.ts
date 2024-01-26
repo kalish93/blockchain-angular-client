@@ -5,6 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ElectionHomeComponent } from './components/election-home/election-home.component';
 import { CreateElectionDialogComponent } from './components/create-election-dialog/create-election-dialog.component';
 import { CandidateFormComponent } from './components/candidate-form/candidate-form.component';
+import { ElectionState } from './state/election.state';
+import { NgxsModule } from '@ngxs/store';
 
 
 
@@ -14,6 +16,11 @@ import { CandidateFormComponent } from './components/candidate-form/candidate-fo
     CreateElectionDialogComponent,
     CandidateFormComponent,
   ],
-  imports: [CommonModule, SharedModule, ElectionRoutingModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ElectionRoutingModule,
+    NgxsModule.forFeature([ElectionState]),
+  ],
 })
 export class ElectionModule {}
