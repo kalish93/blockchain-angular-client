@@ -1,8 +1,27 @@
-<mat-toolbar *ngIf="(isAuthenticated$ | async)">
-    <a mat-button routerLink="/">Home</a>
-    <span class="spacer"></span>
+<mat-toolbar *ngIf="isAuthenticated$ | async">
+  <div class="ballot-box-container">
+    <div class="circle">
+      <div class="image-container">
+        <img
+          src="../../assets/images/logo.png"
+          alt="Vote"
+          class="vote-image"
+        />
+      </div>
+      <div class="vote-text">
+        <p class="vote-text-ballot">Ballot</p>
+        <p class="vote-text-box">Box</p>
+      </div>
+    </div>
+    <span class="logo-spacer"></span>
+  </div>
+  <span class="spacer"></span>
+  <div class="nav">
+    <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
     <button mat-icon-button (click)="logout()">
       <mat-icon>logout</mat-icon>
     </button>
-  </mat-toolbar>
+  </div>
+</mat-toolbar>
 <router-outlet></router-outlet>

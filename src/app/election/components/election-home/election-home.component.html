@@ -43,8 +43,15 @@
         <div class="title">others</div>
       </div>
     </mat-card>
+    
+    <mat-card class="card card-even" (click)="openDialog()">
+      <div class="card-content">
+        <span class="material-icons custom-icon-color"> add_circle </span>
+        <div class="title">Create Election</div>
+      </div>
+    </mat-card>
   </div>
-  <hr>
+  <hr />
   <div class="elections">
     <mat-card class="election-card">
       <img
@@ -76,6 +83,22 @@
         <p class="award-votes">Votes: 345,234 people</p>
       </mat-card-content>
     </mat-card>
+    <mat-card class="election-card">
+      <img
+        mat-card-image
+        src="../../../../assets/images/temp-card-image.png"
+        alt="45th Emmy Awards"
+      />
+      <mat-card-content>
+        <h2 class="award-title">45th Emmy Awards</h2>
+        <p class="award-category">Outstanding Comedy Series</p>
+        <p class="award-organizer">
+          Organizer: Academy of Television Arts & Sciences (ATAS)
+        </p>
+        <p class="award-votes">Votes: 345,234 people</p>
+      </mat-card-content>
+    </mat-card>
+
     <mat-card class="election-card">
       <img
         mat-card-image

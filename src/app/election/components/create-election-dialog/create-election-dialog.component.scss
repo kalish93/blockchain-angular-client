@@ -1,0 +1,60 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    overflow-y: auto;
+}
+
+h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+textarea.mat-input-element {
+    min-height: 100px;
+    /* Adjust the height of your textarea */
+}
+
+div[candidates] {
+    margin-bottom: 1rem;
+}
+
+.app-candidate-form {
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button[mat-raised-button] {
+    margin-right: 8px;
+}
+
+.action-btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+button[mat-button] {
+    margin-right: 8px;
+}
+
+button[mat-raised-button] {
+    margin-left: 8px;
+}

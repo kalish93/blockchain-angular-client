@@ -1,0 +1,98 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    overflow: hidden;
+}
+
+mat-toolbar{
+    height: 9rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ballot-box-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content:end;
+    align-items: end;
+    background-color: #7C8CC7;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    top: -4.8rem;
+    left: -5.5rem;
+}
+
+
+.circle{
+    display: flex;
+    flex: row;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.logo-spacer{
+    width: .5rem;
+}
+
+.vote-image{
+    width: 10vw;
+}
+
+.vote-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    p{
+        margin: 0;
+        padding: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+    }
+}
+
+.spacer{
+    margin: auto;
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 3rem 0;
+}
+
+.nav a {
+    border: 2px solid #7C8CC7;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px 15px;
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
+    color: black;
+}
+
+.nav a.active,
+.nav a:hover {
+    background-color: #7C8CC7;
+    color: white;
+}
+
+button[mat-icon-button] {
+    margin-left: 10px;
+}
