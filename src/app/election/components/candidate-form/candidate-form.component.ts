@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class CandidateFormComponent {
   @Input() form!: FormGroup;
   isDragOver = false;
+  selectedFile: File | null = null;
 
   constructor() {}
 
@@ -30,14 +31,24 @@ export class CandidateFormComponent {
       this.form.patchValue({ image: file });
       this.form.get('image')?.updateValueAndValidity();
     }
+    if (event.dataTransfer?.files) {
+      const file = event.dataTransfer.files[0];
+      this.selectedFile = file;
+    }
   }
 
-  onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
+  onFileSelect(event: any): void {
+    const input = event.target;
     if (input.files) {
       const file = input.files[0];
+      console.log('iurhsughfgfgg', file);
       this.form.patchValue({ image: file });
+      console.log('iurhsughfgfgg', this.form.get('image')?.value);
       this.form.get('image')?.updateValueAndValidity();
+    }
+    if (input.files) {
+      const file = input.files[0];
+      this.selectedFile = file;
     }
   }
 

@@ -29,13 +29,25 @@ export class CreateElectionDialogComponent {
     const candidateForm = this.fb.group({
       name: [''],
       description: [''],
-      image: [null],
+      image: [undefined],
     });
 
     this.candidates.push(candidateForm);
   }
+  removeCandidate(index: number): void {
+    this.candidates.removeAt(index);
+  }
 
-  submitElection(){
-    
+  submitElection(): void {
+    if (this.electionForm.valid) {
+      const formData = this.electionForm.value;
+      
+      console.log(formData);
+      console.log(typeof formData.candidates[0].image);
+
+      
+    } else {
+      console.error('Form is not valid');
+    }
   }
 }
