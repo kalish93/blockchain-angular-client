@@ -1,13 +1,34 @@
-<div [formGroup]="form">
-  <mat-form-field>
+<div [formGroup]="form" class="form">
+  <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name">
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
 
-  <input type="file" formControlName="image">
+  <div
+    class="file-drop-area"
+    [class.dragover]="isDragOver"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onFileDrop($event)"
+  >
+    <input
+      type="file"
+      id="fileInput"
+      formControlName="image"
+      (change)="onFileSelect($event)"
+      hidden
+      #fileInput
+    />
+    <p *ngIf="!form.get('image')?.value">Drag and drop a file here, or click to select a file</p>
+    <div *ngIf="form.get('image')?.value" class="file-info">
+      <p class="file-name">{{ form.get('image')?.value?.name }}</p>
+      <button mat-button (click)="removeFile()">Remove</button>
+    </div>
+    <button mat-button color="primary" (click)="fileInput.click()">Select File</button>
+  </div>
 </div>

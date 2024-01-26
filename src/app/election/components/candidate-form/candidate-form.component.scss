@@ -1,0 +1,46 @@
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.file-drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.file-drop-area.dragover {
+    border-color: #3f51b5;
+    background-color: #e0e0e0;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.file-info p {
+    margin: 0;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:center;
+    align-content: center;
+}
+
+.file-drop-area button {
+    margin-top: 10px;
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    display: inline-block;
+}
