@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ElectionFacade } from '../../facades/election.facade';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-election-dialog',
@@ -10,7 +11,7 @@ import { ElectionFacade } from '../../facades/election.facade';
 export class CreateElectionDialogComponent {
   electionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private electionFacade: ElectionFacade) {
+  constructor(private fb: FormBuilder, private electionFacade: ElectionFacade, private dialog: MatDialog) {
     this.electionForm = this.fb.group({
       title: [''],
       description: [''],
@@ -49,5 +50,6 @@ export class CreateElectionDialogComponent {
     } else {
       console.error('Form is not valid');
     }
+    this.dialog.closeAll();
   }
 }

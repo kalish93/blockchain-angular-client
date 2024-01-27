@@ -1,0 +1,34 @@
+<div class="container" *ngIf="elections.length > 0">
+  <h1 class="list-header">Current Elections</h1>
+  <div class="election-cards">
+    <div *ngFor="let election of elections" class="election-card">
+    <mat-card>
+      <mat-card-header (click)="navigateToDetail(election.electionId)">
+        <mat-card-title ><h2 class="election-name">{{ election.electionName }}</h2></mat-card-title>
+        <mat-card-content>{{election.description}}</mat-card-content>
+        <mat-card-subtitle><h3>Candidates</h3></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let candidate of election.candidates">
+          <mat-card class="candidate-card">
+          <div class="candidate-container">
+            <img class="candidate-image" src="assets/images/vote image.png" alt="Candidate Image" />
+            <div class="candidate-details">
+              <h3>{{ candidate.name }}</h3>
+              <p>{{ candidate.Description | slice:0:100 }}{{ candidate.Description.length > 100 ? '...' : '' }}</p>
+            </div>
+          </div>
+        </mat-card>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="mat-card-actions">
+        <button class="vote-btn" mat-button>Vote</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+</div>
+
+<div *ngIf="elections.length === 0">
+  <p>No elections available.</p>
+</div>
