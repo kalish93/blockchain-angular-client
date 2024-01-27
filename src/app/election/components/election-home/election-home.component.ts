@@ -14,6 +14,8 @@ export class ElectionHomeComponent {
     private blockService: BlockchainService,
     public dialog: MatDialog
   ) {}
+ 
+  
 
   openDialog(): void {
     const dialogRef = this.dialog.open(

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import  Web3 from 'web3';
-import { environment } from '../../../../environment';
+import { environment } from '../../../environment';
 import { GANACHE_URL } from '../../core/constants/api-endpoints';
 declare global {
   interface Window {
@@ -31,17 +31,19 @@ export class BlockchainService {
     this.accounts = await this.web3.eth.getAccounts();
   }
   public checkWalletConnection(){
-      return  Boolean(window?.ethereum);
+      return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
   public async createElection (electionName: string, candidates: any[]){
     await this.getAccounts();
     try{
       if(this.checkWalletConnection()){
-
       
+
+        const gasEstimate = await this.contract.methods.createElection(electionName, candidates)
+                                                      .estimateGas({ from: this.accounts[0] });
       let transaction = this.contract.methods.createElection(electionName, candidates).send({
         from: this.accounts[0],
-        gas: 15000
+        gas: gasEstimate
       }
       
       );
@@ -56,28 +58,34 @@ export class BlockchainService {
   public async voteForCandidate(electionId:string, candidateId:string){
       const account = this.accounts[0];
       try{
+        if(this.checkWalletConnection()){
         let transaction = this.contract.methods.voteForACandidate(electionId,candidateId).send({
           from : account,
           gas: 20000
         })
         return transaction;
+      }
     } catch (e){
       console.log("Error in voting for candidate",e);
     }
   }
   public async getAllElections(){
     const account = this.accounts[0];
+    let elections =  this.contract.methods.showExistingElections().call();
+    console.log(elections);
+    return elections;
     
-    try{
-      if(this.checkWalletConnection()){
-      let elections = this.contract.method.showExistingElections().call();
-      return elections;
-      }else{
-        throw 'Connect to metamask';
-      }
-    } catch(e){
-      console.log("Error in fetching Existing Elections", e);
-    }
+    // try{
+    //   if(this.checkWalletConnection()){
+    //   let elections = await this.contract.method.showExistingElections().call();
+    //   console.log(elections)
+    //   return elections;
+    //   }else{
+    //     throw 'Connect to metamask';
+    //   }
+    // } catch(e){
+    //   console.log("Error in fetching Existing Elections", e);
+    // }
   }
 
 }
