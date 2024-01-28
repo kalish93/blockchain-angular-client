@@ -33,20 +33,22 @@ export class BlockchainService {
   public checkWalletConnection(){
       return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
-  public async createElection (electionName: string, candidates: any[]){
+  public async createElection (electionName: string,description:string, candidates: any[]){
     await this.getAccounts();
+    console.log("accounts", this.accounts);
     try{
       if(this.checkWalletConnection()){
 
 
-        const gasEstimate = await this.contract.methods.createElection(electionName, candidates)
+        const gasEstimate = await this.contract.methods.createElection(electionName,description, candidates)
                                                       .estimateGas({ from: this.accounts[0] });
-      let transaction = this.contract.methods.createElection(electionName, candidates).send({
+      let transaction = await this.contract.methods.createElection(electionName,description, candidates).send({
         from: this.accounts[0],
         gas: gasEstimate
       }
 
       );
+      console.log("transaction",  transaction);
       return transaction;
     }else{
       throw "Please connect your wallet";
@@ -99,8 +101,8 @@ export class BlockchainService {
 
   public async getAllElections(){
     const account = this.accounts[0];
-    let elections =  this.contract.methods.showExistingElections().call();
-    console.log(elections);
+    let elections =  await this.contract.methods.showExistingElections().call();
+    console.log("getAllElections elections", elections);
     return elections;
 
     // try{
@@ -118,6 +120,7 @@ export class BlockchainService {
 
   public async getSingleElection(electionId: string) {
         let election = await this.contract.methods.showSingleElection(electionId).call();
+        console.log("getSingleElection election", election);
         return election;
   }
 }

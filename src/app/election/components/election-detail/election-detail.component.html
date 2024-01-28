@@ -1,11 +1,11 @@
-<div class="container" *ngIf="election">
-  <h1 class="list-header">{{ election.electionName }}</h1>
+<div class="container" *ngIf="electionDetail">
+  <h1 class="list-header">{{ electionDetail.electionName }}</h1>
   <div class="election-details">
-    <div class="election-description">{{ election.description }}</div>
+    <div class="election-description">{{ electionDetail.description }}</div>
 
     <h2 class="candidates-header">Candidates</h2>
     <div class="candidates-container">
-      <mat-card *ngFor="let candidate of election.candidates" class="candidate-card">
+      <mat-card *ngFor="let candidate of electionDetail.candidates" class="candidate-card">
         <img class="candidate-image" src="{{ candidate.imgUrl }}" alt="Candidate Image" />
         <div class="candidate-details">
           <div class="card-header">
