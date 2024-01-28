@@ -7,6 +7,8 @@ import { CreateElectionDialogComponent } from './components/create-election-dial
 import { CandidateFormComponent } from './components/candidate-form/candidate-form.component';
 import { ElectionState } from './state/election.state';
 import { NgxsModule } from '@ngxs/store';
+import { ElectionsListComponent } from './components/elections-list/elections-list.component';
+import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
 
 
 
@@ -15,6 +17,8 @@ import { NgxsModule } from '@ngxs/store';
     ElectionHomeComponent,
     CreateElectionDialogComponent,
     CandidateFormComponent,
+    ElectionsListComponent,
+    ElectionDetailComponent
   ],
   imports: [
     CommonModule,
