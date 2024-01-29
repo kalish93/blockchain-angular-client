@@ -62,3 +62,35 @@ mat-card-header{
   border: 1px solid #e0e0e0;
   margin-bottom: 10px;
 }
+
+
+.title-container{
+  align-self: self-start;
+}
+
+// =================
+
+
+mat-card{
+  max-width: 300px;
+  max-height: 350px;
+  min-width: 300px;
+  min-height: 300px;
+  display: flex;
+  gap: 1rem;
+
+  mat-card-content{
+    flex-grow: 1;
+    text-align: justify;
+    margin: 1rem auto 1rem auto;
+  }
+
+  .mat-card-actions{
+    // display: block;
+    width: 100%;
+    button{
+      width: 90%;
+    }
+  }
+}
+
