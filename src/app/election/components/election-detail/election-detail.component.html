@@ -10,7 +10,7 @@
         <div class="candidate-details">
           <div class="card-header">
             <h3>{{ candidate.name }}</h3>
-            <h2>Vote Count: {{ candidate.VoteCount }}</h2>
+            <h3>Vote Count: {{ candidate.VoteCount }}</h3>
           </div>
           <p>{{ candidate.Description }}</p>
           <button class="vote-btn" mat-button (click)="voteForCandidate(candidate.id)">
