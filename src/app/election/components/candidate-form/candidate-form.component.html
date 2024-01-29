@@ -9,7 +9,14 @@
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
 
-  <div
+  <mat-form-field appearance="outline">
+    <mat-label>Image Url</mat-label>
+    <textarea matInput formControlName="image"></textarea>
+  </mat-form-field>
+
+
+
+  <!-- <div
     class="file-drop-area"
     [class.dragover]="isDragOver"
     (dragover)="onDragOver($event)"
@@ -30,5 +37,5 @@
       <button mat-button (click)="removeFile()">Remove</button>
     </div>
     <button mat-button color="primary" (click)="fileInput.click()">Select File</button>
-  </div>
+  </div> -->
 </div>
