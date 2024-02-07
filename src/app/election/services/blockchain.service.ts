@@ -57,21 +57,7 @@ export class BlockchainService {
       console.log('Error in creating election', e)
     }
   }
-  // public async voteForCandidate(electionId:string, candidateId:string){
-  //   this.accounts = await this.web3.eth.getAccounts();
-  //     const account = this.accounts[0];
-  //     // try{
-  //     //   if(this.checkWalletConnection()){
-  //       let transaction = this.contract.methods.voteForACandidate(electionId,candidateId).send({
-  //         from : this.accounts[1],
-  //         gas: 20000
-  //       })
-  //       return transaction;
-  //   //   }
-  //   // } catch (e){
-  //   //   console.log("Error in voting for candidate",e);
-  //   // }
-  // }
+
   public async voteForCandidate(electionId: string, candidateId: string): Promise<boolean> {
     await this.getAccounts();
 
@@ -105,17 +91,6 @@ export class BlockchainService {
     console.log("getAllElections elections", elections);
     return elections;
 
-    // try{
-    //   if(this.checkWalletConnection()){
-    //   let elections = await this.contract.method.showExistingElections().call();
-    //   console.log(elections)
-    //   return elections;
-    //   }else{
-    //     throw 'Connect to metamask';
-    //   }
-    // } catch(e){
-    //   console.log("Error in fetching Existing Elections", e);
-    // }
   }
 
   public async getSingleElection(electionId: string) {

@@ -6,7 +6,7 @@
       <mat-card-header>
         <mat-card-title ><h2 class="election-name">{{ election.electionName }}</h2></mat-card-title>
       </mat-card-header>
-      <mat-card-content>{{election.description}}</mat-card-content>
+      <mat-card-content>{{ election.description.length > 100 ? (election.description | slice: 0:150) + '...' : election.description }}</mat-card-content>
       <mat-card-actions class="mat-card-actions">
         <button class="vote-btn" mat-button>Vote now</button>
       </mat-card-actions>
