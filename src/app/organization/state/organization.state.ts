@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail, SetSelectedOrganization } from './organization.action';
+import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization } from './organization.action';
 import { OrganizationService } from '../services/organization.service';
-import { Organization, OrganizationWithMembers } from '../models/organization.model';
+import { Member, Organization, OrganizationWithMembers } from '../models/organization.model';
 import { tap } from 'rxjs';
 import { insertItem, patch } from '@ngxs/store/operators';
 
@@ -10,6 +10,7 @@ export interface OrganizationStateModel {
   organizations: Organization[];
   organization: OrganizationWithMembers | undefined;
   selectedOrganization: Organization | undefined;
+  members: Member[];
 }
 
 const ORGANIZATIO_STATE_TOKEN = new StateToken<OrganizationStateModel>(
@@ -19,7 +20,8 @@ const ORGANIZATIO_STATE_TOKEN = new StateToken<OrganizationStateModel>(
 const defaults: OrganizationStateModel = {
   organizations: [],
   organization: undefined,
-  selectedOrganization: undefined
+  members: [],
+  selectedOrganization: undefined,
 
 };
 
@@ -70,6 +72,20 @@ export class OrganizationState {
         setState(
           patch({
             organization,
+          }),
+        );
+      }),
+    );
+  }
+
+  @Action(CreateMember)
+  createMember({ setState }: StateContext<OrganizationStateModel>,
+    { member }: CreateMember) {
+    return this.organizationService.createMember(member).pipe(
+      tap((createdMember: Member) => {
+        setState(
+          patch({
+            members: insertItem(createdMember),
           }),
         );
       }),

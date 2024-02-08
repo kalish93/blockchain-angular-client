@@ -19,4 +19,7 @@ export class OrganizationSelector {
   static selectedOrganization(stateModel: OrganizationStateModel) {
     return stateModel.selectedOrganization;
   }
+  static members(stateModel: OrganizationStateModel) {
+    return stateModel.members;
+  }
 }

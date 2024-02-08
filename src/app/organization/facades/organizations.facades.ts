@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Organization, OrganizationWithMembers } from '../models/organization.model';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail } from '../state/organization.action';
+import { Member, Organization, OrganizationWithMembers } from '../models/organization.model';
+import { CreateOrganization, GetOrganizations, GetOrganizationDetail, CreateMember, SetSelectedOrganization } from '../state/organization.action';
 import { OrganizationSelector } from '../state/organization.selector';
 
 @Injectable({
@@ -20,6 +20,9 @@ export class OrganizationFacade {
   @Select(OrganizationSelector.selectedOrganization)
   selectedOrganization$!: Observable<Organization>;
 
+  @Select(OrganizationSelector.members)
+  members$!: Observable<Member[]>;
+
   constructor(private store: Store) {}
 
   dispatchCreateOrganization(organization: Organization) {
@@ -35,6 +38,10 @@ export class OrganizationFacade {
   }
 
   dispatchSetSelectedOrganization(organization: Organization){
+    this.store.dispatch(new SetSelectedOrganization(organization));
+  }
 
+  dispatchCreateMember(member: Member) {
+    this.store.dispatch(new CreateMember(member));
   }
 }

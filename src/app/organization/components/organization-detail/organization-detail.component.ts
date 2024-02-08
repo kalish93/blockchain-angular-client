@@ -4,24 +4,26 @@ import { Organization, OrganizationWithMembers } from '../../models/organization
 import { RxState } from '@rx-angular/state';
 import { ActivatedRoute } from '@angular/router';
 
+
 interface OrganizationDetailComponentState {
   selectedOrganization: Organization | undefined;
-  organization: OrganizationWithMembers | undefined;
+  organizationDetial: OrganizationWithMembers | undefined;
 }
 
 const initOrganizationDetailComponentState: OrganizationDetailComponentState = {
   selectedOrganization: undefined,
-  organization: undefined,
+  organizationDetial: undefined,
 };
 
 @Component({
   selector: 'app-organization-detail',
   templateUrl: './organization-detail.component.html',
   styleUrl: './organization-detail.component.scss',
+  providers: [RxState],
 })
 export class OrganizationDetailComponent {
   selectedOrganization$ = this.state.select('selectedOrganization');
-  organization$ = this.state.select('organization');
+  organizationDetial$ = this.state.select('organizationDetial');
   selectedOrganization: Organization | undefined = undefined;
   organization: OrganizationWithMembers | undefined = undefined;
   constructor(
@@ -30,27 +32,28 @@ export class OrganizationDetailComponent {
     private route: ActivatedRoute
   ) {
     this.state.set(initOrganizationDetailComponentState);
-    this.state.connect('organization', this.organizationFacade.organization$);
+    this.state.connect('organizationDetial', this.organizationFacade.organization$);
     this.state.connect('selectedOrganization', this.organizationFacade.selectedOrganization$);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params)=>{
+    this.route.params.subscribe((params) => {
       this.organizationFacade.dispatchGetOrganizationDetail(
         params['id']
       );
     })
-    this.organization$.subscribe((og) => {
-        console.log("ggg", og)
-        this.organization = og;
-      });
-    // this.selectedOrganization$.subscribe((organization)=>{
-    //   this.selectedOrganization = organization
-    //   console.log("fff", this.selectedOrganization);
-      
-    //   if (this.selectedOrganization && this.selectedOrganization.id)
-        
-      
-    // })
+    this.organizationDetial$.subscribe((og) => {
+      this.organization = og;
+    });
+    this.selectedOrganization$.subscribe((og) => {
+      this.selectedOrganization = og;
+    }
+    );
   }
+
+
+
+
+
+
 }
