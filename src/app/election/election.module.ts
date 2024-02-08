@@ -10,6 +10,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ElectionsListComponent } from './components/elections-list/elections-list.component';
 import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
 import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
+import { OrganizationListComponent } from './components/organization-list/organization-list.component';
 
 
 
@@ -20,7 +21,8 @@ import { CreatedElectionsComponent } from './components/created-elections/create
     CandidateFormComponent,
     ElectionsListComponent,
     ElectionDetailComponent,
-    CreatedElectionsComponent
+    CreatedElectionsComponent,
+    OrganizationListComponent
   ],
   imports: [
     CommonModule,
