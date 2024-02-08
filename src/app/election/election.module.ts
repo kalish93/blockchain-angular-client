@@ -12,7 +12,6 @@ import { ElectionDetailComponent } from './components/election-detail/election-d
 import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
 
 
-
 @NgModule({
   declarations: [
     ElectionHomeComponent,
@@ -20,7 +19,7 @@ import { CreatedElectionsComponent } from './components/created-elections/create
     CandidateFormComponent,
     ElectionsListComponent,
     ElectionDetailComponent,
-    CreatedElectionsComponent
+    CreatedElectionsComponent,
   ],
   imports: [
     CommonModule,
