@@ -17,6 +17,4 @@ export class UserService {
   register(request: UserRequest): Observable<UserResponse> {
     return this.http.post<UserResponse>(REGISTER_URL, request, this.httpOptions);
   }
-
-
 }
