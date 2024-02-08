@@ -16,3 +16,13 @@ mat-card-subtitle {
 mat-list-item {
     align-items: center;
 }
+
+.main{
+    margin: 1rem 4rem;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
