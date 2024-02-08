@@ -1,4 +1,4 @@
 export enum UserRole {
-  ELECTION_CREATOR = 'Election Creator',
-  ELECTOR = 'Elector',
+  ELECTION_CREATOR = 'ELECTION_CREATOR',
+  ELECTOR = 'ELECTOR',
 }
