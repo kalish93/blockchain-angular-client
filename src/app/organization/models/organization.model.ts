@@ -2,7 +2,7 @@ export interface Organization{
     id?: string;
     name:string;    
     shortName:string;
-    isActive:boolean;
+    isActive?:boolean;
 };
 
 export interface Member{

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Organization, OrganizationWithMembers } from '../models/organization.model';
+import { Organization, OrganizationWithMembers, Member } from '../models/organization.model';
 import { Observable } from 'rxjs';
 import { ORGANIZATIONURL } from '../../core/constants/api-endpoints';
 
@@ -25,5 +25,9 @@ export class OrganizationService {
 
   getOrganization(id: string): Observable<OrganizationWithMembers> {
     return this.http.get<OrganizationWithMembers>(`${ORGANIZATIONURL}/${id}`, this.httpOptions);
+  }
+
+  createMember(member: Member): Observable<Member> {
+    return this.http.post<Member>(`${ORGANIZATIONURL}/members`, member, this.httpOptions);
   }
 }

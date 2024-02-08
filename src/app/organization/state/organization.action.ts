@@ -1,4 +1,4 @@
-import { Organization} from '../models/organization.model';
+import { Organization, Member} from '../models/organization.model';
 
 export class CreateOrganization {
   static readonly type = `[Organization] ${CreateOrganization.name}`;
@@ -18,6 +18,10 @@ export class GetOrganizationDetail{
 export class SetSelectedOrganization {
   static readonly type = `[Organization] ${SetSelectedOrganization.name}`;
   constructor(public organization: Organization) {}
+}
+export class CreateMember{
+  static readonly type = `[Organization] ${CreateMember.name}`;
+  constructor(public member: Member){}
 }
 
 
