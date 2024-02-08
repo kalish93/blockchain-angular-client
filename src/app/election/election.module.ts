@@ -9,6 +9,7 @@ import { ElectionState } from './state/election.state';
 import { NgxsModule } from '@ngxs/store';
 import { ElectionsListComponent } from './components/elections-list/elections-list.component';
 import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
+import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
 
 
 
@@ -18,7 +19,8 @@ import { ElectionDetailComponent } from './components/election-detail/election-d
     CreateElectionDialogComponent,
     CandidateFormComponent,
     ElectionsListComponent,
-    ElectionDetailComponent
+    ElectionDetailComponent,
+    CreatedElectionsComponent
   ],
   imports: [
     CommonModule,

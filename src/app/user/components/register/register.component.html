@@ -1,36 +1,82 @@
 <form class="login-form" [formGroup]="registerForm">
-    <div class="container">
-        <div class="left-half">
-          <img class="vote-image" src="assets/images/vote image.png" alt="vote image">
-        </div>
-        <div class="right-half">
-          <h1 class="signin-title">Sign Up</h1>
-          <div class="input-group">
-            <p class="signup">Already hava an account? <a (click)="navigateToLogin()">Sign In</a></p>
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input id="email" formControlName="email" matInput />
-              <mat-error *ngIf="emailValidationError.errors?.['required']">
-                Please provide a valid email
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input
-                id="password"
-                [type]="isPasswordVisible ? 'password' : 'text'"
-                formControlName="password"
-                matInput
-              />
-              <mat-icon class="eye-icon" matSuffix (click)="togglePasswordVisibility()">{{
-                isPasswordVisible ? "visibility" : "visibility_off"
-              }}</mat-icon>
-               <mat-error *ngIf="passwordValidationError.errors?.['required']">
-                Please provide a valid password
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <button class="login-btn" mat-flat-button (click)="register()">Sign Up</button>
-        </div>
+  <div class="container">
+    <div class="left-half">
+      <img
+        class="vote-image"
+        src="assets/images/vote image.png"
+        alt="vote image"
+      />
+    </div>
+    <div class="right-half">
+      <h1 class="signin-title">Sign Up</h1>
+      <div class="input-group">
+        <p class="signup">
+          Already hava an account? <a (click)="navigateToLogin()">Sign In</a>
+        </p>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input id="email" formControlName="email" matInput />
+          <mat-error *ngIf="emailValidationError.errors?.['required']">
+            Please provide a valid email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            id="password"
+            [type]="isPasswordVisible ? 'password' : 'text'"
+            formControlName="password"
+            matInput
+          />
+          <mat-icon
+            class="eye-icon"
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            >{{ isPasswordVisible ? "visibility" : "visibility_off" }}</mat-icon
+          >
+          <mat-error *ngIf="passwordValidationError.errors?.['required']">
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            id="confirmPassword"
+            [type]="isConfirmPasswordVisible ? 'password' : 'text'"
+            formControlName="confirmPassword"
+            matInput
+          />
+          <mat-icon
+            class="eye-icon"
+            matSuffix
+            (click)="toggleConfirmPasswordVisibility()"
+            >{{ isConfirmPasswordVisible ? "visibility" : "visibility_off" }}</mat-icon
+          >
+          <mat-error
+            *ngIf="registerForm.get('confirmPassword')?.errors?.['required']"
+          >
+            Confirming the password is required.
+          </mat-error>
+          <mat-error *ngIf="registerForm.errors?.['mismatch']">
+            Passwords must match.
+          </mat-error>
+        </mat-form-field>
+        <mat-radio-group
+          formControlName="userType"
+          aria-label="Select a user type"
+          color="primary"
+        >
+          <mat-radio-button
+            *ngFor="let type of userType | keyvalue"
+            [value]="type.value"
+          >
+            {{ type.value }}
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
-    </form>
+      <button class="login-btn" mat-flat-button (click)="register()">
+        Sign Up
+      </button>
+    </div>
+  </div>
+</form>
