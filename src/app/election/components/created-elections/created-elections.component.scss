@@ -1,20 +1,74 @@
-.main{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 3rem;
-    padding: 2rem;
-}
-.catagories{
+.created-elections{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: space-between;
     gap: 1rem;
 }
 
-.card{
+.election-card {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+
+mat-card-header {
+    text-align: center;
+    justify-content: center;
+}
+
+.mat-card-actions {
+    display: flex;
+    justify-content: center;
+}
+
+
+.vote-btn {
+    background-color: #7C8CC7;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.candidate-card {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+}
+
+
+.title-container {
+    align-self: self-start;
+}
+
+mat-card {
+    max-width: 300px;
+    max-height: 350px;
+    min-width: 300px;
+    min-height: 300px;
+    display: flex;
+    gap: 1rem;
+    border-radius: 1rem;
+    background: linear-gradient(200deg, #FFFFFF 50%, rgba(142, 156, 207, 0.08) 50%);
+
+    mat-card-content {
+        flex-grow: 1;
+        text-align: justify;
+        margin: 1rem auto 1rem auto;
+    }
+
+    .mat-card-actions {
+        width: 100%;
+
+        button {
+            width: 90%;
+        }
+    }
+}
+
+.card {
     padding: 2rem 0;
     max-width: 250px;
     margin: 0;
@@ -58,56 +112,6 @@
     }
 }
 
-.card-odd{
-    background: linear-gradient(20deg, #FFFFFF 50%, rgba(142, 156, 207, 0.08) 50%);
-}
-
-.card:hover{
-    background: linear-gradient(200deg, rgba(124, 140, 199, 0.6) 50%, #7C8CC7 50%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-}
-
-.elections{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    align-items: center;
-    justify-content: center;
-    align-content: space-between;
-}
-
-.election-card {
-    max-width: 300px;
-    border-radius: 17px;
-    overflow: hidden; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease; 
-
-    img {
-        width: 100%;
-        border-top-left-radius: 17px;
-        border-top-right-radius: 17px;
-    }
-
-    .award-title {
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    .award-category,
-    .award-organizer,
-    .award-votes {
-        margin-bottom: 4px;
-        font-size: 0.9rem; 
-    }
-}
-
-.election-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
 .custom-icon-color {
     color: #7C8CC7;
     display: flex;
@@ -119,3 +123,8 @@
     margin: 0 10rem;
 }
 
+.card:hover {
+    background: linear-gradient(200deg, rgba(124, 140, 199, 0.6) 50%, #7C8CC7 50%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
