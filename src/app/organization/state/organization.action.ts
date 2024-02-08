@@ -15,4 +15,9 @@ export class GetOrganizationDetail{
   constructor(public organizationId: string){}
 }
 
+export class SetSelectedOrganization {
+  static readonly type = `[Organization] ${SetSelectedOrganization.name}`;
+  constructor(public organization: Organization) {}
+}
+
 

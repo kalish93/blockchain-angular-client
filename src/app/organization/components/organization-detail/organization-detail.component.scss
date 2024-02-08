@@ -1,0 +1,18 @@
+.organization-card {
+    max-width: 600px;
+    margin: auto;
+}
+
+.members-section {
+    margin-top: 20px;
+}
+
+mat-card-title,
+mat-card-subtitle {
+    display: flex;
+    justify-content: center;
+}
+
+mat-list-item {
+    align-items: center;
+}

@@ -2,7 +2,8 @@ import { Selector, createPropertySelectors } from '@ngxs/store';
 import { OrganizationState, OrganizationStateModel } from './organization.state';
 
 export class OrganizationSelector {
-  static slices = createPropertySelectors<OrganizationStateModel>(OrganizationState);
+  static slices =
+    createPropertySelectors<OrganizationStateModel>(OrganizationState);
 
   @Selector([OrganizationState])
   static organizations(stateModel: OrganizationStateModel) {
@@ -12,5 +13,10 @@ export class OrganizationSelector {
   @Selector([OrganizationState])
   static organization(stateModel: OrganizationStateModel) {
     return stateModel.organization;
+  }
+
+  @Selector([OrganizationState])
+  static selectedOrganization(stateModel: OrganizationStateModel) {
+    return stateModel.selectedOrganization;
   }
 }
