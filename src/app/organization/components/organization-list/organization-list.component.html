@@ -4,7 +4,7 @@
   </div>
 </div>
 <div *ngFor="let organization of organizations" class="container">
-  <mat-card class="task-card">
+  <mat-card class="task-card" (click)="organizationSelected(organization)">
     <mat-card-header>
       <div class="card-header">
         <mat-card-title>{{ organization.name }}</mat-card-title>

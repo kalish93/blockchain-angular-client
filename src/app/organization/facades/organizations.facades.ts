@@ -17,6 +17,9 @@ export class OrganizationFacade {
   @Select(OrganizationSelector.organization)
   organization$!: Observable<OrganizationWithMembers>;
 
+  @Select(OrganizationSelector.selectedOrganization)
+  selectedOrganization$!: Observable<Organization>;
+
   constructor(private store: Store) {}
 
   dispatchCreateOrganization(organization: Organization) {
@@ -29,5 +32,9 @@ export class OrganizationFacade {
 
   dispatchGetOrganizationDetail(organizationId: string) {
     this.store.dispatch(new GetOrganizationDetail(organizationId));
+  }
+
+  dispatchSetSelectedOrganization(organization: Organization){
+
   }
 }
