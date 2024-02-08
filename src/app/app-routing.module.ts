@@ -4,7 +4,7 @@ import { HOME_ROUTE, LOGIN_ROUTE, ORGANIZATION_LIST, REGISTER_ROUTE } from './co
 import { LoginComponent } from './auth/components/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './user/components/register/register.component';
-import { OrganizationListComponent } from './election/components/organization-list/organization-list.component';
+import { OrganizationListComponent } from './organization/components/organization-list/organization-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },

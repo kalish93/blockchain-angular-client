@@ -10,8 +10,6 @@ import { NgxsModule } from '@ngxs/store';
 import { ElectionsListComponent } from './components/elections-list/elections-list.component';
 import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
 import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
-import { OrganizationListComponent } from './components/organization-list/organization-list.component';
-
 
 
 @NgModule({
@@ -22,7 +20,6 @@ import { OrganizationListComponent } from './components/organization-list/organi
     ElectionsListComponent,
     ElectionDetailComponent,
     CreatedElectionsComponent,
-    OrganizationListComponent
   ],
   imports: [
     CommonModule,

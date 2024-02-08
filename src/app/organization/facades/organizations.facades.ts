@@ -8,8 +8,8 @@ import { OrganizationSelector } from '../state/organization.selector';
 @Injectable({
   providedIn: 'root',
 })
-export class UserFacade {
- 
+export class OrganizationFacade {
+
 
   @Select(OrganizationSelector.organizations)
   organizations$!: Observable<Organization[]>;
@@ -22,7 +22,7 @@ export class UserFacade {
   dispatchCreateOrganization(organization: Organization) {
     this.store.dispatch(new CreateOrganization(organization));
   }
-  
+
   dispatchGetOrganizations() {
     this.store.dispatch(new GetOrganizations());
   }
