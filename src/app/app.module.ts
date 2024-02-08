@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ElectionModule } from './election/election.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { OrganizationModule } from './organization/organization.module';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     RouterOutlet,
     AuthModule,
     AppRoutingModule,
-    ElectionModule
+    ElectionModule,
+    OrganizationModule
   ],
 })
 export class AppModule {}

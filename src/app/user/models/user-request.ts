@@ -4,5 +4,5 @@ export interface UserRequest {
   email: string;
   password: string;
   confirmPassword: string;
-  userRole: UserRole;
+  role: UserRole;
 }

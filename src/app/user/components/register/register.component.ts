@@ -129,7 +129,7 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
         confirmPassword: this.registerForm.value.confirmPassword!,
-        userRole: this.registerForm.value.userType!,
+        role: this.registerForm.value.userType!,
       });
       this.router.navigate([LOGIN_ROUTE]);
     }
