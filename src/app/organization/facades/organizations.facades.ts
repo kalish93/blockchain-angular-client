@@ -20,9 +20,6 @@ export class OrganizationFacade {
   @Select(OrganizationSelector.selectedOrganization)
   selectedOrganization$!: Observable<Organization>;
 
-  @Select(OrganizationSelector.members)
-  members$!: Observable<Member[]>;
-
   constructor(private store: Store) {}
 
   dispatchCreateOrganization(organization: Organization) {

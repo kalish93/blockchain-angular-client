@@ -1,0 +1,64 @@
+.member-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .check-box {
+    margin-bottom: 1rem;
+  }
+  .full-width {
+    width: 100%;
+  }
+  
+  .form-container {
+    max-height: 100vh;
+    height: 100vh;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .save-button {
+    border-radius: 15px;
+  }
+  .bg-warning {
+    background-color: #ffe082 !important;
+  }
+  
+  .m-3 {
+    margin: 0.5rem !important;
+    margin-top: 0 !important;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 20% 1fr 9%;
+  }
+  
+  .warning-icon {
+    grid-column-start: 1;
+    align-self: center;
+    justify-self: center;
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+  }
+  .warning-text {
+    grid-column-start: 2;
+    align-items: center;
+    justify-content: center;
+  }
+  .cancel-icon {
+    grid-column-start: 3;
+    align-items: start;
+    justify-self: center;
+  }
+  
+  .sm-7 {
+    transform: scale(0.8);
+  }
+  
+  .action-btn {
+    display: flex;
+    gap: 1rem;
+  }
+  

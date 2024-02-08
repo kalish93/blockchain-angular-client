@@ -10,7 +10,6 @@ export interface OrganizationStateModel {
   organizations: Organization[];
   organization: OrganizationWithMembers | undefined;
   selectedOrganization: Organization | undefined;
-  members: Member[];
 }
 
 const ORGANIZATIO_STATE_TOKEN = new StateToken<OrganizationStateModel>(
@@ -20,7 +19,6 @@ const ORGANIZATIO_STATE_TOKEN = new StateToken<OrganizationStateModel>(
 const defaults: OrganizationStateModel = {
   organizations: [],
   organization: undefined,
-  members: [],
   selectedOrganization: undefined,
 
 };
@@ -85,7 +83,9 @@ export class OrganizationState {
       tap((createdMember: Member) => {
         setState(
           patch({
-            members: insertItem(createdMember),
+            organization: patch({
+              members: insertItem(createdMember),
+            }),
           }),
         );
       }),
