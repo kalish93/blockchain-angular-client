@@ -10,7 +10,7 @@ import { RxState } from '@rx-angular/state';
 import { UserResponse } from '../../models/user-response';
 import { UserFacade } from '../../facades/users.facades';
 import { Observable } from 'rxjs';
-import { LOGIN_ROUTE } from '../../../core/constants/routes';
+import { LOGIN_ROUTE, VERIFY_EMAIL_ROUTE } from '../../../core/constants/routes';
 import { UserRole } from '../../../core/constants/user-types';
 
 interface RegisterComponentState {
@@ -131,7 +131,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: this.registerForm.value.confirmPassword!,
         role: this.registerForm.value.userType!,
       });
-      this.router.navigate([LOGIN_ROUTE]);
+      this.router.navigate([VERIFY_EMAIL_ROUTE]);
     }
   }
 

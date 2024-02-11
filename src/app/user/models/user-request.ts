@@ -6,3 +6,8 @@ export interface UserRequest {
   confirmPassword: string;
   role: UserRole;
 }
+
+export interface VerifyUserEmailRequest{
+  email: string;
+  otp:string;
+}
