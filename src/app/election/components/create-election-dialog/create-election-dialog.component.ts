@@ -9,9 +9,19 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './create-election-dialog.component.scss',
 })
 export class CreateElectionDialogComponent {
+  isVisible = false;
   electionForm: FormGroup;
+  candidateForm = this.fb.group({
+    name: [''],
+    description: [''],
+    image: [''],
+  });
 
-  constructor(private fb: FormBuilder, private electionFacade: ElectionFacade, private dialog: MatDialog) {
+  constructor(
+    private fb: FormBuilder,
+    private electionFacade: ElectionFacade,
+    private dialog: MatDialog
+  ) {
     this.electionForm = this.fb.group({
       title: [''],
       description: [''],
@@ -28,13 +38,22 @@ export class CreateElectionDialogComponent {
   }
 
   addCandidate(): void {
-    const candidateForm = this.fb.group({
-      name: [''],
-      description: [''],
-      image: [undefined],
+    const newCandidate = this.fb.group({
+      name: this.candidateForm.get('name')?.value,
+      description: this.candidateForm.get('description')?.value,
+      imageUrl: this.candidateForm.get('image')?.value,
     });
 
-    this.candidates.push(candidateForm);
+    this.candidates.push(newCandidate);
+
+    this.candidateForm.reset();
+
+    this.isVisible = false;
+  }
+
+  createCandidate() {
+    this.isVisible = true;
+    console.log('fff', this.electionForm.value)
   }
   removeCandidate(index: number): void {
     this.candidates.removeAt(index);
