@@ -1,23 +1,30 @@
-<div class="organization-detail">
-  <button color="primary" (click)="openCreateMemberDialog()">Add Member</button>
-</div>
-
-<mat-card class="organization-card">
-  <mat-card-header>
-    <mat-card-title> HEADER{{ organization?.name }}</mat-card-title>
-    <mat-card-subtitle> NAME{{ organization?.name }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Status: {{ organization?.isActive ? 'Active' : 'Inactive' }}</p>
-    <div class="members-section">
-      <h3>Members</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let member of organization?.members">
-          <mat-icon matListIcon>person</mat-icon>
-          <h4 matLine>{{ member.name }}</h4>
-          <p matLine>{{ member.email }}</p>
-        </mat-list-item>
-      </mat-list>
+<div class="main">
+  <div class="header">
+    <div class="title">
+      <h1>{{ organization?.name }}</h1>
+      <h2>{{ organization?.name }}</h2>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div>
+      <p>Status: {{ organization?.isActive ? "Active" : "Inactive" }}</p>
+    </div>
+  </div>
+  <div class="organization-detail">
+    <button mat-raised-button color="primary" (click)="openCreateMemberDialog()">
+      Add Member
+    </button>
+  </div>
+  <mat-card class="organization-card">
+    <mat-card-content>
+      <div class="members-section">
+        <h3>Members</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let member of organization?.members">
+            <mat-icon matListIcon>person</mat-icon>
+            <h4 matLine>{{ member.name }}</h4>
+            <p matLine>{{ member.email }}</p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
