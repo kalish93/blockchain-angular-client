@@ -1,0 +1,28 @@
+<main class="verify-email-continaer">
+    <form class="verify-email-form flex" [formGroup]="verifyEmailForm">
+        <div>
+            <img class="email-icon" src="assets/svg/verify-email-form.svg" alt="vote image" />
+        </div>
+
+        <div class="text">
+            <h3>
+                Please check your email!
+            </h3>
+            <p>
+                We have emailed a 6-digit confirmation code to |acbdomain|, please enter the code in below box to verify
+                your email.
+            </p>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input id="email" formControlName="email" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Otp</mat-label>
+            <input id="otp" formControlName="otp" matInput />
+        </mat-form-field>
+        <button class="login-btn" color="primary" mat-flat-button (click)="verifyEmail()" [disabled]="!this.verifyEmailForm.valid">
+            Verify
+        </button>
+    </form>
+</main>
