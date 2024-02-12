@@ -54,6 +54,7 @@ export class CreateMemberDialogComponent {
       };
 
       this.organizationFacade.dispatchCreateMember(member);
+      this.organizationFacade.dispatchGetOrganizationDetail(member.organizationId)
       this.dialog.closeAll();
     }
   }

@@ -3,6 +3,9 @@ import { OrganizationFacade } from '../../facades/organizations.facades';
 import { Organization, OrganizationWithMembers } from '../../models/organization.model';
 import { RxState } from '@rx-angular/state';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateMemberDialogComponent } from '../create-member-dialog/create-member-dialog.component';
+import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
 
 
 interface OrganizationDetailComponentState {
@@ -29,6 +32,7 @@ export class OrganizationDetailComponent {
   constructor(
     private state: RxState<OrganizationDetailComponentState>,
     private organizationFacade: OrganizationFacade,
+    private dialog: MatDialog,
     private route: ActivatedRoute
   ) {
     this.state.set(initOrganizationDetailComponentState);
@@ -51,9 +55,9 @@ export class OrganizationDetailComponent {
     );
   }
 
+  openCreateMemberDialog() {
+    this.dialog.open(CreateMemberDialogComponent, SIDE_DIALOG_CONFIG);
 
-
-
-
+  }
 
 }
