@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { tap } from 'rxjs';
 import { UserService} from '../services/user.service';
-import {  Register} from './user.actions';
+import {  Register, VerifyUserEmail} from './user.actions';
 import { UserResponse} from '../models/user-response';
 import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 import { successStyle } from '../../core/services/status-style-names';
@@ -42,5 +42,17 @@ export class UserState {
     );
   }
 
-  
+  @Action(VerifyUserEmail)
+  verifyEmail({patchState }: StateContext<UserStateModel>, { request }: VerifyUserEmail) {
+    this.store.dispatch(new SetProgressOn());
+    return this.userService.verifyEmail(request).pipe(
+      tap((result:UserResponse) => {
+        patchState({
+           user : result
+        });
+        this.oprationStatus.displayStatus('User email verified successfully', successStyle)
+        this.store.dispatch(new SetProgressOff());
+      }),
+    );
+  }
 }
