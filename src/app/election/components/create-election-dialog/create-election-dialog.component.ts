@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ElectionFacade } from '../../facades/election.facade';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-election-dialog',
@@ -20,7 +20,9 @@ export class CreateElectionDialogComponent {
   constructor(
     private fb: FormBuilder,
     private electionFacade: ElectionFacade,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<CreateElectionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { organizationId: string },
   ) {
     this.electionForm = this.fb.group({
       title: [''],
@@ -65,7 +67,7 @@ export class CreateElectionDialogComponent {
 
       console.log(formData);
       console.log(typeof formData.candidates[0].image);
-      this.electionFacade.dispatchCreateElection(formData);
+      this.electionFacade.dispatchCreateElection(this.data.organizationId,formData);
     } else {
       console.error('Form is not valid');
     }

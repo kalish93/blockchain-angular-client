@@ -10,22 +10,22 @@ import { ElectionSelector } from '../state/election.selector';
 export class ElectionFacade {
   constructor(private store: Store) {}
 
-  @Select(ElectionSelector.elections) 
+  @Select(ElectionSelector.elections)
   elections$!: Observable<any[]>;
 
   @Select(ElectionSelector.electionDetail)
   electionDetail$!: Observable<any>;
 
-  dispatchCreateElection(election: any) {
-    this.store.dispatch(new CreateElection(election));
+  dispatchCreateElection(election: any, organizationId: string) {
+    this.store.dispatch(new CreateElection(election, organizationId));
   }
 
   dispatchGetAllElections() {
     this.store.dispatch(new GetAllElections());
   }
 
-  dispatchVoteForCandidate(electionId: string, candidateId: string) {
-    this.store.dispatch(new VoteForCandidate(electionId, candidateId));
+  dispatchVoteForCandidate(votorId: string, electionId: string, candidateId: string) {
+    this.store.dispatch(new VoteForCandidate(votorId, electionId, candidateId));
   }
 
   dispatchGetElectionDetail(electionId: string) {

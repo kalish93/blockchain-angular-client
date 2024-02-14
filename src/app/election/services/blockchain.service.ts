@@ -8,8 +8,6 @@ declare global {
   }
 }
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -33,16 +31,16 @@ export class BlockchainService {
   public checkWalletConnection(){
       return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
-  public async createElection (electionName: string,description:string, candidates: any[]){
+  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[]){
     await this.getAccounts();
     console.log("accounts", this.accounts);
     try{
       if(this.checkWalletConnection()){
 
 
-        const gasEstimate = await this.contract.methods.createElection(electionName,description, candidates)
+        const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates)
                                                       .estimateGas({ from: this.accounts[0] });
-      let transaction = await this.contract.methods.createElection(electionName,description, candidates).send({
+      let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates).send({
         from: this.accounts[0],
         gas: gasEstimate
       }
@@ -58,15 +56,15 @@ export class BlockchainService {
     }
   }
 
-  public async voteForCandidate(electionId: string, candidateId: string): Promise<boolean> {
+  public async voteForCandidate(votorId: string, electionId: string, candidateId: string): Promise<boolean> {
     await this.getAccounts();
 
     try {
       if (this.checkWalletConnection()) {
-        const gasEstimate = await this.contract.methods.voteForACandidate(electionId, candidateId)
+        const gasEstimate = await this.contract.methods.voteForACandidate(votorId, electionId, candidateId)
           .estimateGas({ from: this.accounts[0] });
 
-        const transaction = await this.contract.methods.voteForACandidate(electionId, candidateId)
+        const transaction = await this.contract.methods.voteForACandidate(votorId, electionId, candidateId)
           .send({
             from: this.accounts[0],
             gas: gasEstimate

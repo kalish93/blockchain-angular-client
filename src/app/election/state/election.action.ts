@@ -2,7 +2,7 @@ import { Election } from "../models/election.model";
 
 export class CreateElection {
   static readonly type = `[Election] ${CreateElection.name}`;
-  constructor(public election: any){}
+  constructor(public election: any, public organizationId: string){}
 }
 
 export class GetAllElections{
@@ -12,7 +12,7 @@ export class GetAllElections{
 
 export class VoteForCandidate{
   static readonly type = `[Election] ${VoteForCandidate.name}`;
-  constructor(public electionId: string, public candidateId: string){}
+  constructor( public votorId: string, public electionId: string, public candidateId: string){}
 }
 
 export class GetElectionDetial{

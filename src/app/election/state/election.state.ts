@@ -36,7 +36,7 @@ export class ElectionState {
 
   @Action(CreateElection)
   async createElection({ setState}: StateContext<ElectionStateModel>,
-    { election }: CreateElection) {
+    { organizationId, election }: CreateElection) {
     console.log("election", election);
     //return this.blockchainService.createElection(election.name, election.candidates);
     let electionData = []
@@ -45,7 +45,7 @@ export class ElectionState {
     }
     // setState({ inprogress: false });
 
-    await this.blockchainService.createElection(election.title,election.description, electionData);
+    await this.blockchainService.createElection(election.title, organizationId, election.description, electionData);
 
     this.store.dispatch(new GetAllElections());
   }
@@ -77,9 +77,9 @@ export class ElectionState {
 
   @Action(VoteForCandidate)
   async voteForCandidate({ setState }: StateContext<ElectionStateModel>,
-    { electionId, candidateId }: VoteForCandidate) {
+    { votorId, electionId, candidateId }: VoteForCandidate) {
     // setState({ inprogress: true });
-    await this.blockchainService.voteForCandidate(electionId, candidateId);
+    await this.blockchainService.voteForCandidate(votorId, electionId, candidateId);
     this.store.dispatch(new GetElectionDetial(electionId));
   }
 }

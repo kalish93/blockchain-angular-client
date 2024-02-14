@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateMemberDialogComponent } from '../create-member-dialog/create-member-dialog.component';
 import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
+import { CreateElectionDialogComponent } from '../../../election/components/create-election-dialog/create-election-dialog.component';
 
 
 interface OrganizationDetailComponentState {
@@ -58,6 +59,22 @@ export class OrganizationDetailComponent {
   openCreateMemberDialog() {
     this.dialog.open(CreateMemberDialogComponent, SIDE_DIALOG_CONFIG);
 
+  }
+
+  openCreateElectionDialog(): void {
+    const dialogRef = this.dialog.open(
+      CreateElectionDialogComponent,
+      {
+        data: {
+          organizationId: this.selectedOrganization?.id,
+        },
+        ...SIDE_DIALOG_CONFIG,
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
