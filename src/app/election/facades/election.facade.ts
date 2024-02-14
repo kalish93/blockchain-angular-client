@@ -16,8 +16,8 @@ export class ElectionFacade {
   @Select(ElectionSelector.electionDetail)
   electionDetail$!: Observable<any>;
 
-  dispatchCreateElection(election: any, organizationId: string) {
-    this.store.dispatch(new CreateElection(election, organizationId));
+  dispatchCreateElection(election: any) {
+    this.store.dispatch(new CreateElection(election));
   }
 
   dispatchGetAllElections() {

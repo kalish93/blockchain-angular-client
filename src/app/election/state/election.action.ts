@@ -2,7 +2,7 @@ import { Election } from "../models/election.model";
 
 export class CreateElection {
   static readonly type = `[Election] ${CreateElection.name}`;
-  constructor(public election: any, public organizationId: string){}
+  constructor(public election: any){}
 }
 
 export class GetAllElections{

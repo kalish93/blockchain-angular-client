@@ -25,6 +25,7 @@ export class CreateElectionDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { organizationId: string },
   ) {
     this.electionForm = this.fb.group({
+      organizationId:[data.organizationId],
       title: [''],
       description: [''],
       candidates: this.fb.array([]),
@@ -65,9 +66,9 @@ export class CreateElectionDialogComponent {
     if (this.electionForm.valid) {
       const formData = this.electionForm.value;
 
-      console.log(formData);
-      console.log(typeof formData.candidates[0].image);
-      this.electionFacade.dispatchCreateElection(this.data.organizationId,formData);
+      console.log(formData,'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
+      //console.log(typeof formData.candidates[0].image);
+      this.electionFacade.dispatchCreateElection(formData);
     } else {
       console.error('Form is not valid');
     }

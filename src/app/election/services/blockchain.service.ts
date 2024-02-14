@@ -35,7 +35,7 @@ export class BlockchainService {
     await this.getAccounts();
     console.log("accounts", this.accounts);
     try{
-      if(this.checkWalletConnection()){
+      //if(this.checkWalletConnection()){
 
 
         const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates)
@@ -48,9 +48,9 @@ export class BlockchainService {
       );
       console.log("transaction",  transaction);
       return transaction;
-    }else{
-      throw "Please connect your wallet";
-    }
+    // }else{
+    //   throw "Please connect your wallet";
+    // }
     } catch (e){
       console.log('Error in creating election', e)
     }
