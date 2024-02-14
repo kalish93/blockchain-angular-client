@@ -38,14 +38,14 @@ export class ElectionState {
   async createElection({ setState}: StateContext<ElectionStateModel>,
     { election }: CreateElection) {
     console.log("election", election);
-    //return this.blockchainService.createElection(election.name, election.candidates);
-    // let electionData = []
-    // for (let i of election.candidates) {
-    //   electionData.push({ name: i.name, imgUrl: i.image, Description: i.description })
-    // }
-    // setState({ inprogress: false });
-//electionData
-    await this.blockchainService.createElection(election.title, election.organizationId, election.description, [{name:"nahom",imgUrl:"http://www.ggg.com",Description:"aldkfjalkd"},{name:"nsg",imgUrl:"http://www.ggg2.com",Description:"aldkfjalkad"}]);
+    
+    let electionData = []
+    for (let i of election.candidates) {
+      electionData.push({ name: i.name, imgUrl: i.imageUrl, Description: i.description })
+    }
+    
+    console.log(electionData)
+    await this.blockchainService.createElection(election.title, election.organizationId, election.description, electionData);
 
     this.store.dispatch(new GetAllElections());
   }
