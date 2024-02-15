@@ -20,10 +20,7 @@ const initHomeComponentState: Partial<HomeComponentState> = {
   providers: [RxState],
 })
 export class HomeComponent implements OnInit {
-  
-  mainMenu = [
-
-  ];
+  mainMenu = [];
 
   loginRoute = {
     link: LOGIN_ROUTE,
@@ -41,7 +38,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private authFacade: AuthFacade,
     private router: Router,
-    private state: RxState<HomeComponentState>,
+    private state: RxState<HomeComponentState>
   ) {
     this.state.set(initHomeComponentState);
     this.state.connect('isAuthenticated', authFacade.isAuthenticated$);
@@ -53,6 +50,10 @@ export class HomeComponent implements OnInit {
         this.router.navigate([LOGIN_ROUTE]);
       }
     });
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 
   logout() {

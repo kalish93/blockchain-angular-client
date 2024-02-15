@@ -130,6 +130,7 @@ mat-card {
   button:hover{
     background-color: #6378c3;
     color: white;
+    box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -147,14 +148,13 @@ width: 100%;
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 10px 10px rgba(0, 0, 0, 0.15);
   border-radius: 1rem;
 }
 
 .styled-table thead tr {
   background-color: #b3bfec;
     color: #ffffff;
-    // text-align: left;
 }
 
 .styled-table th,
@@ -169,6 +169,7 @@ width: 100%;
 
 .styled-table tbody tr:hover {
   border: #585858;
+  border-radius: 1rem;
 }
 
 .styled-table tbody tr:nth-of-type(even) {
@@ -186,6 +187,7 @@ width: 100%;
 .styled-table tbody tr:hover {
   background-color: #f8f9f9;
   cursor: pointer;
+  border-radius: 1rem;
 }
 
 .active-status {
