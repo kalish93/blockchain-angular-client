@@ -18,6 +18,7 @@
         mat-raised-button
         color="primary"
         (click)="openCreateMemberDialog()"
+        *ngIf="decodedToken.id === organization?.userId"
       >
         Add Member
       </button>
@@ -44,6 +45,7 @@
     color="primary"
     class="create-election-button"
     (click)="openCreateElectionDialog()"
+    *ngIf="decodedToken.id === organization?.userId"
   >
     Create Election
   </button>

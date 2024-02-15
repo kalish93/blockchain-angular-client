@@ -1,8 +1,9 @@
 export interface Organization{
     id?: string;
-    name:string;    
+    name:string;
     shortName:string;
     isActive?:boolean;
+    userId?: string;
 };
 
 export interface Member{

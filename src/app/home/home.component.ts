@@ -4,6 +4,7 @@ import { RxState } from '@rx-angular/state';
 import { Observable } from 'rxjs';
 import { LOGIN_ROUTE } from '../core/constants/routes';
 import { AuthFacade } from '../auth/facades/auth.facade';
+import { UserRole } from '../core/constants/user-types';
 
 interface HomeComponentState {
   isAuthenticated: boolean;
