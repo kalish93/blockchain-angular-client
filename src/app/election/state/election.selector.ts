@@ -10,6 +10,11 @@ export class ElectionSelector {
   }
 
   @Selector([ElectionState])
+  static personalizedElections(stateModel: ElectionStateModel) {
+    return stateModel.personalizedElections;
+  }
+
+  @Selector([ElectionState])
   static electionDetail(stateModel: ElectionStateModel) {
     return stateModel.electionDetail;
   }
