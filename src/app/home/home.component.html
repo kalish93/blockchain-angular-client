@@ -1,5 +1,5 @@
 <mat-toolbar *ngIf="isAuthenticated$ | async">
-  <div class="ballot-box-container">
+  <div class="ballot-box-container" (click)="goHome()">
     <div class="circle">
       <div class="image-container">
         <img
