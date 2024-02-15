@@ -11,6 +11,11 @@ export class OrganizationSelector {
   }
 
   @Selector([OrganizationState])
+  static myOrganizations(stateModel: OrganizationStateModel) {
+    return stateModel.myOrganizations;
+  }
+
+  @Selector([OrganizationState])
   static organization(stateModel: OrganizationStateModel) {
     return stateModel.organization;
   }
