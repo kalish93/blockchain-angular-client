@@ -1,5 +1,8 @@
 .main{
     padding: 1rem 10rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 .organization-card {
     margin: 2rem 0;
@@ -112,4 +115,8 @@ mat-list-item {
 
 .styled-table td:first-child {
     text-align: left;
+}
+
+.create-election-button{
+   align-self: flex-end;
 }

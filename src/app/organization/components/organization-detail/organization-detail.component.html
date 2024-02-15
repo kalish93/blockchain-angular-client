@@ -32,13 +32,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="let member of organization?.members"
-        >
-          <td>{{ member.name}}</td>
+        <tr *ngFor="let member of organization?.members">
+          <td>{{ member.name }}</td>
           <td>{{ member.email }}</td>
         </tr>
       </tbody>
     </table>
   </div>
+  <button
+    mat-raised-button
+    color="primary"
+    class="create-election-button"
+    (click)="openCreateElectionDialog()"
+  >
+    Create Election
+  </button>
 </div>
