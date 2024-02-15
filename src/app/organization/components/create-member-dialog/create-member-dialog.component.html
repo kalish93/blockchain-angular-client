@@ -26,7 +26,9 @@
             Emial is required
             </mat-error>
         </mat-form-field>
-        <button
+        <div>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button
             mat-raised-button
             color="primary"
             [disabled]="organizationForm.invalid"
@@ -35,4 +37,5 @@
         >
             Create
         </button>
+        </div>
     </form>
