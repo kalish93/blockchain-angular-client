@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
 import { CreateElectionDialogComponent } from '../create-election-dialog/create-election-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Roles } from '../../../core/constants/roles';
 
 @Component({
   selector: 'app-created-elections',
@@ -25,5 +26,13 @@ export class CreatedElectionsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  hasElectionCreatorRole(){
+    return Roles.ELECTION_CREATOR
+  }
+
+  hasAdminRole(){
+    return Roles.ADMIN
   }
 }

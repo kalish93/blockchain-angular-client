@@ -10,6 +10,7 @@ import { ORGANIZATION_LIST } from '../../../core/constants/routes';
 import { filter, startWith } from 'rxjs';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
+import { Roles } from '../../../core/constants/roles';
 
 interface OrganizationListComponentState {
   organizations: Organization[];
@@ -83,5 +84,14 @@ export class OrganizationListComponent implements OnInit {
   }
   openCreateOrganizationDialog() {
     this.dialog.open(CreateOrganizationDialogComponent, SIDE_DIALOG_CONFIG);
+  }
+
+
+  hasElectionCreatorRole(){
+    return Roles.ELECTION_CREATOR
+  }
+
+  hasAdminRole(){
+    return Roles.ADMIN
   }
 }

@@ -1,16 +1,6 @@
 <h1>My Elections</h1>
 <div class="created-elections">
-    <mat-card >
-      <mat-card-header>
-        <mat-card-title ><h2 class="election-name">Election Title</h2></mat-card-title>
-      </mat-card-header>
-      <mat-card-content>Lorum epsum about election description this is a random story of about something about the election is something you should know about the elction thhis is a random descriooijrtihd ghsjdkfgh</mat-card-content>
-      <mat-card-actions class="mat-card-actions">
-        <button class="vote-btn" mat-button>View</button>
-      </mat-card-actions>
-    </mat-card>
-
-    <mat-card class="card card-even" (click)="openDialog()">
+    <mat-card *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]" class="card card-even" (click)="openDialog()">
       <div class="card-content">
         <span class="material-icons custom-icon-color"> add_circle </span>
         <div class="title">Create Election</div>

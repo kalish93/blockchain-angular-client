@@ -1,0 +1,5 @@
+export enum Roles{
+  ELECTION_CREATOR = 'ELECTION_CREATOR',
+  ELECTOR = 'ELECTOR',
+  ADMIN = 'ADMIN',
+}

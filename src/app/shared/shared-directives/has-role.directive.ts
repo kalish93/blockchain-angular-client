@@ -12,7 +12,7 @@ export class HasRoleDirective implements OnInit{
     private viewContainer: ViewContainerRef,
   ) {}
 
-  @Input() appHasRole: string = '';
+  @Input() appHasRole: string[] = [];
   private hasRole: boolean = false;
   private token: string | undefined = undefined;
   ngOnInit(): void {
@@ -24,10 +24,10 @@ export class HasRoleDirective implements OnInit{
 
   private updateRole() {
     if (this.token) {
-      const decodedToken: any = jwtDecode(this.token);
+      const decodedToken: { role: string } = jwtDecode(this.token);
       const userRole = decodedToken.role;
 
-      if (userRole === this.appHasRole) {
+      if (this.appHasRole.includes(userRole)) { 
         this.viewContainer.createEmbeddedView(this.templateRef);
         this.hasRole = true;
       } else {
