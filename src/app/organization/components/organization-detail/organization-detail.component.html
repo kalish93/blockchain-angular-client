@@ -4,30 +4,47 @@
       <h1>{{ organization?.name }}</h1>
       <h2>{{ organization?.name }}</h2>
     </div>
-    <div>
-      <p>Status: {{ organization?.isActive ? "Active" : "Inactive" }}</p>
+    <div class="side-header">
+      <span
+        class="status-chip"
+        [ngClass]="{
+          'active-status': organization?.isActive,
+          'inactive-status': !organization?.isActive
+        }"
+      >
+        {{ organization?.isActive ? "Active" : "Inactive" }}
+      </span>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openCreateMemberDialog()"
+      >
+        Add Member
+      </button>
     </div>
   </div>
-  <div class="organization-detail">
-    <button mat-raised-button color="primary" (click)="openCreateMemberDialog()">
-      Add Member
-    </button>
-    <button mat-raised-button color="primary" (click)="openCreateElectionDialog()">
-      Create Election
-    </button>
+  <div class="container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of organization?.members">
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <mat-card class="organization-card">
-    <mat-card-content>
-      <div class="members-section">
-        <h3>Members</h3>
-        <mat-list>
-          <mat-list-item *ngFor="let member of organization?.members">
-            <mat-icon matListIcon>person</mat-icon>
-            <h4 matLine>{{ member.name }}</h4>
-            <p matLine>{{ member.email }}</p>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <button
+    mat-raised-button
+    color="primary"
+    class="create-election-button"
+    (click)="openCreateElectionDialog()"
+  >
+    Create Election
+  </button>
 </div>

@@ -61,4 +61,10 @@
     display: flex;
     gap: 1rem;
   }
+
+  .action-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   

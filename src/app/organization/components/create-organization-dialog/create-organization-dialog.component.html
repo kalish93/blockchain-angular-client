@@ -1,37 +1,43 @@
 <mat-dialog-content mat-dialog-content class="form-container">
-    <form [formGroup]="organizationForm" class="organization-form" >
-        <div>
-            <h1 class="mat-h1">Create Organization</h1>
-        </div>
-        <mat-form-field class="full-width" appearance="outline">
-            <input
-            matInput
-            formControlName="name"
-            placeholder="Organization Name"
-            required
-            />
-            <mat-error *ngIf="organizationForm.get('name')?.hasError('required')">
-            Name is required
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width" appearance="outline">
-            <input
-            matInput
-            formControlName="shortName"
-            placeholder="Short Name"
-            required
-            />
-            <mat-error *ngIf="organizationForm.get('shortName')?.hasError('required')">
-            Short Name is required
-            </mat-error>
-        </mat-form-field>
-        <button
-            mat-raised-button
-            color="primary"
-            [disabled]="organizationForm.invalid"
-            type="submit"
-            (click)="createOrganization()"
-        >
-            Create
-        </button>
-    </form>
+  <form [formGroup]="organizationForm" class="organization-form">
+    <div>
+      <h1 class="mat-h1">Create Organization</h1>
+    </div>
+    <mat-form-field class="full-width" appearance="outline">
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Organization Name"
+        required
+      />
+      <mat-error *ngIf="organizationForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <input
+        matInput
+        formControlName="shortName"
+        placeholder="Short Name"
+        required
+      />
+      <mat-error
+        *ngIf="organizationForm.get('shortName')?.hasError('required')"
+      >
+        Short Name is required
+      </mat-error>
+    </mat-form-field>
+    <div class="action-buttons">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="organizationForm.invalid"
+        type="submit"
+        (click)="createOrganization()"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
