@@ -91,6 +91,14 @@ export class BlockchainService {
 
   }
 
+  public async getPersonalizedElections(organizationIds: string[]){
+    const account = this.accounts[0];
+    let elections =  await this.contract.methods.personalizeElections(organizationIds).call();
+    console.log("getAllElections elections", elections);
+    return elections;
+
+  }
+
   public async getSingleElection(electionId: string) {
         let election = await this.contract.methods.showSingleElection(electionId).call();
         console.log("getSingleElection election", election);

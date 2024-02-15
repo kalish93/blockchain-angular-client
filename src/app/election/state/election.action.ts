@@ -19,3 +19,8 @@ export class GetElectionDetial{
   static readonly type = `[Election] ${GetElectionDetial.name}`;
   constructor(public electionId: string){}
 }
+
+export class GetPersolanizedElections{
+  static readonly type = `[Election] ${GetPersolanizedElections.name}`;
+  constructor(public organizationIds: string[]){}
+}
