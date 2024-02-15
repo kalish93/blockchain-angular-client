@@ -14,7 +14,12 @@ export class CreatedElectionsComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(
       CreateElectionDialogComponent,
-      SIDE_DIALOG_CONFIG
+      {
+        data: {
+          organizationId: '',
+        },
+        ...SIDE_DIALOG_CONFIG,
+      }
     );
 
     dialogRef.afterClosed().subscribe((result) => {

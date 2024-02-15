@@ -5,9 +5,12 @@ import { ConfirmDialogComponent } from '../../../shared/shared-components/confir
 import { MatDialog } from '@angular/material/dialog';
 import { RxState } from '@rx-angular/state';
 import { ElectionFacade } from '../../facades/election.facade';
+import { AuthFacade } from '../../../auth/facades/auth.facade';
+import { jwtDecode } from 'jwt-decode';
 
 interface ElectionDetailComponentState {
   electionDetail: any;
+  accessToken: string;
 }
 
 @Component({
@@ -20,15 +23,19 @@ export class ElectionDetailComponent {
   electionId: string | undefined;
   electionDetail: any;
   electionDetail$ = this.state.select('electionDetail');
-
+  accessToken: string | null = null;
+  accessToken$ = this.state.select('accessToken');
+  decodedToken : any;
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
+    private authFacade: AuthFacade,
     private dialog: MatDialog,
     private state: RxState<ElectionDetailComponentState>
-  ) { 
+  ) {
     this.state.set({electionDetail: {}});
     this.state.connect('electionDetail', this.electionFacade.electionDetail$);
+    this.state.connect('accessToken', this.authFacade.accessToken$);
   }
 
   ngOnInit(): void {
@@ -43,6 +50,11 @@ export class ElectionDetailComponent {
       console.log("electionDetail",electionDetail);
       this.electionDetail = electionDetail;
     });
+
+    this.accessToken$.subscribe((token)=>{
+      this.accessToken = token
+      this.decodedToken = jwtDecode(token);
+    })
   }
 
   // async loadElectionDetails() {
@@ -69,7 +81,7 @@ export class ElectionDetailComponent {
         try {
           if (this.electionId) {
             // this.election = await this.blockchainService.voteForCandidate(this.electionId, id);
-            this.electionFacade.dispatchVoteForCandidate(this.electionId, id);
+            this.electionFacade.dispatchVoteForCandidate(this.decodedToken.id, this.electionId, id);
             console.log('Vote successful!', this.electionId,this);
           }
         } catch (e) {
