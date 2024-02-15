@@ -12,7 +12,7 @@ export class GetAllElections{
 
 export class VoteForCandidate{
   static readonly type = `[Election] ${VoteForCandidate.name}`;
-  constructor(public electionId: string, public candidateId: string){}
+  constructor( public votorId: string, public electionId: string, public candidateId: string){}
 }
 
 export class GetElectionDetial{
