@@ -30,4 +30,8 @@ export class OrganizationService {
   createMember(member: Member): Observable<Member> {
     return this.http.post<Member>(`${ORGANIZATIONURL}/members`, member, this.httpOptions);
   }
+
+  getmyOrganizations(userId: string): Observable<Organization[]> {
+    return this.http.get<Organization[]>(`${ORGANIZATIONURL}/user/${userId}`, this.httpOptions);
+  }
 }

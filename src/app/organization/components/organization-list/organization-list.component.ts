@@ -8,13 +8,19 @@ import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
 import { Router } from '@angular/router';
 import { ORGANIZATION_LIST } from '../../../core/constants/routes';
 import { filter, startWith } from 'rxjs';
+import { AuthFacade } from '../../../auth/facades/auth.facade';
+import { jwtDecode } from 'jwt-decode';
 
 interface OrganizationListComponentState {
-  organizations: Organization[]
+  organizations: Organization[];
+  myOrganizations: Organization[];
+  accessToken: any;
 }
 
 const initOrganizationListComponentState: OrganizationListComponentState = {
-  organizations: []
+  organizations: [],
+  myOrganizations: [],
+  accessToken: undefined
 }
 @Component({
   selector: 'app-organization-list',
@@ -27,21 +33,37 @@ export class OrganizationListComponent implements OnInit {
     filter((organizations) => organizations !== null), // Filter out null values
     startWith([] as Organization[]) // Provide an empty array as the initial value
   );
+
+  myOrganizations$ = this.state.select('myOrganizations')
+  myOrganizations: Organization[] = []
   organizations: Organization[] = [];
+  accessToken$ = this.state.select('accessToken');
+  decodedToken: any;
   displayedColumns: string[] = ['fullName', 'shortName', 'status'];
   constructor(
     private state: RxState<OrganizationListComponentState>,
     private organizationFacade: OrganizationFacade,
+    private authFacade: AuthFacade,
     private dialog: MatDialog,
     private router: Router
   ) {
     this.state.set(initOrganizationListComponentState);
     this.state.connect('organizations', this.organizationFacade.organizations$);
+    this.state.connect('myOrganizations', this.organizationFacade.myOrganizations$);
+    this.state.connect('accessToken', this.authFacade.accessToken$);
   }
   ngOnInit(): void {
+    this.accessToken$.subscribe((token)=>{
+      this.decodedToken = jwtDecode(token);
+    })
     this.organizationFacade.dispatchGetOrganizations();
     this.organizations$.subscribe((organizations) => {
       this.organizations = organizations;
+    });
+
+    this.organizationFacade.dispatchGetMyOrganizationsMember(this.decodedToken.id);
+    this.myOrganizations$.subscribe((organizations) => {
+      this.myOrganizations = organizations;
     });
   }
 
