@@ -10,6 +10,8 @@ import { CreateElectionDialogComponent } from '../../../election/components/crea
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
 import { Roles } from '../../../core/constants/roles';
+import { OrganizationService } from '../../services/organization.service';
+import { UploadMembersComponent } from '../upload-members/upload-members.component';
 
 
 interface OrganizationDetailComponentState {
@@ -38,12 +40,14 @@ export class OrganizationDetailComponent {
 
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
+  selectedFile: File | null = null;
   constructor(
     private state: RxState<OrganizationDetailComponentState>,
     private organizationFacade: OrganizationFacade,
     private authFacade: AuthFacade,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private service: OrganizationService
   ) {
     this.state.set(initOrganizationDetailComponentState);
     this.state.connect('organizationDetial', this.organizationFacade.organization$);
@@ -85,9 +89,12 @@ export class OrganizationDetailComponent {
       }
     );
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed()
+  }
+  openFileUploadDialog() {
+    const dialogRef = this.dialog.open(UploadMembersComponent, {
+      width: '400px',
+      data: { organizationId: this.selectedOrganization?.id },
     });
   }
-
 }

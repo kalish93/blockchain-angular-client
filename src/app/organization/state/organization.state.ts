@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization, GetMyOrganizations } from './organization.action';
+import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers } from './organization.action';
 import { OrganizationService } from '../services/organization.service';
 import { Member, Organization, OrganizationWithMembers } from '../models/organization.model';
 import { tap } from 'rxjs';
 import { insertItem, patch } from '@ngxs/store/operators';
+import { OperationStatusService } from '../../core/services/operation-status.service';
+import { successStyle } from '../../core/services/status-style-names';
+import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 
 export interface OrganizationStateModel {
   organizations: Organization[];
@@ -34,6 +37,7 @@ export class OrganizationState {
   constructor(
     private organizationService: OrganizationService,
     private store: Store,
+    private operationStatusService: OperationStatusService,
   ) { }
 
   @Action(CreateOrganization)
@@ -115,4 +119,25 @@ export class OrganizationState {
       }),
     );
   }
+
+  @Action(UploadMembers)
+  uploadMembers({ getState, setState }: StateContext<OrganizationStateModel>,
+  { file, organizationId }: UploadMembers) {
+  this.store.dispatch(new SetProgressOn());
+  return this.organizationService.uploadMembers(file, organizationId).pipe(
+    tap((createdMembers) => {
+      const state = getState();
+      const newMembers = [...state.organization!.members, ...createdMembers];
+      setState(
+        patch({
+          organization: patch({
+            members: newMembers,
+          }),
+        }),
+      );
+      this.store.dispatch(new SetProgressOff());
+      this.operationStatusService.displayStatus('Members Uploaded successfully', successStyle)
+    }),
+  );
+}
 }

@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
 import { CreateMemberDialogComponent } from './components/create-member-dialog/create-member-dialog.component';
 import { OrganizationDetailComponent } from './components/organization-detail/organization-detail.component';
+import { UploadMembersComponent } from './components/upload-members/upload-members.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { OrganizationDetailComponent } from './components/organization-detail/or
     CreateOrganizationDialogComponent,
     CreateMemberDialogComponent,
     OrganizationDetailComponent,
+    UploadMembersComponent
   ],
   imports: [
     CommonModule,
