@@ -14,6 +14,7 @@
       >
         {{ organization?.isActive ? "Active" : "Inactive" }}
       </span>
+      <div class="add-buttons">
       <button
         mat-raised-button
         color="primary"
@@ -22,6 +23,15 @@
       >
         Add Member
       </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openFileUploadDialog()"
+        *ngIf="decodedToken.id === organization?.userId"
+      >
+        Upload Members
+      </button>
+    </div>
     </div>
   </div>
   <div class="container">

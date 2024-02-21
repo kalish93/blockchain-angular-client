@@ -27,3 +27,7 @@ export class GetMyOrganizations{
   static readonly type = `[Organization] ${GetMyOrganizations.name}`;
   constructor(public userId: string){}
 }
+export class UploadMembers{
+  static readonly type = `[Organization] ${UploadMembers.name}`;
+  constructor(public file: File, public organizationId: string){}
+}

@@ -34,4 +34,12 @@ export class OrganizationService {
   getmyOrganizations(userId: string): Observable<Organization[]> {
     return this.http.get<Organization[]>(`${ORGANIZATIONURL}/user/${userId}`, this.httpOptions);
   }
+
+  uploadMembers(file: File, organizationId: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('organizationId', organizationId);
+
+    return this.http.post<any>(`${ORGANIZATIONURL}/members/upload`, formData);
+  }
 }
