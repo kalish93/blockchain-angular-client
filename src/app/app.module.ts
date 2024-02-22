@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ElectionModule } from './election/election.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { OrganizationModule } from './organization/organization.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 
 @NgModule({
@@ -46,12 +47,13 @@ import { OrganizationModule } from './organization/organization.module';
     CoreModule,
     UserModule,
     SharedModule,
-    CommonModule, 
+    CommonModule,
     RouterOutlet,
     AuthModule,
     AppRoutingModule,
     ElectionModule,
-    OrganizationModule
+    OrganizationModule,
+    StatisticsModule
   ],
 })
 export class AppModule {}
