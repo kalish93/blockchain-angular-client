@@ -1,0 +1,21 @@
+<div class="main">
+  <h1>Dashboard</h1>
+  <div *ngIf="generalStatistics" class="statistics-container">
+  <mat-card class="stat-card">
+    <mat-card-title>General Statistics</mat-card-title>
+    <mat-card-content>
+      <p>Number of Elections: {{ generalStatistics.noOfElections }}</p>
+      <mat-progress-bar mode="determinate" [value]="privateElectionsPercentage"></mat-progress-bar>
+      <p>Private Elections: {{ generalStatistics.noOfPrivateElections }}</p>
+      <p>Public Elections: {{ generalStatistics.noOfPublicElections }}</p>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="vote-card">
+    <mat-card-title>Total Vote Count</mat-card-title>
+    <mat-card-content>
+      <h2>{{ generalStatistics.totalVoteCount }}</h2>
+    </mat-card-content>
+  </mat-card>
+</div>
+</div>

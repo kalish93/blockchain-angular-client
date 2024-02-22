@@ -5,3 +5,4 @@ export const REGISTER_ROUTE = 'register';
 export const ELECTION_HOME = 'election/home'
 export const ELECTION_LIST = 'election-list'
 export const ORGANIZATION_LIST = 'organizations'
+export const DASHBOARD_ROUTE = 'dashboard';
