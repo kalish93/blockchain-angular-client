@@ -7,20 +7,42 @@
 
 .statistics-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .stat-card,
 .vote-card {
-    width: 100%;
-    max-width: 600px;
+    width: 30rem;
+    padding: 1rem;
+    height: fit-content;
 }
-
+.stat-card{
+    flex-grow: 1;
+}
 .mat-card-title {
     font-size: 24px;
+    font-weight: 700;
 }
 
 .mat-progress-bar {
     margin: 20px 0;
+}
+
+.election-types{
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: space-between;
+
+    .public{
+        flex-grow: 1;
+    }
+}
+
+.vote-count{
+    font-size: 3rem;
+    font-weight: 900;
+    padding: 0;
 }

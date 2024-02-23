@@ -32,13 +32,13 @@ export class DashboardComponent {
     this.generalStatistics$.subscribe(
       (generalStatistics) => (this.generalStatistics = generalStatistics)
     );
+      console.log("general statics",this.generalStatistics?.noOfElections);
   }
 
-
-  get privateElectionsPercentage(): number {
+  get publicElectionsPercentage(): number {
     if (this.generalStatistics){
       return (
-        (this.generalStatistics.noOfPrivateElections /
+        (this.generalStatistics.noOfPublicElections /
           this.generalStatistics.noOfElections) *
         100
       );
