@@ -99,8 +99,8 @@ export class BlockchainService {
 
   }
 
-  public async getSingleElection(electionId: string) {
-        let election = await this.contract.methods.showSingleElection(electionId).call();
+  public async getSingleElection(electionId: string, userId: string) {
+        let election = await this.contract.methods.showSingleElection(electionId, userId).call();
         console.log("getSingleElection election", election);
         return election;
   }

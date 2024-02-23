@@ -2,6 +2,7 @@ export interface Election{
     electionId?: string;
     electionName: string;
     description: string;
+    hasVoted: boolean;
     candidates: Candidate[];
 }
 
