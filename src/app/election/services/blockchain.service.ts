@@ -104,4 +104,11 @@ export class BlockchainService {
         console.log("getSingleElection election", election);
         return election;
   }
+  public async generateGeneralStatistics() {
+    
+    let generalStatistics = await this.contract.methods.generateGeneralStatistics().call();
+    console.log("generalElection",generalStatistics);
+    return generalStatistics;
+  }
+
 }

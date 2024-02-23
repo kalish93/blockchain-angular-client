@@ -11,7 +11,7 @@ declare global {
 
 @Injectable({ providedIn: 'root' })
 export class BlockchainService {
-  private web3: any;
+  private web3: Web3;
   private contractAddress: any = environment.contractAddress;
   private abi: any = environment.contractAbi;
   private contract: any;
@@ -27,8 +27,9 @@ export class BlockchainService {
   }
 
   async getGeneralStatistics() {
-    await this.getAccounts();
-    const generalStatistics = await this.contract.methods.getGeneralStatistics().call({ from: this.accounts[0] });
+    
+    let generalStatistics = await this.contract.methods.generateGeneralStatistics().call();
+    console.log(generalStatistics,"general");
     return generalStatistics;
   }
 

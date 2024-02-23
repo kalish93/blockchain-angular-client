@@ -29,6 +29,7 @@ export class StatisticsState {
     {}: GetGeneralStatistics
   ) {
     const generalStatistics = await this.blockchainService.getGeneralStatistics();
+    console.log(generalStatistics,"genStat")
     setState({ generalStatistics });
   }
 }
