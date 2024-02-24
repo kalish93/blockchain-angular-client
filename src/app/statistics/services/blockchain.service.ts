@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../environment";
-import { GANACHE_URL } from "../../core/constants/api-endpoints";
-import Web3 from "web3";
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environment';
+import { GANACHE_URL } from '../../core/constants/api-endpoints';
+import Web3 from 'web3';
 
 declare global {
   interface Window {
-      ethereum: any;
+    ethereum: any;
   }
 }
 
@@ -28,8 +28,9 @@ export class BlockchainService {
 
   async getGeneralStatistics() {
     await this.getAccounts();
-    const generalStatistics = await this.contract.methods.getGeneralStatistics().call({ from: this.accounts[0] });
+    const generalStatistics = await this.contract.methods
+      .generateGeneralStatistics()
+      .call();
     return generalStatistics;
   }
-
 }

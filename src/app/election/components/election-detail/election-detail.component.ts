@@ -57,17 +57,6 @@ export class ElectionDetailComponent {
     })
   }
 
-  // async loadElectionDetails() {
-  //   try {
-  //     if(this.electionId){
-  //       this.election = await this.blockchainService.getSingleElection(this.electionId);
-  //     }
-
-  //   } catch (e) {
-  //     console.error('Error loading election details:', e);
-  //   }
-  // }
-
   async voteForCandidate(id: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {

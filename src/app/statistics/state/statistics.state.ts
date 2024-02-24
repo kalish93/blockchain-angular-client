@@ -2,6 +2,7 @@ import { Action, State, StateContext, StateToken, Store } from "@ngxs/store";
 import { GeneralStatistics } from "../models/general-statistics";
 import { GetGeneralStatistics } from "./statistics.action";
 import { BlockchainService } from "../services/blockchain.service";
+import { Injectable } from "@angular/core";
 
 export interface StaticticsStateModel {
     generalStatistics: GeneralStatistics | undefined;
@@ -17,6 +18,7 @@ const defaults: StaticticsStateModel = {
   name: STATISTICS_STATE_TOKEN,
   defaults: defaults,
 })
+@Injectable()
 export class StatisticsState {
   constructor(
     private blockchainService: BlockchainService,
@@ -28,7 +30,10 @@ export class StatisticsState {
     { setState }: StateContext<StaticticsStateModel>,
     {}: GetGeneralStatistics
   ) {
-    const generalStatistics = await this.blockchainService.getGeneralStatistics();
+    const generalStatistics =
+      await this.blockchainService.getGeneralStatistics();
+    console.log(generalStatistics, 'generalStatistics');
     setState({ generalStatistics });
+    return;
   }
 }
