@@ -31,3 +31,12 @@ export class UploadMembers{
   static readonly type = `[Organization] ${UploadMembers.name}`;
   constructor(public file: File, public organizationId: string){}
 }
+
+export class DownloadTemplateCsv{
+  static readonly type = `[Organization] ${DownloadTemplateCsv.name}`;
+  constructor(){}
+}
+export class DownloadTemplateXlsx{
+  static readonly type = `[Organization] ${DownloadTemplateXlsx.name}`;
+  constructor(){}
+}

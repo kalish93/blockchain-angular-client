@@ -97,4 +97,11 @@ export class OrganizationDetailComponent {
       data: { organizationId: this.selectedOrganization?.id },
     });
   }
+
+  downloadCsvTemplate() {
+    this.service.downloadTemplateCsv();
+  }
+  downloadXlsxTemplate() {
+    this.service.downloadTemplateXlsx();
+  }
 }

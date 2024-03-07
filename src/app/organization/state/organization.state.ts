@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers } from './organization.action';
+import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers, DownloadTemplateCsv, DownloadTemplateXlsx } from './organization.action';
 import { OrganizationService } from '../services/organization.service';
 import { Member, Organization, OrganizationWithMembers } from '../models/organization.model';
 import { tap } from 'rxjs';
@@ -139,5 +139,15 @@ export class OrganizationState {
       this.operationStatusService.displayStatus('Members Uploaded successfully', successStyle)
     }),
   );
+}
+
+@Action(DownloadTemplateCsv)
+downloadTemplateCsv({}: StateContext<OrganizationStateModel>) {
+  return this.organizationService.downloadTemplateCsv();
+}
+
+@Action(DownloadTemplateXlsx)
+downloadTemplateXlsx({}: StateContext<OrganizationStateModel>) {
+  return this.organizationService.downloadTemplateXlsx();
 }
 }
