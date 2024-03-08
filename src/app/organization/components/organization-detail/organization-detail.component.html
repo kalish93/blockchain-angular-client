@@ -31,6 +31,22 @@
       >
         Upload Members
       </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="downloadCsvTemplate()"
+        *ngIf="decodedToken.id === organization?.userId"
+      >
+        Download Csv Template
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="downloadXlsxTemplate()"
+        *ngIf="decodedToken.id === organization?.userId"
+      >
+        Download xlsx Template
+      </button>
     </div>
     </div>
   </div>

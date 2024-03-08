@@ -42,4 +42,29 @@ export class OrganizationService {
 
     return this.http.post<any>(`${ORGANIZATIONURL}/members/upload`, formData);
   }
+
+  downloadTemplateCsv(): void {
+    const url = 'http://localhost:3000/templates/template.csv';
+    this.http.get(url, { responseType: 'blob' }).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'text/csv' });
+      const fileUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = 'template.csv'
+      link.click();
+    });
+  }
+
+  downloadTemplateXlsx(): void {
+    const url = 'http://localhost:3000/templates/template.xlsx';
+    this.http.get(url, { responseType: 'blob' }).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const fileUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = 'template.xlsx'
+      link.click();
+    });
+  }
+
 }
