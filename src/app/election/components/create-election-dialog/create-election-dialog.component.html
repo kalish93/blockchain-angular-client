@@ -51,10 +51,21 @@
           <textarea matInput formControlName="description"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Image Url</mat-label>
-          <textarea matInput formControlName="image"></textarea>
-        </mat-form-field>
+        <label class="file-upload-container">
+          <input
+            type="file"
+            (change)="
+              onFileSelected(
+                $event,
+                candidateForm.get('name')?.value || 'defaultName'
+              )
+            "
+            [disabled]="!candidateForm.get('name')?.value"
+            style="display: none"
+          />
+          <span [class.disabled]="!candidateForm.get('name')?.value" class="file-upload-btn" >Select Image</span>
+          <span class="file-upload-text">No Image selected</span>
+        </label>
         <div class="candidate-action-btns">
           <button mat-button (click)="isVisible = false">Close</button>
           <button
@@ -69,15 +80,15 @@
       </div>
     </div>
     <div class="candidate-actn-btn">
-    <button
-      *ngIf="!isVisible"
-      mat-raised-button
-      color="secondary"
-      type="button"
-      (click)="createCandidate()"
-    >
-      Create Candidate
-    </button>
+      <button
+        *ngIf="!isVisible"
+        mat-raised-button
+        color="secondary"
+        type="button"
+        (click)="createCandidate()"
+      >
+        Create Candidate
+      </button>
     </div>
     <div mat-dialog-actions class="action-btn">
       <button mat-button mat-dialog-close>Cancel</button>
