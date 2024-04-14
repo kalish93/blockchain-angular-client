@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
   { path: LOGIN_ROUTE, component: LoginComponent },
   { path: HOME_ROUTE, component: HomeComponent, canActivate: [EmailVerifiedGuard]},
-  { path: REGISTER_ROUTE, component: RegisterComponent, canActivate: [EmailVerifiedGuard] },
+  { path: REGISTER_ROUTE, component: RegisterComponent},
   { path: ORGANIZATION_LIST, component: OrganizationListComponent, canActivate: [EmailVerifiedGuard] },
   { path: `${ORGANIZATION_LIST}/:id`, component: OrganizationDetailComponent, canActivate: [EmailVerifiedGuard] },
   { path: VERIFY_EMAIL_ROUTE, component: VerifyEmailComponent},
