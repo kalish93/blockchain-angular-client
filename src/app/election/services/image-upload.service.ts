@@ -13,7 +13,16 @@ export class ImageUploadService {
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(file: File): Observable<string> {
-    return this.http.get<string>(UPLOAD_IMG_URL, this.httpOptions);
+  uploadImage(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', file, file.name);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        
+        Accept: 'application/json',
+      }),
+    };
+    return this.http.post<any>(UPLOAD_IMG_URL, formData, httpOptions);
   }
 }

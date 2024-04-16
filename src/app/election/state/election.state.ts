@@ -56,13 +56,13 @@ export class ElectionState {
         if (image) {
           uploadRequests.push(
             this.imageUploadService.uploadImage(image).pipe(
-              map((url: string) => ({
-                name: election.get(`candidates[${i}][name]`) as string,
-                description: election.get(
-                  `candidates[${i}][description]`
-                ) as string,
-                imageUrl: url,
-              }))
+              map((result: any) => ({
+                   name: election.get(`candidates[${i}][name]`) as string,
+                   description: election.get(
+                     `candidates[${i}][description]`
+                   ) as string,
+                   imageUrl: result.imageUrl,
+                 }))
             )
           );
         }
@@ -71,6 +71,7 @@ export class ElectionState {
 
     // Ensure all file uploads are completed before proceeding.
     const electionData = await forkJoin(uploadRequests).toPromise();
+    
     
     await this.blockchainService.createElection(
       election.get(`title`) as string,
