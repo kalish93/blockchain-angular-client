@@ -115,7 +115,7 @@ export class ElectionState {
       this.getUserIdFromToken()!
     );
     const election: Election = {
-      hasVoted: comingElection.electionExists,
+      hasVoted: comingElection.hasVoted,
       electionId: comingElection.electionId,
       electionName: comingElection.electionName,
       description: comingElection.description,
