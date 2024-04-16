@@ -8,16 +8,17 @@ import { OrganizationListComponent } from './organization/components/organizatio
 import { OrganizationDetailComponent } from './organization/components/organization-detail/organization-detail.component';
 import { VerifyEmailComponent } from './user/components/verify-email/verify-email.component';
 import { DashboardComponent } from './statistics/componenets/dashboard/dashboard.component';
+import { EmailVerifiedGuard } from './auth/services/email-verified.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
   { path: LOGIN_ROUTE, component: LoginComponent },
-  { path: HOME_ROUTE, component: HomeComponent },
-  { path: REGISTER_ROUTE, component: RegisterComponent },
-  { path: ORGANIZATION_LIST, component: OrganizationListComponent },
-  { path: `${ORGANIZATION_LIST}/:id`, component: OrganizationDetailComponent },
+  { path: HOME_ROUTE, component: HomeComponent, canActivate: [EmailVerifiedGuard]},
+  { path: REGISTER_ROUTE, component: RegisterComponent},
+  { path: ORGANIZATION_LIST, component: OrganizationListComponent, canActivate: [EmailVerifiedGuard] },
+  { path: `${ORGANIZATION_LIST}/:id`, component: OrganizationDetailComponent, canActivate: [EmailVerifiedGuard] },
   { path: VERIFY_EMAIL_ROUTE, component: VerifyEmailComponent},
-  { path: DASHBOARD_ROUTE, component: DashboardComponent },
+  { path: DASHBOARD_ROUTE, component: DashboardComponent, canActivate: [EmailVerifiedGuard] },
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

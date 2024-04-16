@@ -3,7 +3,7 @@ import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { tap } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { Login, Logout } from './auth.actions';
-import { LoginResponse } from '../models/login-response';
+import { LoginResponse, CurrentUser } from '../models/login-response';
 import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 import { OperationStatusService } from '../../core/services/operation-status.service';
 import { successStyle } from '../../core/services/status-style-names';
@@ -13,6 +13,7 @@ export interface AuthStateModel {
   refreshToken: string | null;
   email: string | null;
   username: string | null;
+  currentUser: CurrentUser | null;
 }
 
 const AUTH_STATE_TOKEN = new StateToken<AuthStateModel>('authState');
@@ -24,6 +25,7 @@ const AUTH_STATE_TOKEN = new StateToken<AuthStateModel>('authState');
     refreshToken: null,
     username: null,
     email: null,
+    currentUser: null,
   },
 })
 @Injectable()
@@ -41,6 +43,10 @@ export class AuthState {
       tap((result: LoginResponse) => {
         patchState({
           accessToken: result.accessToken,
+          refreshToken: result.refreshToken,
+          email: result.user.email,
+          // username: result.user.username,
+          currentUser: result.user,
         });
         this.oprationStatus.displayStatus('logged in successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
@@ -57,6 +63,7 @@ export class AuthState {
           refreshToken: null,
           username: null,
           email: null,
+          currentUser: null,
         });
       }),
     );
