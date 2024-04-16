@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
-import { CreateElection, GetAllElections,VoteForCandidate, GetElectionDetial, GetPersolanizedElections } from './election.action';
+import {
+  CreateElection,
+  GetAllElections,
+  VoteForCandidate,
+  GetElectionDetial,
+  GetPersolanizedElections,
+} from './election.action';
 import { BlockchainService } from '../services/blockchain.service';
 import { Election } from '../models/election.model';
 import { AuthState, AuthStateModel } from '../../auth/store/auth.state';
 import { jwtDecode } from 'jwt-decode';
+import { ImageUploadService } from '../services/image-upload.service';
+import { forkJoin, map, tap } from 'rxjs';
 
 export interface ElectionStateModel {
   // inprogress: boolean;
   elections: any[];
   electionDetail: any;
-  personalizedElections: any[]
-
+  personalizedElections: any[];
 }
 
 const ELECTION_STATE_TOKEN = new StateToken<ElectionStateModel>(
   'ElectionState'
 );
 
-const defaults:ElectionStateModel = {
+const defaults: ElectionStateModel = {
   // inprogress: false,
   elections: [],
-  electionDetail:{},
-  personalizedElections: []
+  electionDetail: {},
+  personalizedElections: [],
 };
 
 @State<ElectionStateModel>({
@@ -33,6 +40,7 @@ const defaults:ElectionStateModel = {
 export class ElectionState {
   constructor(
     private blockchainService: BlockchainService,
+    private imageUploadService: ImageUploadService,
     private store: Store
   ) {}
 
@@ -41,23 +49,35 @@ export class ElectionState {
     { setState }: StateContext<ElectionStateModel>,
     { election }: CreateElection
   ) {
-    console.log('election', election);
-
-    let electionData = [];
-    for (let i of election.candidates) {
-      electionData.push({
-        name: i.name,
-        imgUrl: i.imageUrl,
-        Description: i.description,
-      });
+    const uploadRequests = [];
+    for (let i = 0; election.has(`candidates[${i}][name]`); i++) {
+      if (election.has(`candidates[${i}][image]`)) {
+        const image = election.get(`candidates[${i}][image]`) as File;
+        if (image) {
+          uploadRequests.push(
+            this.imageUploadService.uploadImage(image).pipe(
+              map((result: any) => ({
+                   name: election.get(`candidates[${i}][name]`) as string,
+                   description: election.get(
+                     `candidates[${i}][description]`
+                   ) as string,
+                   imageUrl: result.imageUrl,
+                 }))
+            )
+          );
+        }
+      }
     }
 
-    console.log(electionData);
+    // Ensure all file uploads are completed before proceeding.
+    const electionData = await forkJoin(uploadRequests).toPromise();
+    
+    
     await this.blockchainService.createElection(
-      election.title,
-      election.organizationId,
-      election.description,
-      electionData
+      election.get(`title`) as string,
+      (election.get('organizationId') as string) ?? '',
+      election.get(`description`) as string,
+      electionData || []
     );
 
     this.store.dispatch(new GetAllElections());
@@ -79,8 +99,8 @@ export class ElectionState {
       return null;
     }
 
-    const decodedToken : any = jwtDecode(accessToken);; 
-    return decodedToken.id; 
+    const decodedToken: any = jwtDecode(accessToken);
+    return decodedToken.id;
   }
 
   @Action(GetElectionDetial)
