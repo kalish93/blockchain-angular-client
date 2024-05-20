@@ -31,7 +31,9 @@ export class CreateElectionDialogComponent {
     this.electionForm = this.fb.group({
       organizationId: [data.organizationId],
       title: [''],
-      description: [''],
+      description: [],
+      endTime: [''],
+      endDate: [''],
       candidates: this.fb.array([]),
     });
   }
@@ -86,10 +88,21 @@ export class CreateElectionDialogComponent {
 
   submitElection(): void {
     if (this.electionForm.valid) {
-      const formData = new FormData();
+
+    const endDate = new Date(this.electionForm.value.endDate);
+    const endTime = this.electionForm.value.endTime;
+
+    const [hours, minutes] = endTime.split(':').map(Number);
+
+    endDate.setHours(hours);
+    endDate.setMinutes(minutes);
+
+    const endTimeUnix = endDate.getTime();
+    const formData = new FormData();
 
       formData.append('title', this.electionForm.value.title);
       formData.append('description', this.electionForm.value.description);
+      formData.append('endTime', endTimeUnix.toString());
 
       this.electionForm.value.candidates.forEach(
         (candidate: any, index: number) => {
