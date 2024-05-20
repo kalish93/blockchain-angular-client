@@ -11,17 +11,19 @@
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>End Date</mat-label>
+  <div class="date-and-time">
+    <mat-form-field appearance="outline" class="end-date">
+      <mat-label>End date and time</mat-label>
       <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #endDatePicker></mat-datepicker>
     </mat-form-field>
 
     <div>
-      <label for="endTime">End Time</label>
-      <input class="time-picker" type="time" id="endTime" name="endTime" formControlName="endTime">
+      <!-- <label for="endTime">End Time</label> -->
+      <input class="time-picker"  type="time" id="endTime" name="endTime" formControlName="endTime" required="true">
     </div>
+  </div>
 
     <div formArrayName="candidates">
       <h3>Candidates</h3>
