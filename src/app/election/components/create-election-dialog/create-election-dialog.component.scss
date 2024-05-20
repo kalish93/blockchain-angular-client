@@ -27,7 +27,7 @@ form{
 .remove-candidate-btn {
     border: none;
     background-color: transparent;
-    color: #ff0000; 
+    color: #ff0000;
     cursor: pointer;
 
     &:hover {
@@ -139,16 +139,23 @@ form{
 .file-upload-text {
     color: #888;
     white-space: nowrap;
-    
+
     overflow: hidden;
-   
+
     text-overflow: ellipsis;
     max-width: 150px;
-    
+
 }
 
 .file-upload-btn.disabled {
     background-color: #ccc;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+.time-picker {
+  padding: 17px 90px;
+  border: .3px solid rgba(46, 45, 45, 0.5);
+  border-radius: 5px;
+  // margin: 0px 5px;
 }

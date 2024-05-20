@@ -31,16 +31,17 @@ export class BlockchainService {
   public checkWalletConnection(){
       return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
-  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[]){
+  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[], endTime: any){
     await this.getAccounts();
     console.log("accounts", this.accounts);
     try{
       //if(this.checkWalletConnection()){
 
+      console.log(electionName, organizationId, description, candidates, endTime,'ffffffffffffffffffffffffffffffff')
 
-        const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates)
+        const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates, endTime)
                                                       .estimateGas({ from: this.accounts[0] });
-      let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates).send({
+      let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).send({
         from: this.accounts[0],
         gas: gasEstimate
       }
@@ -100,7 +101,7 @@ export class BlockchainService {
   }
 
   public async getSingleElection(electionId: string, userId: string) {
-        let election = await this.contract.methods.showSingleElection(electionId, userId).call();
+        let election = await this.contract.methods.showSingleElection(userId, electionId).call();
         console.log("getSingleElection election", election);
         return election;
   }
