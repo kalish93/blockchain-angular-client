@@ -46,7 +46,7 @@ export class ElectionState {
 
   @Action(CreateElection)
   async createElection(
-    { setState }: StateContext<ElectionStateModel>,
+    { setState, patchState, getState }: StateContext<ElectionStateModel>,
     { election }: CreateElection
   ) {
     const uploadRequests = [];
@@ -71,8 +71,7 @@ export class ElectionState {
 
     // Ensure all file uploads are completed before proceeding.
     const electionData = await forkJoin(uploadRequests).toPromise();
-console.log(electionData,'9999999999999999999999999')
-    await this.blockchainService.createElection(
+    const createdElection = await this.blockchainService.createElection(
       election.get(`title`) as string,
       (election.get('organizationId') as string) ?? '',
       election.get(`description`) as string,
@@ -80,7 +79,9 @@ console.log(electionData,'9999999999999999999999999')
       election.get(`endTime`),
     );
 
-    this.store.dispatch(new GetAllElections());
+
+    const state = getState();
+    patchState({ personalizedElections: [createdElection, ...state.personalizedElections] });
   }
 
   @Action(GetAllElections)
