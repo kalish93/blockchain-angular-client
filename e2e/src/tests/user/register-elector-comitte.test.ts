@@ -4,17 +4,14 @@ async function testRegisterFromLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
 
   try {
-    // Step 1: Navigate to the login page
-    await driver.get('http://localhost:4200'); // Adjust the URL to match your development server
+    await driver.get('http://localhost:4200');
     console.log('Navigated to the login page.');
 
-    // Step 2: Click on the "Sign Up" link to navigate to the registration page
     await driver.wait(until.elementLocated(By.linkText('Sign Up')), 10000);
     const signUpLink = await driver.findElement(By.linkText('Sign Up'));
     await signUpLink.click();
     console.log('Clicked the Sign Up link.');
 
-    // Step 3: Wait for the registration page to load and fill out the form
     await driver.wait(until.elementLocated(By.css('form.login-form')), 10000);
     console.log('Navigated to the registration page.');
 
@@ -32,7 +29,6 @@ async function testRegisterFromLogin() {
     await confirmPasswordInput.sendKeys('password123');
     console.log('Entered confirm password.');
     await driver.sleep(5000);
-    // Ensure the radio button can be found and selected correctly
     const userTypeRadioButton = await driver.findElement(
       By.css('mat-radio-button[ng-reflect-value="ELECTION_CREATOR"]')
     );
@@ -43,13 +39,11 @@ async function testRegisterFromLogin() {
     await signUpButton.click();
     console.log('Clicked the Sign Up button.');
 
-    // Step 4: Wait for the registration to complete and verify the navigation
-    await driver.wait(until.urlIs('http://localhost:4200/home'), 10000); // Adjust the URL to your application's home page
+    await driver.wait(until.urlIs('http://localhost:4200/home'), 10000);
     console.log('Registration successful and navigated to home page.');
   } catch (error) {
     console.error('Error during test execution:', error);
 
-    // Capture a screenshot if there's an error
     try {
       await driver.takeScreenshot().then((image: any, err: any) => {
         require('fs').writeFileSync('screenshot.png', image, 'base64');

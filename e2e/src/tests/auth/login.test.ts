@@ -4,7 +4,7 @@ async function testLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
 
   try {
-    await driver.get('http://localhost:4200'); // Adjust the URL to match your development server
+    await driver.get('http://localhost:4200');
     console.log('Navigated to the login page.');
 
     await driver.wait(until.elementLocated(By.css('form.login-form')), 20000);
@@ -22,7 +22,7 @@ async function testLogin() {
     await loginButton.click();
     console.log('Clicked the login button.');
 
-    await driver.wait(until.urlIs('http://localhost:4200'), 20000); // Adjust the URL to your application's home page
+    await driver.wait(until.urlIs('http://localhost:4200'), 20000); 
     console.log('Login successful and navigated to home page.');
     try {
       await driver.takeScreenshot().then((image: any, err: any) => {
