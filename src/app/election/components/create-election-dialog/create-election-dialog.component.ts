@@ -125,6 +125,7 @@ export class CreateElectionDialogComponent {
       });
 
       this.electionFacade.dispatchCreateElection(formData);
+      this.dialogRef.close();
     } else {
       console.error('Form is not valid');
     }
