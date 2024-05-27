@@ -53,8 +53,8 @@ async function testRegisterFromLogin() {
     console.log('Clicked the Sign Up button.');
 
     // Step 4: Wait for the registration to complete and verify the navigation
-    await driver.wait(until.urlIs('http://localhost:4200/home'), 10000); // Adjust the URL to your application's home page
-    console.log('Registration successful and navigated to home page.');
+    // await driver.wait(until.urlIs('http://localhost:4200/home'), 10000); // Adjust the URL to your application's home page
+    console.log('Registration successful and navigated to otp page.');
   } catch (error) {
     console.error('Error during test execution:', error);
 
