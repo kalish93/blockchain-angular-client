@@ -5,7 +5,24 @@ async function testElectionVoting() {
 
   try {
     // Step 1: Navigate to the main page
-    await driver.get('http://localhost:4200'); // Adjust the URL to match your development server
+    await driver.get('http://localhost:4200');
+    console.log('Navigated to the login page.');
+
+    await driver.wait(until.elementLocated(By.css('form.login-form')), 20000);
+    console.log('Login form is visible.');
+
+    const emailInput = await driver.findElement(By.id('email'));
+    await emailInput.sendKeys('fikremariam.fikadu@a2sv.org');
+    console.log('Entered email.');
+
+    const passwordInput = await driver.findElement(By.id('password'));
+    await passwordInput.sendKeys('12345673');
+    console.log('Entered password.');
+
+    const loginButton = await driver.findElement(By.css('button.login-btn'));
+    await loginButton.click();
+    console.log('Clicked the login button.');
+    await driver.get('http://localhost:4200');
     console.log('Navigated to the main page.');
 
     await driver.wait(
@@ -44,7 +61,7 @@ async function testElectionVoting() {
     );
     await confirmButton.click();
     console.log('Canceled the vote.');
-    
+
     console.log('Vote retracted successfully recorded.');
   } catch (error) {
     console.error('Error during test execution:', error);
