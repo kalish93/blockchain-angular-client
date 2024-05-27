@@ -1,7 +1,16 @@
+
 const { Builder, By, until } = require('selenium-webdriver');
+let randomWords: any; // Define the variable to hold the imported module
+import('random-words').then((module) => {
+    randomWords = module.default; // Assign the default export of the module to the variable
+    // Now you can use the randomWords variable to access the functionality of the module
+});
 
 async function testRegisterFromLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
+  const wordForEmail = randomWords();
+  const numberForEmail = Math.random().toString();
+  const emailToRegister = wordForEmail + numberForEmail + '@example.com';
 
   try {
     // Step 1: Navigate to the login page
@@ -19,7 +28,7 @@ async function testRegisterFromLogin() {
     console.log('Navigated to the registration page.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys('elector@example.com');
+    await emailInput.sendKeys(emailToRegister);
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));

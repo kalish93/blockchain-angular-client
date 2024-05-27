@@ -1,7 +1,14 @@
+
 const { Builder, By, until } = require('selenium-webdriver');
+const randomWords = require('random-words');
+
 
 async function testRegisterFromLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
+  const wordForEmail = randomWords();
+  const numberForEmail = Math.random().toString();
+  const emailToRegister = wordForEmail + numberForEmail + '@example.com';
+
 
   try {
     await driver.get('http://localhost:4200');
@@ -16,7 +23,7 @@ async function testRegisterFromLogin() {
     console.log('Navigated to the registration page.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys('elector@example.com');
+    await emailInput.sendKeys(emailToRegister);
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));
@@ -39,7 +46,7 @@ async function testRegisterFromLogin() {
     await signUpButton.click();
     console.log('Clicked the Sign Up button.');
 
-    await driver.wait(until.urlIs('http://localhost:4200/home'), 10000);
+    await driver.wait(until.urlIs('http://localhost:4200/verify-email'), 10000);
     console.log('Registration successful and navigated to home page.');
   } catch (error) {
     console.error('Error during test execution:', error);
