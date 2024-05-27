@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "CommonJS",
+    "module": "ES2022",
     "outDir": "../../dist/e2e",
     "rootDir": "./src",
     "strict": true,
