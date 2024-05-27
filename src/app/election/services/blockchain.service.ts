@@ -40,7 +40,8 @@ export class BlockchainService {
       console.log(electionName, organizationId, description, candidates, endTime,'ffffffffffffffffffffffffffffffff')
 
         const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates, endTime)
-                                                      .estimateGas({ from: this.accounts[0] });
+                                                      .estimateGas({ from: this.accounts[0]})
+                                                      console.log("gasEstimate", gasEstimate)
       let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).send({
         from: this.accounts[0],
         gas: gasEstimate
