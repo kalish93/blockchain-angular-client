@@ -45,9 +45,12 @@ export class BlockchainService {
       let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).send({
         from: this.accounts[0],
         gas: gasEstimate
-      }
+      });
 
-      );
+      transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).call({
+        from: this.accounts[0],
+        gas: gasEstimate
+      });
       console.log("transaction",  transaction);
       return transaction;
     // }else{
@@ -62,10 +65,9 @@ export class BlockchainService {
     await this.getAccounts();
 
     try {
-      if (this.checkWalletConnection()) {
+      // if (this.checkWalletConnection()) {
         const gasEstimate = await this.contract.methods.voteForACandidate(votorId, electionId, candidateId)
           .estimateGas({ from: this.accounts[0] });
-
         const transaction = await this.contract.methods.voteForACandidate(votorId, electionId, candidateId)
           .send({
             from: this.accounts[0],
@@ -75,9 +77,9 @@ export class BlockchainService {
         console.log('Transaction details:', transaction);
 
         return true;
-      } else {
-        throw 'Please connect your wallet';
-      }
+      // } else {
+      //   throw 'Please connect your wallet';
+      // }
     } catch (error) {
       console.error('Error in voting for candidate', error);
       return false;
