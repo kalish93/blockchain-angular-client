@@ -1,17 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  NonNullableFormBuilder,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { RxState } from '@rx-angular/state';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { UserResponse } from '../../models/user-response';
-import { UserFacade } from '../../facades/users.facades';
-import { Observable } from 'rxjs';
-import { LOGIN_ROUTE, VERIFY_EMAIL_ROUTE } from '../../../core/constants/routes';
 import { UserRole } from '../../../core/constants/user-types';
+import { AbstractControl, NonNullableFormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { UserFacade } from '../../facades/users.facades';
+import { RxState } from '@rx-angular/state';
+import { Roles } from '../../../core/constants/roles';
 
 interface RegisterComponentState {
   isPasswordVisible: boolean;
@@ -26,31 +21,19 @@ const initRegisterComponentState: Partial<RegisterComponentState> = {
 };
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
-  providers: [RxState],
+  selector: 'app-admin-registration',
+  templateUrl: './admin-registration.component.html',
+  styleUrls: ['./admin-registration.component.scss'],
+  providers: [RxState]
 })
-export class RegisterComponent implements OnInit {
-  userType = UserRole;
-  selectedUserType: UserRole = UserRole.ELECTOR;
-
-  // passwordMatchValidator: ValidatorFn = (
-  //   control: AbstractControl
-  // ): { [key: string]: any } | null => {
-  //   const password = control.get('password')?.value;
-  //   const confirmPassword = control.get('confirmPassword')?.value;
-  //   return password && confirmPassword && password === confirmPassword
-  //     ? null
-  //     : { mismatch: true };
-  // };
+export class AdminRegistrationComponent {
 
   registerForm = this.fb.group(
     {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      userType: [this.selectedUserType],
+      userType: [Roles.ADMIN],
     },
     { validators: this.passwordMatchValidator() }
   );
@@ -62,7 +45,7 @@ export class RegisterComponent implements OnInit {
     private fb: NonNullableFormBuilder,
     private userFacade: UserFacade,
     private state: RxState<RegisterComponentState>,
-    private router: Router
+    private dialogRef: MatDialogRef<AdminRegistrationComponent>,
   ) {
     this.state.set(initRegisterComponentState);
     this.state.connect('user', userFacade.user$);
@@ -130,13 +113,10 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
         confirmPassword: this.registerForm.value.confirmPassword!,
-        role: this.registerForm.value.userType!,
+        role: Roles.ADMIN as any,
       });
-      this.router.navigate([VERIFY_EMAIL_ROUTE]);
     }
+    this.dialogRef.close();
   }
 
-  navigateToLogin() {
-    this.router.navigate([LOGIN_ROUTE]);
-  }
 }

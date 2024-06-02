@@ -9,4 +9,8 @@ export class VerifyUserEmail{
   static readonly type = `[User] ${VerifyUserEmail.name}`;
   constructor(public request: VerifyUserEmailRequest) {}
 }
+export class GetUsers{
+  static readonly type = `[User] ${GetUsers.name}`;
+  constructor() {}
+}
 
