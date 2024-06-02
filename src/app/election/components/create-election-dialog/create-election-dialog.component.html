@@ -11,19 +11,18 @@
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
 
-  <div class="date-and-time">
-    <mat-form-field appearance="outline" class="end-date">
-      <mat-label>End date and time</mat-label>
-      <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
-      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #endDatePicker></mat-datepicker>
-    </mat-form-field>
+    <div class="date-and-time">
+      <mat-form-field appearance="outline" class="end-date">
+        <mat-label>End date and time</mat-label>
+        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
 
-    <div>
-      <!-- <label for="endTime">End Time</label> -->
-      <input class="time-picker"  type="time" id="endTime" name="endTime" formControlName="endTime" required="true">
+      <div>
+        <input class="time-picker" type="time" id="endTime" name="endTime" formControlName="endTime" required="true">
+      </div>
     </div>
-  </div>
 
     <div formArrayName="candidates">
       <h3>Candidates</h3>
@@ -41,12 +40,12 @@
               alt="Candidate image"
             />
             <div class="card-content">
-              <h4>{{ candidate.get("name")?.value }}</h4>
-              <p>{{ candidate.get("description")?.value }}</p>
+              <h4>{{ candidate.get('name')?.value }}</h4>
+              <p>{{ candidate.get('description')?.value }}</p>
             </div>
           </div>
-          <button mat-button color="warn" (click)="removeCandidate(i)">
-            Remove Candidate
+          <button class="remove-candidate-btn" mat-flat-button (click)="removeCandidate(i)">
+            Remove
           </button>
         </div>
       </div>
@@ -68,47 +67,27 @@
         <label class="file-upload-container">
           <input
             type="file"
-            (change)="
-              onFileSelected(
-                $event,
-                candidateForm.get('name')?.value || 'defaultName'
-              )
-            "
+            (change)="onFileSelected($event, candidateForm.get('name')?.value || 'defaultName')"
             [disabled]="!candidateForm.get('name')?.value"
             style="display: none"
           />
-          <span [class.disabled]="!candidateForm.get('name')?.value" class="file-upload-btn" >Select Image</span>
+          <span [class.disabled]="!candidateForm.get('name')?.value" class="file-upload-btn">Select Image</span>
           <span class="file-upload-text">No Image selected</span>
         </label>
         <div class="candidate-action-btns">
           <button mat-button (click)="isVisible = false">Close</button>
-          <button
-            mat-raised-button
-            color="secondary"
-            type="button"
-            (click)="addCandidate()"
-          >
-            Add Candidate
-          </button>
+          <button mat-raised-button color="secondary" type="button" (click)="addCandidate()">Add Candidate</button>
         </div>
       </div>
     </div>
     <div class="candidate-actn-btn">
-      <button
-        *ngIf="!isVisible"
-        mat-raised-button
-        color="secondary"
-        type="button"
-        (click)="createCandidate()"
-      >
+      <button *ngIf="!isVisible" mat-raised-button color="secondary" type="button" (click)="createCandidate()">
         Create Candidate
       </button>
     </div>
     <div mat-dialog-actions class="action-btn">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button color="primary" (click)="submitElection()">
-        Submit Election
-      </button>
+      <button mat-flat-button class="submit-btn" color="primary" (click)="submitElection()">Submit Election</button>
+      <button class="cancel-btn" mat-flat-button mat-dialog-close>Cancel</button>
     </div>
   </form>
 </div>

@@ -48,7 +48,6 @@ export class AuthState {
           // username: result.user.username,
           currentUser: result.user,
         });
-        this.oprationStatus.displayStatus('logged in successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
       }),
     );

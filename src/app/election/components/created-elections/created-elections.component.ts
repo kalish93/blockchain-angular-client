@@ -19,7 +19,6 @@ export class CreatedElectionsComponent {
         data: {
           organizationId: '',
         },
-        ...SIDE_DIALOG_CONFIG,
       }
     );
 

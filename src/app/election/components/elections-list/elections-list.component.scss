@@ -94,3 +94,15 @@ mat-card{
   }
 }
 
+.no-elections{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rem;
+  justify-content: center;
+}
+
+.no-election-img{
+  width: 20%;
+}

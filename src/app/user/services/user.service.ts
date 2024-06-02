@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { UserRequest, VerifyUserEmailRequest } from '../models/user-request';
 import { UserResponse } from '../models/user-response';
 import { REGISTER_URL, VERIFY_EMAIL_URL } from '../../core/constants/api-endpoints';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +21,9 @@ export class UserService {
 
   verifyEmail(request: VerifyUserEmailRequest): Observable<UserResponse> {
     return this.http.post<UserResponse>(VERIFY_EMAIL_URL, request, this.httpOptions);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(REGISTER_URL, this.httpOptions);
   }
 }

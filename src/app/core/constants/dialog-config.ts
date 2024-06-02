@@ -1,6 +1,9 @@
 export const SIDE_DIALOG_CONFIG = {
-  maxHeight: '90vh',
+  minHeight: '100vh',
   width: '100%',
-  maxWidth: '600px',
+  maxWidth: '480px',
+  position: {
+    right: '0px',
+  },
   disableClose: true,
 };
