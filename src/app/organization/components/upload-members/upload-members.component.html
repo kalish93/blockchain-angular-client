@@ -1,6 +1,11 @@
 <div class="upload-dialog">
   <h2>Upload File</h2>
-  <input type="file" (change)="onFileSelected($event)" />
-  <button mat-raised-button color="primary" (click)="uploadFile()">Upload</button>
-  <button mat-button (click)="closeDialog()">Cancel</button>
+  <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+  <label for="fileInput" class="custom-file-upload">Select File</label>
+  <span class="file-name" *ngIf="selectedFile">{{ selectedFile.name }}</span>
+  <div class="action-btns">
+    <button class="submmit-btn" mat-flat-button color="primary" (click)="uploadFile()">Upload</button>
+  <button class="cancel-btn" mat-flat-button (click)="closeDialog()">Cancel</button>
+  </div>
 </div>
+

@@ -39,6 +39,7 @@ export class UserState {
         patchState({
            user : result
         });
+        this.store.dispatch(new GetUsers());
         this.oprationStatus.displayStatus('User registered successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
       }),

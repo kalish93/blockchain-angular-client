@@ -4,6 +4,9 @@ import { ElectionFacade } from '../../facades/election.facade';
 import { RxState } from '@rx-angular/state';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
+import { Roles } from '../../../core/constants/roles';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateElectionDialogComponent } from '../create-election-dialog/create-election-dialog.component';
 
 
 interface ElectionsListComponentState {
@@ -39,7 +42,8 @@ export class ElectionsListComponent implements OnInit{
         private electionFacade: ElectionFacade,
         private authFacade: AuthFacade,
         private router: Router,
-        private state: RxState<ElectionsListComponentState>
+        private state: RxState<ElectionsListComponentState>,
+        private dialog: MatDialog
         ) {
           this.state.set(initialElectionsListComponentState);
           this.state.connect('elections', this.electionFacade.elections$);
@@ -68,5 +72,28 @@ export class ElectionsListComponent implements OnInit{
 
   navigateToDetail(id: string) {
     this.router.navigate(['/election-list', id]);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(
+      CreateElectionDialogComponent,
+      {
+        data: {
+          organizationId: '',
+        },
+      }
+    );
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  hasElectionCreatorRole(){
+    return Roles.ELECTION_CREATOR
+  }
+
+  hasAdminRole(){
+    return Roles.ADMIN
   }
 }
