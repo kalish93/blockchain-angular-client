@@ -7,6 +7,7 @@ import { RxState } from '@rx-angular/state';
 import { ElectionFacade } from '../../facades/election.facade';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
+import { CandidateDescriptionDialogComponent } from '../candidate-description-dialog/candidate-description-dialog.component';
 
 interface ElectionDetailComponentState {
   electionDetail: any;
@@ -25,7 +26,7 @@ export class ElectionDetailComponent {
   electionDetail$ = this.state.select('electionDetail');
   accessToken: string | null = null;
   accessToken$ = this.state.select('accessToken');
-  decodedToken : any;
+  decodedToken: any;
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
@@ -33,35 +34,36 @@ export class ElectionDetailComponent {
     private dialog: MatDialog,
     private state: RxState<ElectionDetailComponentState>
   ) {
-    this.state.set({electionDetail: {}});
+    this.state.set({ electionDetail: {} });
     this.state.connect('electionDetail', this.electionFacade.electionDetail$);
     this.state.connect('accessToken', this.authFacade.accessToken$);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.electionId = params['id'];
-      if(this.electionId){
+      if (this.electionId) {
         this.electionFacade.dispatchGetElectionDetail(this.electionId);
       }
     });
 
     this.electionDetail$.subscribe((electionDetail) => {
-      console.log("electionDetail",electionDetail);
+      console.log('electionDetail', electionDetail);
       this.electionDetail = electionDetail;
     });
 
-    this.accessToken$.subscribe((token)=>{
-      this.accessToken = token
+    this.accessToken$.subscribe((token) => {
+      this.accessToken = token;
       this.decodedToken = jwtDecode(token);
-    })
+    });
   }
 
   async voteForCandidate(id: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Confirm Voting',
-        message: 'Are you sure you want to vote for this candidate? You cannot change your choice once you vote!',
+        message:
+          'Are you sure you want to vote for this candidate? You cannot change your choice once you vote!',
       },
     });
 
@@ -70,13 +72,25 @@ export class ElectionDetailComponent {
         try {
           if (this.electionId) {
             // this.election = await this.blockchainService.voteForCandidate(this.electionId, id);
-            this.electionFacade.dispatchVoteForCandidate(this.decodedToken.id, this.electionId, id);
-            console.log('Vote successful!', this.electionId,this);
+            this.electionFacade.dispatchVoteForCandidate(
+              this.decodedToken.id,
+              this.electionId,
+              id
+            );
+            console.log('Vote successful!', this.electionId, this);
           }
         } catch (e) {
           console.error('Error voting:', e);
         }
       }
+    });
+  }
+
+  openDescription(candidate: any): void {
+    this.dialog.open(CandidateDescriptionDialogComponent, {
+      data: candidate,
+      width: "30%",
+      height: "auto"
     });
   }
 }

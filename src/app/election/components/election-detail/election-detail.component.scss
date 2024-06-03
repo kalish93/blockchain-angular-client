@@ -16,7 +16,6 @@
 }
 
 .election-description {
-  // margin-bottom: 20px;
   margin: 1rem auto 1rem auto;
   text-align: justify;
 }
@@ -36,72 +35,57 @@
 }
 
 .candidate-card {
-  max-width: 500px;
-  width: 100%;
-}
-
-.candidate-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px 8px 0 0;
-}
-
-.candidate-details {
-  padding: 16px;
-}
-
-.vote-btn {
-  width: 100%;
-  margin-top: 10px;
-  color: white;
-  background-color: #7C8CC7;
-}
-
-.card-header{
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-//=========
-.candidate-card {
-  max-width: 300px;
-  /* Set the max width for the card */
-  margin: 0 auto;
-  /* Center the card within its parent container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Optional: Adds a shadow for depth */
-  border-radius: 8px;
-  /* Optional: Rounds the corners of the card */
-  overflow: hidden;
-  /* Ensures contents fit within the rounded corners */
-  /* Other styles you may have */
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 20rem;
 }
 
 .candidate-image {
   width: 100%;
-  /* Ensures the image fills the card width */
-  height: auto;
-  /* Maintains the image's aspect ratio */
-  /* Other styles for the image */
+  height: 170px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .candidate-details {
-  padding: 16px;
-  /* Adds spacing inside the card around the details */
-  /* Other styles for the details container */
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }
 
-.card-header h3,
-.card-header h2 {
-  margin: 0;
-  /* Removes default margin to keep text compact */
-  /* Additional header styles if needed */
+.candidate-description {
+  height: 7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  position: relative;
+  // padding-right: 80px;
+  /* Adjust based on read-more button width */
+  white-space: pre-wrap;
+}
+
+.candidate-description .read-more {
+  color: #3f51b5;
+  /* Primary color */
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .vote-btn {
-  width: 100%;
-  /* Expands the button to fill the card's width */
-  /* Other button styles */
+  margin-top: 10px;
 }
-
