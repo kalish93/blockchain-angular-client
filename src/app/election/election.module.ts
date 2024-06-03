@@ -9,6 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ElectionsListComponent } from './components/elections-list/elections-list.component';
 import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
 import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
+import { CandidateDescriptionDialogComponent } from './components/candidate-description-dialog/candidate-description-dialog.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CreatedElectionsComponent } from './components/created-elections/create
     ElectionsListComponent,
     ElectionDetailComponent,
     CreatedElectionsComponent,
+    CandidateDescriptionDialogComponent,
   ],
   imports: [
     CommonModule,
