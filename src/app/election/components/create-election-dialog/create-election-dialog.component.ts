@@ -109,6 +109,7 @@ export class CreateElectionDialogComponent {
       formData.append('title', this.electionForm.value.title);
       formData.append('description', this.electionForm.value.description);
       formData.append('endTime', endTimeUnix.toString());
+      formData.append('organizationId', this.electionForm.value.organizationId);
 
       this.electionForm.value.candidates.forEach(
         (candidate: any, index: number) => {
