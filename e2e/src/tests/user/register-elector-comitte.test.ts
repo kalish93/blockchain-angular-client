@@ -1,13 +1,13 @@
 
 const { Builder, By, until } = require('selenium-webdriver');
-const randomWords = require('random-words');
+//const randomWords = require('random-words');
 
 
 async function testRegisterFromLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
-  const wordForEmail = randomWords();
-  const numberForEmail = Math.random().toString();
-  const emailToRegister = wordForEmail + numberForEmail + '@example.com';
+  // const wordForEmail = randomWords();
+  // const numberForEmail = Math.random().toString();
+  // const emailToRegister = wordForEmail + numberForEmail + '@example.com';
 
 
   try {
@@ -23,7 +23,7 @@ async function testRegisterFromLogin() {
     console.log('Navigated to the registration page.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys(emailToRegister);
+    await emailInput.sendKeys("first_creator@gmail.com");
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));

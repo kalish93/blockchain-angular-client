@@ -1,16 +1,16 @@
 
 const { Builder, By, until } = require('selenium-webdriver');
-let randomWords: any; // Define the variable to hold the imported module
-import('random-words').then((module) => {
-    randomWords = module.default; // Assign the default export of the module to the variable
-    // Now you can use the randomWords variable to access the functionality of the module
-});
+// let randomWords: any; // Define the variable to hold the imported module
+// import('random-words').then((module) => {
+//     randomWords = module.default; // Assign the default export of the module to the variable
+//     // Now you can use the randomWords variable to access the functionality of the module
+// });
 
 async function testRegisterFromLogin() {
   const driver = await new Builder().forBrowser('chrome').build();
-  const wordForEmail = randomWords();
-  const numberForEmail = Math.random().toString();
-  const emailToRegister = wordForEmail + numberForEmail + '@example.com';
+  // const wordForEmail = randomWords();
+  // const numberForEmail = Math.random().toString();
+  // const emailToRegister = wordForEmail + numberForEmail + '@example.com';
 
   try {
     // Step 1: Navigate to the login page
@@ -28,7 +28,7 @@ async function testRegisterFromLogin() {
     console.log('Navigated to the registration page.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys(emailToRegister);
+    await emailInput.sendKeys('first_email@gmail.com');
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));
@@ -53,7 +53,7 @@ async function testRegisterFromLogin() {
     console.log('Clicked the Sign Up button.');
 
     // Step 4: Wait for the registration to complete and verify the navigation
-    // await driver.wait(until.urlIs('http://localhost:4200/home'), 10000); // Adjust the URL to your application's home page
+    await driver.wait(until.urlIs('http://localhost:4200/verify-email'), 10000); // Adjust the URL to your application's home page
     console.log('Registration successful and navigated to otp page.');
   } catch (error) {
     console.error('Error during test execution:', error);

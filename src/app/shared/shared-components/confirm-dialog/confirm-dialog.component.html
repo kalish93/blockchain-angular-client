@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Confirm Action</h2>
 <div mat-dialog-content class="mat-dialog">{{ message }}</div>
 <div mat-dialog-actions>
-  <button mat-flat-button (click)="onConfirm()" color="primary">Yes</button>
+  <button mat-flat-button class="confirm-button" (click)="onConfirm()" color="primary">Yes</button>
   <button mat-flat-button mat-dialog-close color="warn" (click)="onCancel()">
     Cancel
   </button>
