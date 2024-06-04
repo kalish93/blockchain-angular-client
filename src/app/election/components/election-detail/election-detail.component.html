@@ -5,27 +5,18 @@
 
     <h2 class="candidates-header">Candidates</h2>
     <div class="candidates-container">
-      <mat-card
-        *ngFor="let candidate of electionDetail.candidates"
-        class="candidate-card"
-      >
-        <img
-          class="candidate-image"
-          src="http://localhost:3000/{{ candidate.imgUrl }}"
-          alt="Candidate Image"
-        />
+      <mat-card *ngFor="let candidate of electionDetail.candidates" class="candidate-card">
+        <img class="candidate-image" src="http://localhost:3000/{{ candidate.imgUrl }}" alt="Candidate Image" />
         <div class="candidate-details">
           <div class="card-header">
-            <h3>{{ candidate.name }}</h3>
-            <h3>Vote Count: {{ candidate.VoteCount }}</h3>
+            <h4>{{ candidate.name }}</h4>
+            <h4>Vote Count: {{ candidate.VoteCount }}</h4>
           </div>
-          <p>{{ candidate.Description }}</p>
-          <button
-            class="vote-btn"
-            mat-button
-            (click)="voteForCandidate(candidate.id)"
-            *ngIf="electionDetail.hasVoted === false"
-          >
+          <p class="candidate-description">
+            {{ candidate.Description }}
+            <span class="read-more" (click)="openDescription(candidate)">    ... Read More</span>
+          </p>
+          <button class="vote-btn" mat-button (click)="voteForCandidate(candidate.id)" *ngIf="!electionDetail.hasVoted">
             Vote
           </button>
           <span *ngIf="electionDetail.hasVoted">Voted</span>
