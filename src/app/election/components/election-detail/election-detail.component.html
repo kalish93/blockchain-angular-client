@@ -6,11 +6,11 @@
     <h2 class="candidates-header">Candidates</h2>
     <div class="candidates-container">
       <mat-card *ngFor="let candidate of electionDetail.candidates" class="candidate-card">
-        <img class="candidate-image" src="http://localhost:3000/{{ candidate.imgUrl }}" alt="Candidate Image" />
+        <img class="candidate-image" src="{{imageBaseUrl}}/{{ candidate.imgUrl }}" alt="Candidate Image" />
         <div class="candidate-details">
           <div class="card-header">
             <h4>{{ candidate.name }}</h4>
-            <h4>Vote Count: {{ candidate.VoteCount }}</h4>
+            <h4 *ngIf="electionDetail.hasVoted">Vote Count: {{ candidate.VoteCount }}</h4>
           </div>
           <p class="candidate-description">
             {{ candidate.Description }}

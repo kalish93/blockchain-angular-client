@@ -8,6 +8,7 @@ import { ElectionFacade } from '../../facades/election.facade';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
 import { CandidateDescriptionDialogComponent } from '../candidate-description-dialog/candidate-description-dialog.component';
+import { IMAGE_BASE_URL } from '../../../core/constants/api-endpoints';
 
 interface ElectionDetailComponentState {
   electionDetail: any;
@@ -27,6 +28,7 @@ export class ElectionDetailComponent {
   accessToken: string | null = null;
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
+  imageBaseUrl = IMAGE_BASE_URL;
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
