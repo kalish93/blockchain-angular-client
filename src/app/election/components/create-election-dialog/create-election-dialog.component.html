@@ -14,7 +14,7 @@
     <div class="date-and-time">
       <mat-form-field appearance="outline" class="end-date">
         <mat-label>End date and time</mat-label>
-        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" [matDatepickerFilter]="dateFilter">
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>

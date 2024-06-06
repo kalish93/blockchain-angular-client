@@ -38,6 +38,12 @@ export class CreateElectionDialogComponent {
     });
   }
 
+  dateFilter = (date: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date ? date >= today : false;
+  };
+
   get candidates(): FormArray {
     return this.electionForm.get('candidates') as FormArray;
   }

@@ -16,12 +16,15 @@
             {{ candidate.Description }}
             <span class="read-more" (click)="openDescription(candidate)">    ... Read More</span>
           </p>
-          <button class="vote-btn" mat-button (click)="voteForCandidate(candidate.id)" *ngIf="!electionDetail.hasVoted">
+          <button class="vote-btn" mat-button (click)="voteForCandidate(candidate.id)" *ngIf="!electionDetail.hasVoted && !hasEnded">
             Vote
           </button>
           <span *ngIf="electionDetail.hasVoted">Voted</span>
         </div>
       </mat-card>
     </div>
+  </div>
+  <div *ngIf="hasEnded" class="election-closed-warning">
+    <p>The election has been closed and you can no longer vote for this election.</p>
   </div>
 </div>

@@ -29,6 +29,7 @@ export class ElectionDetailComponent {
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
   imageBaseUrl = IMAGE_BASE_URL;
+  hasEnded: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
@@ -52,6 +53,9 @@ export class ElectionDetailComponent {
     this.electionDetail$.subscribe((electionDetail) => {
       console.log('electionDetail', electionDetail);
       this.electionDetail = electionDetail;
+      if (this.electionDetail && this.electionDetail.endTime) {
+        this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
+      }
     });
 
     this.accessToken$.subscribe((token) => {
