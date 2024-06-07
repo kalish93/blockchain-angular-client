@@ -4,6 +4,7 @@ export interface Election{
     description: string;
     hasVoted: boolean;
     candidates: Candidate[];
+    endTime?: any;
 }
 
 export interface Candidate{

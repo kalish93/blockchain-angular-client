@@ -8,6 +8,7 @@ import { ElectionFacade } from '../../facades/election.facade';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
 import { CandidateDescriptionDialogComponent } from '../candidate-description-dialog/candidate-description-dialog.component';
+import { IMAGE_BASE_URL } from '../../../core/constants/api-endpoints';
 
 interface ElectionDetailComponentState {
   electionDetail: any;
@@ -27,6 +28,8 @@ export class ElectionDetailComponent {
   accessToken: string | null = null;
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
+  imageBaseUrl = IMAGE_BASE_URL;
+  hasEnded: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
@@ -50,6 +53,9 @@ export class ElectionDetailComponent {
     this.electionDetail$.subscribe((electionDetail) => {
       console.log('electionDetail', electionDetail);
       this.electionDetail = electionDetail;
+      if (this.electionDetail && this.electionDetail.endTime) {
+        this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
+      }
     });
 
     this.accessToken$.subscribe((token) => {

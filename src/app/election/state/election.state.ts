@@ -125,6 +125,7 @@ export class ElectionState {
       electionName: comingElection.electionName,
       description: comingElection.description,
       candidates: comingElection.candidates,
+      endTime: comingElection.endTime,
     };
     console.log('GetElectionDetial election', election);
     console.log('GetElectionDetial electionName', election.electionName);
