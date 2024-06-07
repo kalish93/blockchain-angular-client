@@ -1,0 +1,23 @@
+.login-form{
+  padding: 20px;
+}
+
+.signin-title{
+  text-align: center;
+}
+.input-group{
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  width: 450px;
+}
+
+.register-btn{
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #7C8CC7;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

@@ -1,5 +1,16 @@
+<div class="list-header">
+<h1 >Current Elections</h1>
+<button
+    *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]"
+    mat-raised-button
+    color="primary"
+    class="create-election-button"
+    (click)="openDialog()"
+  >
+    Create Election
+  </button>
+</div>
 <div class="container" *ngIf="elections.length > 0">
-  <h1 class="list-header">Current Elections</h1>
   <div class="election-cards">
     <div *ngFor="let election of elections" class="election-card">
     <mat-card (click)="navigateToDetail(election.electionId)">
@@ -14,7 +25,8 @@
   </div>
 </div>
 </div>
-
-<div *ngIf="elections.length === 0">
-  <p>No elections available.</p>
+<div class="no-elections" *ngIf="elections.length === 0">
+  <img class="no-election-img" src="assets/svg/no_elections.svg" alt="vote image" />
+  <p>No elections are available for you currently.</p>
 </div>
+

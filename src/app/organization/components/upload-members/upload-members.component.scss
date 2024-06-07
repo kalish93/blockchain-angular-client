@@ -16,3 +16,52 @@
     margin-top: 8px;
   }
 }
+
+.upload-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+.upload-dialog h2 {
+  margin-bottom: 16px;
+}
+
+.upload-dialog input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  background-color: #7C8CC7;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.custom-file-upload:hover {
+  background-color: #0056b3;
+}
+
+.upload-dialog button {
+  margin-top: 8px;
+}
+
+.action-btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.submmit-btn{
+ background-color: #7C8CC7;
+}
+
+.cancel-btn{
+  background-color: #c6c7cb;
+  color: white;
+}

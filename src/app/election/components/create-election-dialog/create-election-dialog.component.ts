@@ -47,18 +47,24 @@ export class CreateElectionDialogComponent {
   }
 
   addCandidate(): void {
+    const candidateName = this.candidateForm.get('name')?.value;
+    const candidateDescription = this.candidateForm.get('description')?.value;
+    const file = this.selectedFiles.get(candidateName as any);
+
+    const imageUrl = file ? URL.createObjectURL(file) : '';
+
     const newCandidate = this.fb.group({
-      name: this.candidateForm.get('name')?.value,
-      description: this.candidateForm.get('description')?.value,
-      imageUrl: this.candidateForm.get('image')?.value,
+      name: [candidateName],
+      description: [candidateDescription],
+      imageUrl: [imageUrl],
     });
 
     this.candidates.push(newCandidate);
 
     this.candidateForm.reset();
-
     this.isVisible = false;
   }
+
 
   createCandidate() {
     this.isVisible = true;
@@ -103,6 +109,7 @@ export class CreateElectionDialogComponent {
       formData.append('title', this.electionForm.value.title);
       formData.append('description', this.electionForm.value.description);
       formData.append('endTime', endTimeUnix.toString());
+      formData.append('organizationId', this.electionForm.value.organizationId);
 
       this.electionForm.value.candidates.forEach(
         (candidate: any, index: number) => {

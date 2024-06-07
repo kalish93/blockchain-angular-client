@@ -13,6 +13,8 @@ import { AuthState, AuthStateModel } from '../../auth/store/auth.state';
 import { jwtDecode } from 'jwt-decode';
 import { ImageUploadService } from '../services/image-upload.service';
 import { forkJoin, map, tap } from 'rxjs';
+import { OperationStatusService } from '../../core/services/operation-status.service';
+import { successStyle } from '../../core/services/status-style-names';
 
 export interface ElectionStateModel {
   // inprogress: boolean;
@@ -41,7 +43,8 @@ export class ElectionState {
   constructor(
     private blockchainService: BlockchainService,
     private imageUploadService: ImageUploadService,
-    private store: Store
+    private store: Store,
+    private operationStatusService: OperationStatusService
   ) {}
 
   @Action(CreateElection)
@@ -82,6 +85,7 @@ export class ElectionState {
 
     const state = getState();
     patchState({ personalizedElections: [createdElection, ...state.personalizedElections] });
+    this.operationStatusService.displayStatus('Election created successfully', successStyle)
   }
 
   @Action(GetAllElections)
@@ -140,6 +144,7 @@ export class ElectionState {
       candidateId
     );
     this.store.dispatch(new GetElectionDetial(electionId));
+    this.operationStatusService.displayStatus('Vote recorded successfully', successStyle)
   }
 
   @Action(GetPersolanizedElections)

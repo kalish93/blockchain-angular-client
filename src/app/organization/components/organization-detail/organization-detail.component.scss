@@ -125,3 +125,15 @@ mat-list-item {
   display: flex;
   gap: 5px;
 }
+
+.organization-name{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.actions-btn{
+  color: #7C8CC7;
+  border: 1px solid #7C8CC7;
+}

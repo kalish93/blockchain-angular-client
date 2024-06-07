@@ -1,10 +1,7 @@
 <div class="main">
   <div class="header">
     <div class="title">
-      <h1>{{ organization?.name }}</h1>
-      <h2>{{ organization?.name }}</h2>
-    </div>
-    <div class="side-header">
+      <h1>{{ organization?.name + " (" + organization?.shortName + ")" }}</h1>
       <span
         class="status-chip"
         [ngClass]="{
@@ -14,40 +11,48 @@
       >
         {{ organization?.isActive ? "Active" : "Inactive" }}
       </span>
-      <div class="add-buttons">
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="openCreateMemberDialog()"
-        *ngIf="decodedToken.id === organization?.userId"
-      >
-        Add Member
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="openFileUploadDialog()"
-        *ngIf="decodedToken.id === organization?.userId"
-      >
-        Upload Members
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="downloadCsvTemplate()"
-        *ngIf="decodedToken.id === organization?.userId"
-      >
-        Download Csv Template
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="downloadXlsxTemplate()"
-        *ngIf="decodedToken.id === organization?.userId"
-      >
-        Download xlsx Template
-      </button>
     </div>
+    <div class="side-header">
+      <div class="add-buttons">
+        <button class="actions-btn" mat-flat-button [matMenuTriggerFor]="menu">Actions</button>
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            (click)="openCreateMemberDialog()"
+            *ngIf="decodedToken.id === organization?.userId"
+          >
+            Add Member
+          </button>
+          <button
+            mat-menu-item
+            (click)="openFileUploadDialog()"
+            *ngIf="decodedToken.id === organization?.userId"
+          >
+            Upload Members
+          </button>
+          <button
+            mat-menu-item
+            (click)="downloadCsvTemplate()"
+            *ngIf="decodedToken.id === organization?.userId"
+          >
+            Download Csv Template
+          </button>
+          <button
+            mat-menu-item
+            (click)="downloadXlsxTemplate()"
+            *ngIf="decodedToken.id === organization?.userId"
+          >
+            Download xlsx Template
+          </button>
+          <button
+            mat-menu-item
+            (click)="openCreateElectionDialog()"
+            *ngIf="decodedToken.id === organization?.userId"
+          >
+            Create Election
+          </button>
+        </mat-menu>
+      </div>
     </div>
   </div>
   <div class="container">
@@ -66,13 +71,4 @@
       </tbody>
     </table>
   </div>
-  <button
-    mat-raised-button
-    color="primary"
-    class="create-election-button"
-    (click)="openCreateElectionDialog()"
-    *ngIf="decodedToken.id === organization?.userId"
-  >
-    Create Election
-  </button>
 </div>

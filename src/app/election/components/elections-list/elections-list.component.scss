@@ -4,8 +4,11 @@
 }
 
 .list-header{
-  text-align: center;
-  margin-bottom: 40px;
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 10rem;
 }
 .election-cards {
   display: flex;
@@ -94,3 +97,19 @@ mat-card{
   }
 }
 
+.no-elections{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rem;
+  justify-content: center;
+}
+
+.no-election-img{
+  width: 20%;
+}
+
+.create-election-button{
+  background-color: #7C8CC7;
+}

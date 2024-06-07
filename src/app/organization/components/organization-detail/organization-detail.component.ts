@@ -85,7 +85,6 @@ export class OrganizationDetailComponent {
         data: {
           organizationId: this.selectedOrganization?.id,
         },
-        ...SIDE_DIALOG_CONFIG,
       }
     );
 
