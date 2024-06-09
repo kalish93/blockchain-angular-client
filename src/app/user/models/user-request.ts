@@ -11,3 +11,10 @@ export interface VerifyUserEmailRequest{
   email: string;
   otp:string;
 }
+
+export interface ResetPasswordRequest{
+  email: string;
+  otp:string;
+  password: string;
+  confirmPassword: string;
+}

@@ -7,11 +7,12 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent,VerifyEmailComponent, UsersListComponent, AdminRegistrationComponent, ForgetPasswordComponent],
+  declarations: [RegisterComponent,VerifyEmailComponent, UsersListComponent, AdminRegistrationComponent, ForgetPasswordComponent, ResetPasswordComponent],
   imports: [
     SharedModule,NgxsModule.forFeature([UserState])]
 

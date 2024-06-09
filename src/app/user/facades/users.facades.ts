@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { GetUsers, Register, VerifyUserEmail } from '../store/user.actions';
+import { GetUsers, Register, VerifyUserEmail, ForgetPassword, ResetPassword } from '../store/user.actions';
 import { UserSelector } from '../store/user.selector';
-import { UserRequest, VerifyUserEmailRequest} from '../models/user-request';
+import { UserRequest, VerifyUserEmailRequest, ResetPasswordRequest} from '../models/user-request';
 import { UserResponse } from '../models/user-response';
 import { User } from '../models/user.model';
 
@@ -31,5 +31,13 @@ export class UserFacade {
 
   dispatchGetUsers() {
     this.store.dispatch(new GetUsers());
+  }
+
+  dispatchForgetPassword(email: string) {
+    this.store.dispatch(new ForgetPassword(email));
+  }
+
+  dispatchResetPassword(request: ResetPasswordRequest) {
+    this.store.dispatch(new ResetPassword(request));
   }
 }
