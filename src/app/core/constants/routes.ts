@@ -7,3 +7,7 @@ export const ELECTION_LIST = 'election-list'
 export const ORGANIZATION_LIST = 'organizations'
 export const DASHBOARD_ROUTE = 'dashboard';
 export const USERS_ROUTE = 'users';
+export const FORGET_PASSWORD_ROUTE = 'forget-password';
+export const RESET_PASSWORD_ROUTE = 'reset-password';
+
+

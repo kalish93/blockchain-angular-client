@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DASHBOARD_ROUTE, HOME_ROUTE, LOGIN_ROUTE, ORGANIZATION_LIST, REGISTER_ROUTE, USERS_ROUTE, VERIFY_EMAIL_ROUTE } from './core/constants/routes';
+import { DASHBOARD_ROUTE, HOME_ROUTE, LOGIN_ROUTE, ORGANIZATION_LIST, REGISTER_ROUTE, USERS_ROUTE, VERIFY_EMAIL_ROUTE, FORGET_PASSWORD_ROUTE} from './core/constants/routes';
 import { LoginComponent } from './auth/components/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './user/components/register/register.component';
@@ -10,10 +10,12 @@ import { VerifyEmailComponent } from './user/components/verify-email/verify-emai
 import { DashboardComponent } from './statistics/componenets/dashboard/dashboard.component';
 import { EmailVerifiedGuard } from './auth/services/email-verified.guard';
 import { UsersListComponent } from './user/components/users-list/users-list.component';
+import { ForgetPasswordComponent } from './user/components/forget-password/forget-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
   { path: LOGIN_ROUTE, component: LoginComponent },
+  { path: FORGET_PASSWORD_ROUTE, component: ForgetPasswordComponent},
   { path: HOME_ROUTE, component: HomeComponent, canActivate: [EmailVerifiedGuard]},
   { path: REGISTER_ROUTE, component: RegisterComponent},
   { path: ORGANIZATION_LIST, component: OrganizationListComponent, canActivate: [EmailVerifiedGuard] },

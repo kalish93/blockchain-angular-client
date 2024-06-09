@@ -6,11 +6,12 @@ import { NgxsModule } from '@ngxs/store';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { AdminRegistrationComponent } from './components/admin-registration/admin-registration.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent,VerifyEmailComponent, UsersListComponent, AdminRegistrationComponent],
+  declarations: [RegisterComponent,VerifyEmailComponent, UsersListComponent, AdminRegistrationComponent, ForgetPasswordComponent],
   imports: [
     SharedModule,NgxsModule.forFeature([UserState])]
 
