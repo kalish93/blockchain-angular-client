@@ -12,11 +12,11 @@ async function testElectionVoting() {
     console.log('Login form is visible.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys('fikremariam.fikadu@a2sv.org');
+    await emailInput.sendKeys('nahosen32@zohomail.com');
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));
-    await passwordInput.sendKeys('12345673');
+    await passwordInput.sendKeys('1234');
     console.log('Entered password.');
 
     const loginButton = await driver.findElement(By.css('button.login-btn'));

@@ -12,17 +12,16 @@ async function testElectionVoting() {
     console.log('Login form is visible.');
 
     const emailInput = await driver.findElement(By.id('email'));
-    await emailInput.sendKeys('fikremariam.fikadu@a2sv.org');
+    await emailInput.sendKeys('nahosen32@zohomail.com');
     console.log('Entered email.');
 
     const passwordInput = await driver.findElement(By.id('password'));
-    await passwordInput.sendKeys('12345673');
+    await passwordInput.sendKeys('1234');
     console.log('Entered password.');
 
     const loginButton = await driver.findElement(By.css('button.login-btn'));
     await loginButton.click();
     console.log('Clicked the login button.');
-    await driver.get('http://localhost:4200');
     await driver.wait(
       until.elementLocated(By.css('.election-card mat-card')),
       10000
@@ -38,11 +37,14 @@ async function testElectionVoting() {
       return;
     }
 
-    await driver.wait(until.elementLocated(By.css('.candidate-card')), 10000);
+    await driver.wait(until.elementLocated(By.css('.candidate-details')), 10000);
+    console.log("candidates found");
     const candidateCards = await driver.findElements(
-      By.css('.candidate-card .vote-btn')
+      By.css('.candidate-details .vote-btn')
     );
+
     if (candidateCards.length > 0) {
+      await driver.sleep(5000)
       await candidateCards[0].click();
       console.log('Selected a candidate.');
     } else {
@@ -50,15 +52,17 @@ async function testElectionVoting() {
       return;
     }
 
-    await driver.wait(
-      until.elementLocated(By.css('.mat-dialog-container')),
-      10000
-    );
-    const confirmButton = await driver.findElement(
-      By.css('button.mat-button:contains("Confirm")')
-    );
-    await confirmButton.click();
-    console.log('Vote successfully recorded.');
+
+    await driver.sleep(1000);
+
+    const confirmButton = await driver.findElement(By.css('button.confirm-button'));
+    if(confirmButton != null){
+      await confirmButton.click();
+      console.log('Vote successfully recorded.');
+    }
+    
+    await driver.sleep(5000);
+    console.log('User voted previously');
   } catch (error) {
     console.error('Error during test execution:', error);
 
