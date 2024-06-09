@@ -14,3 +14,8 @@ export class GetUsers{
   constructor() {}
 }
 
+export class ForgetPassword{
+  static readonly type = `[User] ${ForgetPassword.name}`;
+  constructor(public email: string) {}
+}
+

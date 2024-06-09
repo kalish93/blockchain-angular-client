@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { UserRequest, VerifyUserEmailRequest } from '../models/user-request';
 import { UserResponse } from '../models/user-response';
-import { REGISTER_URL, VERIFY_EMAIL_URL } from '../../core/constants/api-endpoints';
+import { REGISTER_URL, VERIFY_EMAIL_URL,FORGET_PASSWORD_URL } from '../../core/constants/api-endpoints';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -25,5 +25,9 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(REGISTER_URL, this.httpOptions);
+  }
+
+  forgetPassword(email: string): Observable<{message:string}> {
+    return this.http.post<{message:string}>(FORGET_PASSWORD_URL, { email }, this.httpOptions);
   }
 }
