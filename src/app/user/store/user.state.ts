@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { tap } from 'rxjs';
 import { UserService} from '../services/user.service';
-import {  GetUsers, Register, VerifyUserEmail, ForgetPassword} from './user.actions';
+import {  GetUsers, Register, VerifyUserEmail, ForgetPassword, ResetPassword} from './user.actions';
 import { UserResponse} from '../models/user-response';
 import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 import { successStyle } from '../../core/services/status-style-names';
@@ -73,16 +73,25 @@ export class UserState {
     );
   }
 
+  @Action(ForgetPassword)
+  forgetPassword({patchState }: StateContext<UserStateModel>, { email }: ForgetPassword) {
+    this.store.dispatch(new SetProgressOn());
+    return this.userService.forgetPassword(email).pipe(
+      tap(() => {
+        this.oprationStatus.displayStatus('Password reset email sent successfully', successStyle)
+        this.store.dispatch(new SetProgressOff());
+      }),
+    );
+  }
 
-@Action(ForgetPassword)
-forgetPassword({patchState }: StateContext<UserStateModel>, { email }: ForgetPassword) {
-  this.store.dispatch(new SetProgressOn());
-  return this.userService.forgetPassword(email).pipe(
-    tap(() => {
-      this.oprationStatus.displayStatus('Password reset email sent successfully', successStyle)
-      this.store.dispatch(new SetProgressOff());
-    }),
-  );
-}
-
+  @Action(ResetPassword)
+  resetPassword({patchState }: StateContext<UserStateModel>, { request }: ResetPassword) {
+    this.store.dispatch(new SetProgressOn());
+    return this.userService.resetPassword(request).pipe(
+      tap((result:User) => {
+        this.oprationStatus.displayStatus('Password reset successfully', successStyle)
+        this.store.dispatch(new SetProgressOff());
+      }),
+    );
+  }
 }

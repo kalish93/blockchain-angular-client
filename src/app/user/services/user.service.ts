@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { UserRequest, VerifyUserEmailRequest } from '../models/user-request';
+import { UserRequest, VerifyUserEmailRequest, ResetPasswordRequest } from '../models/user-request';
 import { UserResponse } from '../models/user-response';
-import { REGISTER_URL, VERIFY_EMAIL_URL,FORGET_PASSWORD_URL } from '../../core/constants/api-endpoints';
+import { REGISTER_URL, VERIFY_EMAIL_URL, FORGET_PASSWORD_URL, RESET_PASSWORD_URL } from '../../core/constants/api-endpoints';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -29,5 +29,9 @@ export class UserService {
 
   forgetPassword(email: string): Observable<{message:string}> {
     return this.http.post<{message:string}>(FORGET_PASSWORD_URL, { email }, this.httpOptions);
+  }
+
+  resetPassword(request: ResetPasswordRequest): Observable<User> {
+    return this.http.post<User>(RESET_PASSWORD_URL, request, this.httpOptions);
   }
 }

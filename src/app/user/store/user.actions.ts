@@ -1,4 +1,4 @@
-import { UserRequest, VerifyUserEmailRequest } from "../models/user-request";
+import { ResetPasswordRequest, UserRequest, VerifyUserEmailRequest } from "../models/user-request";
 
 export class Register {
   static readonly type = '[User] Register';
@@ -17,5 +17,10 @@ export class GetUsers{
 export class ForgetPassword{
   static readonly type = `[User] ${ForgetPassword.name}`;
   constructor(public email: string) {}
+}
+
+export class ResetPassword {
+  static readonly type = `[User] ${ResetPassword.name}`;
+  constructor(public request: ResetPasswordRequest) {}
 }
 
