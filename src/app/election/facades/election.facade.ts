@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { CreateElection, GetAllElections,VoteForCandidate, GetElectionDetial, GetPersolanizedElections } from '../state/election.action';
+import { CreateElection, GetAllElections,VoteForCandidate, GetElectionDetial, GetPersolanizedElections, GetElectionData } from '../state/election.action';
 import { ElectionSelector } from '../state/election.selector';
 
 @Injectable({
@@ -18,6 +18,9 @@ export class ElectionFacade {
 
   @Select(ElectionSelector.electionDetail)
   electionDetail$!: Observable<any>;
+
+  @Select(ElectionSelector.electionData)
+  electionData$!: Observable<any>;
 
   dispatchCreateElection(election: any) {
     this.store.dispatch(new CreateElection(election));
@@ -37,5 +40,9 @@ export class ElectionFacade {
 
   dispatchGetPersonalizedElections(organizationIds: string[]) {
     this.store.dispatch(new GetPersolanizedElections(organizationIds));
+  }
+
+  dispatchGetElectionData(electionId: string) {
+    this.store.dispatch(new GetElectionData(electionId));
   }
 }

@@ -24,3 +24,8 @@ export class GetPersolanizedElections{
   static readonly type = `[Election] ${GetPersolanizedElections.name}`;
   constructor(public organizationIds: string[]){}
 }
+
+export class GetElectionData {
+  static readonly type = `[Election] ${GetElectionData.name}`;
+  constructor(public electionId: string) {}
+}

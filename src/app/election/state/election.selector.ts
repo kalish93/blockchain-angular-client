@@ -19,4 +19,9 @@ export class ElectionSelector {
     return stateModel.electionDetail;
   }
 
+  @Selector([ElectionState])
+  static electionData(stateModel: ElectionStateModel) {
+    return stateModel.electionData;
+  }
+
 }
