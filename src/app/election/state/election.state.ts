@@ -6,8 +6,10 @@ import {
   VoteForCandidate,
   GetElectionDetial,
   GetPersolanizedElections,
+  GetElectionData,
 } from './election.action';
 import { BlockchainService } from '../services/blockchain.service';
+import { ElectionService } from '../services/election.service';
 import { Election } from '../models/election.model';
 import { AuthState, AuthStateModel } from '../../auth/store/auth.state';
 import { jwtDecode } from 'jwt-decode';
@@ -21,6 +23,7 @@ export interface ElectionStateModel {
   elections: any[];
   electionDetail: any;
   personalizedElections: any[];
+  electionData: any;
 }
 
 const ELECTION_STATE_TOKEN = new StateToken<ElectionStateModel>(
@@ -32,6 +35,7 @@ const defaults: ElectionStateModel = {
   elections: [],
   electionDetail: {},
   personalizedElections: [],
+  electionData: {},
 };
 
 @State<ElectionStateModel>({
@@ -44,7 +48,8 @@ export class ElectionState {
     private blockchainService: BlockchainService,
     private imageUploadService: ImageUploadService,
     private store: Store,
-    private operationStatusService: OperationStatusService
+    private operationStatusService: OperationStatusService,
+    private electionService: ElectionService
   ) {}
 
   @Action(CreateElection)
@@ -60,12 +65,12 @@ export class ElectionState {
           uploadRequests.push(
             this.imageUploadService.uploadImage(image).pipe(
               map((result: any) => ({
-                   name: election.get(`candidates[${i}][name]`) as string,
-                   imgUrl: result.imageUrl,
-                   Description: election.get(
-                     `candidates[${i}][description]`
-                   ) as string,
-                 }))
+                name: election.get(`candidates[${i}][name]`) as string,
+                imgUrl: result.imageUrl,
+                Description: election.get(
+                  `candidates[${i}][description]`
+                ) as string,
+              }))
             )
           );
         }
@@ -79,13 +84,17 @@ export class ElectionState {
       (election.get('organizationId') as string) ?? '',
       election.get(`description`) as string,
       electionData || [],
-      election.get(`endTime`),
+      election.get(`endTime`)
     );
 
-
     const state = getState();
-    patchState({ personalizedElections: [createdElection, ...state.personalizedElections] });
-    this.operationStatusService.displayStatus('Election created successfully', successStyle)
+    patchState({
+      personalizedElections: [createdElection, ...state.personalizedElections],
+    });
+    this.operationStatusService.displayStatus(
+      'Election created successfully',
+      successStyle
+    );
   }
 
   @Action(GetAllElections)
@@ -135,7 +144,7 @@ export class ElectionState {
 
   @Action(VoteForCandidate)
   async voteForCandidate(
-    { setState }: StateContext<ElectionStateModel>,
+    { setState, getState }: StateContext<ElectionStateModel>,
     { votorId, electionId, candidateId }: VoteForCandidate
   ) {
     // setState({ inprogress: true });
@@ -144,8 +153,21 @@ export class ElectionState {
       electionId,
       candidateId
     );
+
+    let state = getState();
+
+    const candidate = state.electionDetail.candidates.find(
+      (candidate: any) => candidate.id === candidateId
+    );
+    const candidateName = candidate ? candidate.name : null;
+    ;
+    this.electionService.recordData(electionId, candidateId, candidateName).pipe(tap((data) => console.log(data)) ).subscribe(    );
+
     this.store.dispatch(new GetElectionDetial(electionId));
-    this.operationStatusService.displayStatus('Vote recorded successfully', successStyle)
+    this.operationStatusService.displayStatus(
+      'Vote recorded successfully',
+      successStyle
+    );
   }
 
   @Action(GetPersolanizedElections)
@@ -158,5 +180,21 @@ export class ElectionState {
       organizationIds
     );
     patchState({ personalizedElections: elections });
+  }
+
+  @Action(GetElectionData)
+  getElectionData(
+    { patchState, getState }: StateContext<ElectionStateModel>,
+    { electionId }: GetElectionData
+  ){
+
+    let state = getState();
+    let election = state.electionDetail;
+    this.electionService
+      .getRecordedData(electionId, election.timeCreated, election.endTime)
+      .subscribe((data) => {
+        console.log('GetElectionData data', data);
+        patchState({ electionData: data });
+      });
   }
 }

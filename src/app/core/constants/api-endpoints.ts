@@ -10,5 +10,6 @@ export const RESET_PASSWORD_URL = `${API_BASE_URL}/user/reset-password`;
 export const GANACHE_URL = 'http://localhost:8545';
 
 export const UPLOAD_IMG_URL = `${API_BASE_URL}/file`;
-
+export const POST_ELECTION_DATA = `${API_BASE_URL}/elections/election-data`;
+export const GET_ELECTION_DATA = `${API_BASE_URL}/elections/election-data`;
 
