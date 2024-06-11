@@ -4,7 +4,7 @@ import { Observable} from 'rxjs';
 import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { AuthFacade } from '../../facades/auth.facade';
-import { ELECTION_HOME, REGISTER_ROUTE } from '../../../core/constants/routes';
+import { ELECTION_HOME, REGISTER_ROUTE, FORGET_PASSWORD_ROUTE } from '../../../core/constants/routes';
 
 interface LoginComponentState {
   isAuthenticated: boolean;
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     email: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
+  forgetPasswordRoute = FORGET_PASSWORD_ROUTE;
 
   isAuthenticated$: Observable<boolean> = this.state.select('isAuthenticated');
 
@@ -82,5 +83,9 @@ export class LoginComponent implements OnInit {
   }
   navigateToRegistration() {
     this.router.navigate([REGISTER_ROUTE]);
+  }
+
+  navigateToForgetPassword() {
+    this.router.navigate([FORGET_PASSWORD_ROUTE]);
   }
 }
