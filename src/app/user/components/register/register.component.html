@@ -70,7 +70,7 @@
             *ngFor="let type of userType | keyvalue"
             [value]="type.value"
           >
-            {{ type.value }}
+            {{ transformEnum(type.value) }}
           </mat-radio-button>
         </mat-radio-group>
       </div>
