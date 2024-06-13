@@ -1,10 +1,11 @@
-export interface Election{
-    electionId?: string;
-    electionName: string;
-    description: string;
-    hasVoted: boolean;
-    candidates: Candidate[];
-    endTime?: any;
+export interface Election {
+  electionId?: string;
+  electionName: string;
+  description: string;
+  hasVoted: boolean;
+  candidates: Candidate[];
+  endTime?: any;
+  timeCreated?: any;
 }
 
 export interface Candidate{

@@ -24,7 +24,6 @@ export class CreateElectionDialogComponent {
   constructor(
     private fb: FormBuilder,
     private electionFacade: ElectionFacade,
-    private dialog: MatDialog,
     private dialogRef: MatDialogRef<CreateElectionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { organizationId: string }
   ) {
@@ -104,12 +103,24 @@ export class CreateElectionDialogComponent {
     const endDate = new Date(this.electionForm.value.endDate);
     const endTime = this.electionForm.value.endTime;
 
+    console.log('Parsed endDate:', endDate);
+    console.log('Parsed endTime:', endTime);
+
+    // Split the time into hours and minutes
     const [hours, minutes] = endTime.split(':').map(Number);
 
+    console.log('Parsed hours:', hours);
+    console.log('Parsed minutes:', minutes);
+
+    // Set the hours and minutes on the endDate object
     endDate.setHours(hours);
     endDate.setMinutes(minutes);
 
+    console.log('Combined endDate:', endDate);
+
+    // Get the Unix timestamp in milliseconds
     const endTimeUnix = endDate.getTime();
+    console.log('Generated endTime Unix timestamp:', endTimeUnix);
     const formData = new FormData();
 
       formData.append('title', this.electionForm.value.title);
