@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlockchainService } from '../../services/blockchain.service';
 import { ConfirmDialogComponent } from '../../../shared/shared-components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RxState } from '@rx-angular/state';
@@ -9,27 +8,52 @@ import { AuthFacade } from '../../../auth/facades/auth.facade';
 import { jwtDecode } from 'jwt-decode';
 import { CandidateDescriptionDialogComponent } from '../candidate-description-dialog/candidate-description-dialog.component';
 import { IMAGE_BASE_URL } from '../../../core/constants/api-endpoints';
+import { format } from 'date-fns';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 
 interface ElectionDetailComponentState {
   electionDetail: any;
+  electionData: any;
   accessToken: string;
 }
 
 @Component({
   selector: 'app-election-detail',
   templateUrl: './election-detail.component.html',
-  styleUrl: './election-detail.component.scss',
+  styleUrls: ['./election-detail.component.scss'],
   providers: [RxState],
 })
-export class ElectionDetailComponent {
+export class ElectionDetailComponent implements OnInit {
   electionId: string | undefined;
   electionDetail: any;
+  electionData$ = this.state.select('electionData');
   electionDetail$ = this.state.select('electionDetail');
+  electionData: any;
   accessToken: string | null = null;
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
   imageBaseUrl = IMAGE_BASE_URL;
   hasEnded: boolean = false;
+  multi: any[] = [];
+
+  // options for ngx-charts
+  view: [number, number] = [700, 400];
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Time';
+  showYAxisLabel = true;
+  yAxisLabel = 'Votes';
+  autoScale = true;
+  colorScheme: Color = {
+    name: 'cool',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+  };
+
   constructor(
     private route: ActivatedRoute,
     private electionFacade: ElectionFacade,
@@ -40,6 +64,7 @@ export class ElectionDetailComponent {
     this.state.set({ electionDetail: {} });
     this.state.connect('electionDetail', this.electionFacade.electionDetail$);
     this.state.connect('accessToken', this.authFacade.accessToken$);
+    this.state.connect('electionData', this.electionFacade.electionData$);
   }
 
   ngOnInit(): void {
@@ -53,6 +78,12 @@ export class ElectionDetailComponent {
     this.electionDetail$.subscribe((electionDetail) => {
       console.log('electionDetail', electionDetail);
       this.electionDetail = electionDetail;
+      this.electionFacade.dispatchGetElectionData(
+        electionDetail.electionId,
+        electionDetail.timeCreated,
+        electionDetail.endTime
+      );
+
       if (this.electionDetail && this.electionDetail.endTime) {
         this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
       }
@@ -62,6 +93,22 @@ export class ElectionDetailComponent {
       this.accessToken = token;
       this.decodedToken = jwtDecode(token);
     });
+
+    this.electionData$.subscribe((electionData) => {
+      console.log('electionData', electionData);
+      this.electionData = electionData;
+      this.processElectionData(electionData);
+    });
+  }
+
+  processElectionData(data: any) {
+    this.multi = data.map((candidate: any) => ({
+      name: candidate.candidateName,
+      series: candidate.series.map((point: any) => ({
+        name: format(new Date(point.name), 'yyyy-MM-dd HH:mm:ss'),
+        value: point.value,
+      })),
+    }));
   }
 
   async voteForCandidate(id: any) {
@@ -77,7 +124,6 @@ export class ElectionDetailComponent {
       if (result === 'confirm') {
         try {
           if (this.electionId) {
-            // this.election = await this.blockchainService.voteForCandidate(this.electionId, id);
             this.electionFacade.dispatchVoteForCandidate(
               this.decodedToken.id,
               this.electionId,
@@ -95,8 +141,8 @@ export class ElectionDetailComponent {
   openDescription(candidate: any): void {
     this.dialog.open(CandidateDescriptionDialogComponent, {
       data: candidate,
-      width: "30%",
-      height: "auto"
+      width: '30%',
+      height: 'auto',
     });
   }
 }

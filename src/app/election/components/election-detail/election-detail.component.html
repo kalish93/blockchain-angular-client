@@ -27,4 +27,24 @@
   <div *ngIf="hasEnded" class="election-closed-warning">
     <p>The election has been closed and you can no longer vote for this election.</p>
   </div>
+  <div>
+  <ngx-charts-line-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="multi"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [autoScale]="autoScale"
+    [yScaleMin]="0"  
+    [yScaleMax]="10"
+    [timeline]="true"
+  >
+  </ngx-charts-line-chart>
+</div>
 </div>

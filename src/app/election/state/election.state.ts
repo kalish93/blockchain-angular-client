@@ -135,6 +135,7 @@ export class ElectionState {
       description: comingElection.description,
       candidates: comingElection.candidates,
       endTime: comingElection.endTime,
+      timeCreated: comingElection.timeCreated,
     };
     console.log('GetElectionDetial election', election);
     console.log('GetElectionDetial electionName', election.electionName);
@@ -160,8 +161,10 @@ export class ElectionState {
       (candidate: any) => candidate.id === candidateId
     );
     const candidateName = candidate ? candidate.name : null;
-    ;
-    this.electionService.recordData(electionId, candidateId, candidateName).pipe(tap((data) => console.log(data)) ).subscribe(    );
+    this.electionService
+      .recordData(electionId, candidateId, candidateName)
+      .pipe(tap((data) => console.log(data)))
+      .subscribe();
 
     this.store.dispatch(new GetElectionDetial(electionId));
     this.operationStatusService.displayStatus(
@@ -184,16 +187,12 @@ export class ElectionState {
 
   @Action(GetElectionData)
   getElectionData(
-    { patchState, getState }: StateContext<ElectionStateModel>,
-    { electionId }: GetElectionData
-  ){
-
-    let state = getState();
-    let election = state.electionDetail;
+    { patchState }: StateContext<ElectionStateModel>,
+    { electionId, createdTime, endedTime }: GetElectionData
+  ) {
     this.electionService
-      .getRecordedData(electionId, election.timeCreated, election.endTime)
+      .getRecordedData(electionId, createdTime, endedTime)
       .subscribe((data) => {
-        console.log('GetElectionData data', data);
         patchState({ electionData: data });
       });
   }

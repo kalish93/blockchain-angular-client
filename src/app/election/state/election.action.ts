@@ -27,5 +27,5 @@ export class GetPersolanizedElections{
 
 export class GetElectionData {
   static readonly type = `[Election] ${GetElectionData.name}`;
-  constructor(public electionId: string) {}
+  constructor(public electionId: string,public createdTime: any,public endedTime: any) {}
 }

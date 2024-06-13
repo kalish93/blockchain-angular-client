@@ -30,7 +30,11 @@ export class ElectionFacade {
     this.store.dispatch(new GetAllElections());
   }
 
-  dispatchVoteForCandidate(votorId: string, electionId: string, candidateId: string) {
+  dispatchVoteForCandidate(
+    votorId: string,
+    electionId: string,
+    candidateId: string
+  ) {
     this.store.dispatch(new VoteForCandidate(votorId, electionId, candidateId));
   }
 
@@ -42,7 +46,12 @@ export class ElectionFacade {
     this.store.dispatch(new GetPersolanizedElections(organizationIds));
   }
 
-  dispatchGetElectionData(electionId: string) {
-    this.store.dispatch(new GetElectionData(electionId));
+  dispatchGetElectionData(
+    electionId: string,
+    createdTime: any,
+    endedTime: any
+  ) {
+    console.log('electioncalled');
+    this.store.dispatch(new GetElectionData(electionId, createdTime, endedTime));
   }
 }
