@@ -44,44 +44,37 @@ export class ErrorInterceptor implements HttpInterceptor {
               errorStyle,
             );
           } else if (error.status == 401 || error.status == 403) {
-            // dispatch logout action
             this.operationStatusService.displayStatus(
-              error.error.title,
+              error.error.error,
               errorStyle,
-              0,
             );
           } else if (error.status == 400) {
-            // handling "One or more validation errors" error,
             if (error.error.errors) {
               for (var key in error.error.errors) {
                 this.operationStatusService.displayStatus(
                   error.error.errors[key][0],
                   errorStyle,
-                  0,
                 );
                 break;
               }
             } else {
               this.operationStatusService.displayStatus(
-                error.error.title,
+                error.error.error,
                 errorStyle,
-                0,
               );
             }
           } else {
             this.operationStatusService.displayStatus(
-              error.error.title,
+              error.error.error,
               errorStyle,
-              0,
             );
           }
           return of();
         }
         return throwError(() => {
           this.operationStatusService.displayStatus(
-            error.error.title,
+            error.error.error,
             errorStyle,
-            0,
           );
         });
       }),
