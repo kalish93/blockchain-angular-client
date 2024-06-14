@@ -35,9 +35,11 @@ export class ElectionDetailComponent implements OnInit {
   imageBaseUrl = IMAGE_BASE_URL;
   hasEnded: boolean = false;
   multi: any[] = [];
+  pieData: any[] = [];
 
   // options for ngx-charts
   view: [number, number] = [700, 400];
+  viewPie: [number, number] = [400, 400];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -51,7 +53,7 @@ export class ElectionDetailComponent implements OnInit {
     name: 'cool',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
+    domain: ['#7C8CC7', '#f1b872', '#C7B42C', '#AAAAAA'],
   };
 
   constructor(
@@ -87,6 +89,8 @@ export class ElectionDetailComponent implements OnInit {
       if (this.electionDetail && this.electionDetail.endTime) {
         this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
       }
+
+      this.processPieData();
     });
 
     this.accessToken$.subscribe((token) => {
@@ -109,6 +113,15 @@ export class ElectionDetailComponent implements OnInit {
         value: point.value,
       })),
     }));
+  }
+
+  processPieData() {
+    if (this.electionDetail && this.electionDetail.candidates) {
+      this.pieData = this.electionDetail.candidates.map((candidate: any) => ({
+        name: candidate.name,
+        value: Number(candidate.VoteCount),
+      }));
+    }
   }
 
   async voteForCandidate(id: any) {
