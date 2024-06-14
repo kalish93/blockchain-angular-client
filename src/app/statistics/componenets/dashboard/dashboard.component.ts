@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     name: 'vivid',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#7C8CC7', '#f1b872', '#C7B42C', '#AAAAAA']
   };
 
   barChartData: any[] = [];
