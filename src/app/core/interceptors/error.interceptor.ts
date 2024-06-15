@@ -43,16 +43,18 @@ export class ErrorInterceptor implements HttpInterceptor {
               `Something went wrong, ${error.error.title}`,
               errorStyle,
             );
+          }else if(error.status == 500){
+            console.log(error.error.error);
           } else if (error.status == 401 || error.status == 403) {
             // dispatch logout action
             this.operationStatusService.displayStatus(
-              error.error.title,
+              error.error.error,
               errorStyle,
               0,
             );
           } else if (error.status == 400) {
             // handling "One or more validation errors" error,
-            if (error.error.errors) {
+            if (error.error) {
               for (var key in error.error.errors) {
                 this.operationStatusService.displayStatus(
                   error.error.errors[key][0],
@@ -63,14 +65,14 @@ export class ErrorInterceptor implements HttpInterceptor {
               }
             } else {
               this.operationStatusService.displayStatus(
-                error.error.title,
+                error.error.error,
                 errorStyle,
                 0,
               );
             }
           } else {
             this.operationStatusService.displayStatus(
-              error.error.title,
+              error.error.error,
               errorStyle,
               0,
             );
@@ -79,7 +81,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
         return throwError(() => {
           this.operationStatusService.displayStatus(
-            error.error.title,
+            error.error.error,
             errorStyle,
             0,
           );

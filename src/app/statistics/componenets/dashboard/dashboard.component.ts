@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit {
         this.updateChartData();
       }
     );
-    console.log("general statics", this.generalStatistics?.noOfElections);
   }
 
   get publicElectionsPercentage(): number {

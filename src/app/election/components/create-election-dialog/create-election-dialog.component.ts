@@ -73,7 +73,6 @@ export class CreateElectionDialogComponent {
 
   createCandidate() {
     this.isVisible = true;
-    console.log('fff', this.electionForm.value);
   }
   removeCandidate(index: number): void {
     const candidateName = this.candidates.at(index).get('name')?.value;
@@ -103,24 +102,15 @@ export class CreateElectionDialogComponent {
     const endDate = new Date(this.electionForm.value.endDate);
     const endTime = this.electionForm.value.endTime;
 
-    console.log('Parsed endDate:', endDate);
-    console.log('Parsed endTime:', endTime);
-
     // Split the time into hours and minutes
     const [hours, minutes] = endTime.split(':').map(Number);
-
-    console.log('Parsed hours:', hours);
-    console.log('Parsed minutes:', minutes);
 
     // Set the hours and minutes on the endDate object
     endDate.setHours(hours);
     endDate.setMinutes(minutes);
 
-    console.log('Combined endDate:', endDate);
-
     // Get the Unix timestamp in milliseconds
     const endTimeUnix = endDate.getTime();
-    console.log('Generated endTime Unix timestamp:', endTimeUnix);
     const formData = new FormData();
 
       formData.append('title', this.electionForm.value.title);
@@ -137,7 +127,6 @@ export class CreateElectionDialogComponent {
           });
 
           const file = this.selectedFiles.get(candidate.name);
-          console.log(candidate.name, 'file', file);
           if (file) {
             formData.append(`candidates[${index}][image]`, file, file.name);
           }
@@ -145,13 +134,10 @@ export class CreateElectionDialogComponent {
       );
 
       formData.forEach((value, key) => {
-        console.log(`${key}:`, value);
       });
 
       this.electionFacade.dispatchCreateElection(formData);
       this.dialogRef.close();
-    } else {
-      console.error('Form is not valid');
     }
   }
 }
