@@ -13,3 +13,10 @@ export interface Candidate{
     imgUrl: string;
     description: string;
 }
+
+export enum ElectionCategory{
+  GOVERNMENT,
+  ENTERTAINMENT,
+  SPORT,
+  OTHERS
+}

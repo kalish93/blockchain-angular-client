@@ -1,10 +1,10 @@
 <div class="main">
   <h1>Dashboard</h1>
   <div *ngIf="generalStatistics" class="statistics-container">
-    <mat-card class="stat-card">
+    <!-- <mat-card class="stat-card">
       <mat-card-title>General Statistics</mat-card-title>
       <mat-card-content>
-        <p>Number of Elections: {{ generalStatistics.noOfElections }}</p>
+        <p class="vote-count">Number of Elections: {{ generalStatistics.noOfElections }}</p>
 
         <div class="election-types">
           <p class="public">
@@ -17,12 +17,36 @@
           [value]="publicElectionsPercentage"
         ></mat-progress-bar>
       </mat-card-content>
+    </mat-card> -->
+    <mat-card class="vote-card">
+      <mat-card-title>Number of Elections</mat-card-title>
+      <mat-card-content class="vote-count">
+        <p class="vote-count">{{ generalStatistics.noOfElections }}</p>
+      </mat-card-content>
     </mat-card>
     <mat-card class="vote-card">
       <mat-card-title>Total Vote Count</mat-card-title>
       <mat-card-content class="vote-count">
         <p class="vote-count">{{ generalStatistics.totalVoteCount }}</p>
-        <!-- 0 -->
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-title>Elections Overview</mat-card-title>
+      <mat-card-content>
+        <ngx-charts-bar-horizontal
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="barChartData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-horizontal>
       </mat-card-content>
     </mat-card>
   </div>

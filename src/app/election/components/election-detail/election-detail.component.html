@@ -6,7 +6,7 @@
     <h2 class="candidates-header">Candidates</h2>
     <div class="candidates-container">
       <mat-card *ngFor="let candidate of electionDetail.candidates" class="candidate-card">
-        <img class="candidate-image" src="{{imageBaseUrl}}/{{ candidate.imgUrl }}" alt="Candidate Image" />
+        <img class="candidate-image" [src]="imageBaseUrl + '/' + candidate.imgUrl" alt="Candidate Image" />
         <div class="candidate-details">
           <div class="card-header">
             <h4>{{ candidate.name }}</h4>
@@ -27,24 +27,38 @@
   <div *ngIf="hasEnded" class="election-closed-warning">
     <p>The election has been closed and you can no longer vote for this election.</p>
   </div>
-  <div>
-  <ngx-charts-line-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="multi"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [autoScale]="autoScale"
-    [yScaleMin]="0"  
-    [yScaleMax]="10"
-    [timeline]="true"
-  >
-  </ngx-charts-line-chart>
-</div>
+  <div *ngIf="electionDetail.hasVoted">
+    <h2 class="chart-title">Vote Counts Over Time</h2>
+    <div class="charts">
+      <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="multi"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      [yScaleMin]="0"
+      [yScaleMax]="10"
+      [timeline]="true"
+    >
+    </ngx-charts-line-chart>
+
+    <ngx-charts-pie-chart
+      [view]="viewPie"
+      [scheme]="colorScheme"
+      [results]="pieData"
+      [gradient]="gradient"
+      [legend]="showLegend"
+      [labels]="true"
+      [doughnut]="false"
+    >
+    </ngx-charts-pie-chart>
+    </div>
+  </div>
 </div>

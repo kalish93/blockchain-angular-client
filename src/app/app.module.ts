@@ -19,6 +19,7 @@ import { ElectionModule } from './election/election.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { OrganizationModule } from './organization/organization.module';
 import { StatisticsModule } from './statistics/statistics.module';
+import { ProgressStatusComponent } from './shared/shared-components/progress-status/progress-status.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { StatisticsModule } from './statistics/statistics.module';
     AppRoutingModule,
     ElectionModule,
     OrganizationModule,
-    StatisticsModule
+    StatisticsModule,
+    ProgressStatusComponent
   ],
 })
 export class AppModule {}

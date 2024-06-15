@@ -137,3 +137,114 @@ mat-list-item {
   color: #7C8CC7;
   border: 1px solid #7C8CC7;
 }
+
+.elections-container{
+  max-width: 80vw;
+  margin: auto;
+}
+
+.election-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.election-card {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.candidate-container {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.candidate-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.candidate-details {
+  flex: 1;
+}
+
+mat-card-header{
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+
+.vote-btn
+{
+  background-color: #7C8CC7;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.candidate-card{
+  box-shadow: none;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+}
+
+
+.title-container{
+  align-self: self-start;
+}
+
+mat-card{
+  max-width: 300px;
+  max-height: 350px;
+  min-width: 300px;
+  min-height: 300px;
+  display: flex;
+  gap: 1rem;
+
+  mat-card-content{
+    flex-grow: 1;
+    text-align: justify;
+    margin: 1rem auto 1rem auto;
+  }
+
+  .mat-card-actions{
+    // display: block;
+    width: 100%;
+    button{
+      width: 90%;
+    }
+  }
+}
+
+.no-elections{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rem;
+  justify-content: center;
+}
+
+.no-election-img{
+  width: 20%;
+}
+
+.create-election-button{
+  background-color: #7C8CC7;
+}
+
+.elections-list-header{
+  text-align: center;
+
+}

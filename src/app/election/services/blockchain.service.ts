@@ -33,15 +33,11 @@ export class BlockchainService {
   }
   public async createElection (electionName: string, organizationId: string, description:string, candidates: any[], endTime: any){
     await this.getAccounts();
-    console.log("accounts", this.accounts);
     try{
       //if(this.checkWalletConnection()){
 
-      console.log(electionName, organizationId, description, candidates, endTime,'ffffffffffffffffffffffffffffffff')
-
         const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates, endTime)
                                                       .estimateGas({ from: this.accounts[0]})
-                                                      console.log("gasEstimate", gasEstimate)
       let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).send({
         from: this.accounts[0],
         gas: gasEstimate
@@ -51,13 +47,11 @@ export class BlockchainService {
         from: this.accounts[0],
         gas: gasEstimate
       });
-      console.log("transaction",  transaction);
       return transaction;
     // }else{
     //   throw "Please connect your wallet";
     // }
     } catch (e){
-      console.log('Error in creating election', e)
     }
   }
 
@@ -74,14 +68,12 @@ export class BlockchainService {
             gas: gasEstimate
           });
 
-        console.log('Transaction details:', transaction);
 
         return true;
       // } else {
       //   throw 'Please connect your wallet';
       // }
     } catch (error) {
-      console.error('Error in voting for candidate', error);
       return false;
     }
   }
@@ -90,7 +82,6 @@ export class BlockchainService {
   public async getAllElections(){
     const account = this.accounts[0];
     let elections =  await this.contract.methods.showExistingElections().call();
-    console.log("getAllElections elections", elections);
     return elections;
 
   }
@@ -98,14 +89,17 @@ export class BlockchainService {
   public async getPersonalizedElections(organizationIds: string[]){
     const account = this.accounts[0];
     let elections =  await this.contract.methods.personalizeElections(organizationIds).call();
-    console.log("getAllElections elections", elections);
     return elections;
 
   }
 
   public async getSingleElection(electionId: string, userId: string) {
         let election = await this.contract.methods.showSingleElection(userId, electionId).call();
-        console.log("getSingleElection election", election);
         return election;
+  }
+
+  public async getOrganizationElections(organizationId: string) {
+    let elections = await this.contract.methods.fetchByOrganizationId(organizationId).call();
+    return elections;
   }
 }

@@ -1,3 +1,6 @@
+<div class="progress-status">
+  <app-progress-status></app-progress-status>
+</div>
 <mat-toolbar *ngIf="isAuthenticated$ | async">
   <div class="ballot-box-container" (click)="goHome()">
     <div class="circle">
@@ -19,9 +22,9 @@
   <div class="nav">
     <!-- <a mat-button routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a> -->
     <a mat-button routerLink="/election/home" routerLinkActive="active">Elections</a>
-    <a mat-button routerLink="/organizations" routerLinkActive="active">Organizations</a>
-    <a mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a mat-button routerLink="/users" routerLinkActive="active">Users</a>
+    <a *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]" mat-button routerLink="/organizations" routerLinkActive="active">Organizations</a>
+    <a *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]" mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a *appHasRole="[hasAdminRole()]" mat-button routerLink="/users" routerLinkActive="active">Users</a>
     <button mat-icon-button (click)="logout()">
       <mat-icon>logout</mat-icon>
     </button>

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { LOGIN_ROUTE } from '../core/constants/routes';
 import { AuthFacade } from '../auth/facades/auth.facade';
 import { UserRole } from '../core/constants/user-types';
+import { Roles } from '../core/constants/roles';
 
 interface HomeComponentState {
   isAuthenticated: boolean;
@@ -59,5 +60,13 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authFacade.dispatchLogout();
+  }
+
+  hasAdminRole(){
+    return Roles.ADMIN
+  }
+
+  hasElectionCreatorRole(){
+    return Roles.ELECTION_CREATOR
   }
 }

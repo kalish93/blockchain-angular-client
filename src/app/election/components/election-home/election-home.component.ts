@@ -16,7 +16,7 @@ export class ElectionHomeComponent {
   ) {}
 
 
-  
+
   openDialog(): void {
     const dialogRef = this.dialog.open(
       CreateElectionDialogComponent,
@@ -24,7 +24,6 @@ export class ElectionHomeComponent {
     );
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       // ... handle result if dialog returns value
     });
   }
