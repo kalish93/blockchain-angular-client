@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Member, Organization, OrganizationWithMembers,  } from '../models/organization.model';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail, CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers, DownloadTemplateCsv, DownloadTemplateXlsx } from '../state/organization.action';
+import { CreateOrganization, GetOrganizations, GetOrganizationDetail, CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers, DownloadTemplateCsv, DownloadTemplateXlsx, ToggleOrginazationStatus } from '../state/organization.action';
 import { OrganizationSelector } from '../state/organization.selector';
 
 @Injectable({
@@ -59,5 +59,9 @@ export class OrganizationFacade {
 
   dispatchDownloadTemplateXlsx() {
     this.store.dispatch(new DownloadTemplateXlsx());
+  }
+
+  dispatchToggleOrginazationStatus(organizationId: string) {
+    this.store.dispatch(new ToggleOrginazationStatus(organizationId));
   }
 }

@@ -94,4 +94,9 @@ export class OrganizationListComponent implements OnInit {
   hasAdminRole(){
     return Roles.ADMIN
   }
+
+  toggleActivation(event:Event, organization: Organization){
+    event.stopPropagation();
+    this.organizationFacade.dispatchToggleOrginazationStatus(organization.id!);
+  }
 }
