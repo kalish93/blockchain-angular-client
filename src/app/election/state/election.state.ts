@@ -18,7 +18,10 @@ import { ImageUploadService } from '../services/image-upload.service';
 import { forkJoin, map, tap } from 'rxjs';
 import { OperationStatusService } from '../../core/services/operation-status.service';
 import { successStyle } from '../../core/services/status-style-names';
-import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
+import {
+  SetProgressOff,
+  SetProgressOn,
+} from '../../core/store/progress-status.actions';
 
 export interface ElectionStateModel {
   // inprogress: boolean;
@@ -39,7 +42,7 @@ const defaults: ElectionStateModel = {
   electionDetail: {},
   personalizedElections: [],
   electionData: {},
-  organizationElections: []
+  organizationElections: [],
 };
 
 @State<ElectionStateModel>({
@@ -63,6 +66,17 @@ export class ElectionState {
   ) {
     this.store.dispatch(new SetProgressOn());
     const uploadRequests = [];
+    let electionImageUrl: string | null = null;
+    if (election.has('electionImage')) {
+      const image = election.get('electionImage') as File;
+      if (image) {
+        const result = await this.imageUploadService
+          .uploadImage(image)
+          .toPromise();
+        electionImageUrl = result.imageUrl;
+      }
+    }
+
     for (let i = 0; election.has(`candidates[${i}][name]`); i++) {
       if (election.has(`candidates[${i}][image]`)) {
         const image = election.get(`candidates[${i}][image]`) as File;
@@ -91,6 +105,7 @@ export class ElectionState {
       electionData || [],
       election.get(`endTime`),
       election.get(`category`),
+      electionImageUrl as string,
     );
 
     const state = getState();
@@ -199,24 +214,26 @@ export class ElectionState {
     { electionId, createdTime, endedTime }: GetElectionData
   ) {
     this.store.dispatch(new SetProgressOn());
-   return this.electionService
-      .getRecordedData(electionId, createdTime, endedTime).pipe(
-        tap((data: any)=>{
+    return this.electionService
+      .getRecordedData(electionId, createdTime, endedTime)
+      .pipe(
+        tap((data: any) => {
           patchState({ electionData: data });
 
           this.store.dispatch(new SetProgressOff());
         })
-
-      )
-
+      );
   }
 
   @Action(GetOrganizationElections)
-  async getOrganizationElections({ patchState }: StateContext<ElectionStateModel>,
-  { organizationId }: GetOrganizationElections
+  async getOrganizationElections(
+    { patchState }: StateContext<ElectionStateModel>,
+    { organizationId }: GetOrganizationElections
   ) {
     this.store.dispatch(new SetProgressOn());
-    const elections = await this.blockchainService.getOrganizationElections(organizationId);
+    const elections = await this.blockchainService.getOrganizationElections(
+      organizationId
+    );
     patchState({ organizationElections: elections });
     // this.store.dispatch(new SetProgressOn());
   }

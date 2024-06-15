@@ -8,10 +8,9 @@
   .full-width {
     width: 100%;
   }
-  
+
   .form-container {
-    max-height: 100vh;
-    height: 100vh;
+    width: 400px;
     padding-top: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -23,17 +22,17 @@
   .bg-warning {
     background-color: #ffe082 !important;
   }
-  
+
   .m-3 {
     margin: 0.5rem !important;
     margin-top: 0 !important;
   }
-  
+
   .grid {
     display: grid;
     grid-template-columns: 20% 1fr 9%;
   }
-  
+
   .warning-icon {
     grid-column-start: 1;
     align-self: center;
@@ -52,11 +51,11 @@
     align-items: start;
     justify-self: center;
   }
-  
+
   .sm-7 {
     transform: scale(0.8);
   }
-  
+
   .action-btn {
     display: flex;
     gap: 1rem;

@@ -83,10 +83,11 @@ export class CategorizedElectionsComponent implements OnInit {
     const filterValue = inputElement.value;
 
     if (!filterValue) {
+      this.electionFacade.dispatchGetPersonalizedElections(this.organizationIds);
       this.filterByCategory(this.category);
     } else {
       const trimmedFilterValue = filterValue.trim().toLowerCase();
-      this.elections = this.personalizedElections.filter((election) =>
+      this.elections = this.elections.filter((election) =>
         election.electionName.toLowerCase().includes(trimmedFilterValue)
       );
     }
@@ -94,9 +95,9 @@ export class CategorizedElectionsComponent implements OnInit {
 
   filterByCategory(category: string) {
     if (category) {
-      this.elections = this.personalizedElections.filter(election => election.category.toLowerCase() === category.toLowerCase());
+      this.elections = this.elections.filter(election => election.category.toLowerCase() === category.toLowerCase());
     } else {
-      this.elections = [...this.personalizedElections];
+      this.elections = [...this.elections];
     }
   }
 

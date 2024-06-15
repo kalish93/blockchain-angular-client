@@ -23,7 +23,7 @@
     <!-- <a mat-button routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a> -->
     <a mat-button routerLink="/election/home" routerLinkActive="active">Elections</a>
     <a *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]" mat-button routerLink="/organizations" routerLinkActive="active">Organizations</a>
-    <a *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]" mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a *appHasRole="[hasAdminRole()]" mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
     <a *appHasRole="[hasAdminRole()]" mat-button routerLink="/users" routerLinkActive="active">Users</a>
     <button mat-icon-button (click)="logout()">
       <mat-icon>logout</mat-icon>

@@ -17,6 +17,8 @@ export class CreateElectionDialogComponent {
   isVisible = false;
   electionForm: FormGroup;
   selectedFiles: Map<string, File> = new Map();
+  electionImage: File | null = null;
+  electionImageUrl: string | null = null;
   candidateForm = this.fb.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
@@ -73,7 +75,6 @@ export class CreateElectionDialogComponent {
     this.isVisible = false;
   }
 
-
   createCandidate() {
     this.isVisible = true;
   }
@@ -99,24 +100,37 @@ export class CreateElectionDialogComponent {
     }
   }
 
+  onUpload(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+
+    if (fileList && fileList.length > 0) {
+      this.electionImage = fileList[0]; // Save election image to a separate variable
+      this.electionImageUrl = URL.createObjectURL(this.electionImage); // Create a URL for the image
+    } else {
+      this.electionImage = null;
+      this.electionImageUrl = null;
+    }
+  }
+
   submitElection(): void {
     if (this.electionForm.valid) {
+      const endDate = new Date(this.electionForm.value.endDate);
+      const endTime = this.electionForm.value.endTime;
 
-    const endDate = new Date(this.electionForm.value.endDate);
-    const endTime = this.electionForm.value.endTime;
+      // Split the time into hours and minutes
+      const [hours, minutes] = endTime.split(':').map(Number);
 
-    // Split the time into hours and minutes
-    const [hours, minutes] = endTime.split(':').map(Number);
+      // Set the hours and minutes on the endDate object
+      endDate.setHours(hours);
+      endDate.setMinutes(minutes);
 
-    // Set the hours and minutes on the endDate object
-    endDate.setHours(hours);
-    endDate.setMinutes(minutes);
-
-    // Get the Unix timestamp in milliseconds
-    const endTimeUnix = endDate.getTime();
-    const formData = new FormData();
+      // Get the Unix timestamp in milliseconds
+      const endTimeUnix = endDate.getTime();
+      const formData = new FormData();
 
       formData.append('title', this.electionForm.value.title);
+      formData.append('electionImage', this.electionImage as File);
       formData.append('description', this.electionForm.value.description);
       formData.append('endTime', endTimeUnix.toString());
       formData.append('organizationId', this.electionForm.value.organizationId);
@@ -137,8 +151,7 @@ export class CreateElectionDialogComponent {
         }
       );
 
-      formData.forEach((value, key) => {
-      });
+      formData.forEach((value, key) => {});
 
       this.electionFacade.dispatchCreateElection(formData);
       this.dialogRef.close();
