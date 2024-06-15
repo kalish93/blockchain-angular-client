@@ -76,7 +76,7 @@ mat-card-header{
 
 mat-card{
   max-width: 300px;
-  max-height: 350px;
+  max-height: 440px; 
   min-width: 300px;
   min-height: 300px;
   display: flex;
@@ -112,4 +112,25 @@ mat-card{
 
 .create-election-button{
   background-color: #7C8CC7;
+}
+
+.election-image {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #f0f0f0;
+}
+
+.mat-mdc-card-header{
+  margin: 0;
+  padding: 0;
+  width: min-content;
+  margin-left: 1rem;
+}
+
+.mat-mdc-card-title, .election-name{
+  margin: 0;
+  padding: 0;
 }

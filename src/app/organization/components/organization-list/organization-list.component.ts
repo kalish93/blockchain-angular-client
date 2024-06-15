@@ -96,6 +96,7 @@ export class OrganizationListComponent implements OnInit {
   }
 
   toggleActivation(event:Event, organization: Organization){
+    if(this.decodedToken.role != "ADMIN") return
     event.stopPropagation();
     this.organizationFacade.dispatchToggleOrginazationStatus(organization.id!);
   }

@@ -130,6 +130,7 @@ export class CreateElectionDialogComponent {
       const formData = new FormData();
 
       formData.append('title', this.electionForm.value.title);
+      formData.append('electionImage', this.electionImage as File);
       formData.append('description', this.electionForm.value.description);
       formData.append('endTime', endTimeUnix.toString());
       formData.append('organizationId', this.electionForm.value.organizationId);

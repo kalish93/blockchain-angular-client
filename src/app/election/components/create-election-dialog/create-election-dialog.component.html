@@ -7,6 +7,7 @@
         alt="Selected Election Image"
         class="election-image"
       />
+      <p class="image-upload-success">Image uploaded successfully!</p>
     </div>
     <label class="file-upload-container">
       <input type="file" (change)="onUpload($event)" style="display: none" />
@@ -106,58 +107,30 @@
         <label class="file-upload-container">
           <input
             type="file"
-            (change)="
-              onFileSelected(
-                $event,
-                candidateForm.get('name')?.value || 'defaultName'
-              )
-            "
+            (change)="onFileSelected($event, candidateForm.get('name')?.value || 'defaultName')"
             [disabled]="!candidateForm.get('name')?.value"
             style="display: none"
           />
           <span
             [class.disabled]="!candidateForm.get('name')?.value"
             class="file-upload-btn"
-            >Select Image</span
           >
+            Select Image
+          </span>
           <span class="file-upload-text">No Image selected</span>
         </label>
         <div class="candidate-action-btns">
           <button mat-button (click)="isVisible = false">Close</button>
-          <button
-            mat-raised-button
-            color="secondary"
-            type="button"
-            (click)="addCandidate()"
-          >
-            Add Candidate
-          </button>
+          <button mat-raised-button color="secondary" type="button" (click)="addCandidate()">Add Candidate</button>
         </div>
       </div>
     </div>
     <div class="candidate-actn-btn">
-      <button
-        *ngIf="!isVisible"
-        mat-raised-button
-        color="secondary"
-        type="button"
-        (click)="createCandidate()"
-      >
-        Create Candidate
-      </button>
+      <button *ngIf="!isVisible" mat-raised-button color="secondary" type="button" (click)="createCandidate()">Create Candidate</button>
     </div>
     <div mat-dialog-actions class="action-btn">
-      <button
-        mat-flat-button
-        class="submit-btn"
-        color="primary"
-        (click)="submitElection()"
-      >
-        Submit Election
-      </button>
-      <button class="cancel-btn" mat-flat-button mat-dialog-close>
-        Cancel
-      </button>
+      <button mat-flat-button class="submit-btn" color="primary" (click)="submitElection()">Submit Election</button>
+      <button class="cancel-btn" mat-flat-button mat-dialog-close>Cancel</button>
     </div>
   </form>
 </div>
