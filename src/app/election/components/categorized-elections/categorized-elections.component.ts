@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { jwtDecode } from 'jwt-decode';
 import { ElectionCategory } from '../../models/election.model';
+import { IMAGE_BASE_URL } from '../../../core/constants/api-endpoints';
 
 interface ElectionsListComponentState {
   elections: any[];
@@ -35,6 +36,7 @@ export class CategorizedElectionsComponent implements OnInit {
   accessToken$ = this.state.select('accessToken');
   decodedToken: any;
   organizationIds: any[] = [];
+  imageBaseUrl = IMAGE_BASE_URL;
   category: string = '';
   title: string = '';
   constructor(
@@ -42,16 +44,19 @@ export class CategorizedElectionsComponent implements OnInit {
     private authFacade: AuthFacade,
     private router: Router,
     private route: ActivatedRoute,
-    private state: RxState<ElectionsListComponentState>,
+    private state: RxState<ElectionsListComponentState>
   ) {
     this.state.set(initialElectionsListComponentState);
     this.state.connect('elections', this.electionFacade.elections$);
-    this.state.connect('personalizedElections', this.electionFacade.personalizedElections$);
+    this.state.connect(
+      'personalizedElections',
+      this.electionFacade.personalizedElections$
+    );
     this.state.connect('accessToken', this.authFacade.accessToken$);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.category = params['category'];
       this.filterByCategory(this.category);
       this.extractTitle(this.category);
@@ -59,7 +64,9 @@ export class CategorizedElectionsComponent implements OnInit {
 
     this.accessToken$.subscribe((token) => {
       this.decodedToken = jwtDecode(token);
-      this.electionFacade.dispatchGetPersonalizedElections(this.decodedToken.organizations);
+      this.electionFacade.dispatchGetPersonalizedElections(
+        this.decodedToken.organizations
+      );
       this.personalizedElections$.subscribe((elections) => {
         this.elections = elections;
         this.filterByCategory(this.category);
@@ -75,7 +82,7 @@ export class CategorizedElectionsComponent implements OnInit {
     return value
       .toLowerCase()
       .replace(/_/g, ' ')
-      .replace(/\b\w/g, char => char.toUpperCase());
+      .replace(/\b\w/g, (char) => char.toUpperCase());
   }
 
   applyFilter(event: Event): void {
@@ -83,7 +90,9 @@ export class CategorizedElectionsComponent implements OnInit {
     const filterValue = inputElement.value;
 
     if (!filterValue) {
-      this.electionFacade.dispatchGetPersonalizedElections(this.organizationIds);
+      this.electionFacade.dispatchGetPersonalizedElections(
+        this.organizationIds
+      );
       this.filterByCategory(this.category);
     } else {
       const trimmedFilterValue = filterValue.trim().toLowerCase();
@@ -95,21 +104,23 @@ export class CategorizedElectionsComponent implements OnInit {
 
   filterByCategory(category: string) {
     if (category) {
-      this.elections = this.elections.filter(election => election.category.toLowerCase() === category.toLowerCase());
+      this.elections = this.elections.filter(
+        (election) => election.category.toLowerCase() === category.toLowerCase()
+      );
     } else {
       this.elections = [...this.elections];
     }
   }
 
-  extractTitle(category: any){
-    if(category === ElectionCategory.ENTERTAINMENT_AWARD){
+  extractTitle(category: any) {
+    if (category === ElectionCategory.ENTERTAINMENT_AWARD) {
       this.title = 'Entertainment Awards';
-    }else if(category === ElectionCategory.GOVERNMENT_ELECTION){
-      this.title = 'Government Elections'
-    }else if(category === ElectionCategory.SPORT_AWARD){
-      this.title = 'Sport Awards'
-    }else{
-      this.title = 'Others'
+    } else if (category === ElectionCategory.GOVERNMENT_ELECTION) {
+      this.title = 'Government Elections';
+    } else if (category === ElectionCategory.SPORT_AWARD) {
+      this.title = 'Sport Awards';
+    } else {
+      this.title = 'Others';
     }
   }
 }
