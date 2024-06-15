@@ -127,14 +127,30 @@ form{
 }
 
 .file-upload-btn {
-    background-color: #f1b872;
-    color: white;
+    background-color: white;
+    color: #7C8CC7;
     padding: 10px 20px;
     margin-right: 10px;
-    border: none;
+    border: 2px solid #7C8CC7;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
+}
+
+.file-upload-btn:hover {
+    background-color: #9ba6cf;
+    color: white;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 2px solid #7C8CC7;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.file-upload-btn.disabled{
+    border: none;
+    color: rgb(50, 50, 50);
 }
 
 .file-upload-text {
@@ -171,4 +187,11 @@ form{
 .submit-btn{
   background-color: #7C8CC7;
   color: white;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
 }
