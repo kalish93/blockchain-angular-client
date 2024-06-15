@@ -40,3 +40,8 @@ export class DownloadTemplateXlsx{
   static readonly type = `[Organization] ${DownloadTemplateXlsx.name}`;
   constructor(){}
 }
+
+export class ToggleOrginazationStatus{
+  static readonly type = `[Organization] ${ToggleOrginazationStatus.name}`;
+  constructor(public organizationId: string){}
+}
