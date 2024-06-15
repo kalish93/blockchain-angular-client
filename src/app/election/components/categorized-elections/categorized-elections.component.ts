@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ElectionFacade } from '../../facades/election.facade';
-import { RxState } from '@rx-angular/state';
 import { AuthFacade } from '../../../auth/facades/auth.facade';
+import { Router } from '@angular/router';
+import { RxState } from '@rx-angular/state';
 import { jwtDecode } from 'jwt-decode';
-import { Roles } from '../../../core/constants/roles';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateElectionDialogComponent } from '../create-election-dialog/create-election-dialog.component';
-import { IMAGE_BASE_URL } from '../../../core/constants/api-endpoints';
-
+import { ElectionCategory } from '../../models/election.model';
 
 interface ElectionsListComponentState {
   elections: any[];
@@ -18,18 +15,17 @@ interface ElectionsListComponentState {
 
 const initialElectionsListComponentState: ElectionsListComponentState = {
   elections: [],
-  personalizedElections:[],
-  accessToken: undefined
+  personalizedElections: [],
+  accessToken: undefined,
 };
 
-
 @Component({
-  selector: 'app-elections-list',
-  templateUrl: './elections-list.component.html',
-  styleUrl: './elections-list.component.scss',
+  selector: 'app-categorized-elections',
+  templateUrl: './categorized-elections.component.html',
+  styleUrls: ['./categorized-elections.component.scss'],
   providers: [RxState],
 })
-export class ElectionsListComponent implements OnInit {
+export class CategorizedElectionsComponent implements OnInit {
   elections: any[] = [];
   elections$ = this.state.select('elections');
 
@@ -37,34 +33,36 @@ export class ElectionsListComponent implements OnInit {
   personalizedElections$ = this.state.select('personalizedElections');
 
   accessToken$ = this.state.select('accessToken');
-  imageBaseUrl = IMAGE_BASE_URL;
   decodedToken: any;
-  organizationIds = [];
+  organizationIds: any[] = [];
+  category: string = '';
+  title: string = '';
   constructor(
     private electionFacade: ElectionFacade,
     private authFacade: AuthFacade,
     private router: Router,
+    private route: ActivatedRoute,
     private state: RxState<ElectionsListComponentState>,
-    private dialog: MatDialog
   ) {
     this.state.set(initialElectionsListComponentState);
     this.state.connect('elections', this.electionFacade.elections$);
-    this.state.connect(
-      'personalizedElections',
-      this.electionFacade.personalizedElections$
-    );
+    this.state.connect('personalizedElections', this.electionFacade.personalizedElections$);
     this.state.connect('accessToken', this.authFacade.accessToken$);
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.category = params['category'];
+      this.filterByCategory(this.category);
+      this.extractTitle(this.category);
+    });
+
     this.accessToken$.subscribe((token) => {
       this.decodedToken = jwtDecode(token);
-
-      this.electionFacade.dispatchGetPersonalizedElections(
-        this.decodedToken.organizations
-      );
+      this.electionFacade.dispatchGetPersonalizedElections(this.decodedToken.organizations);
       this.personalizedElections$.subscribe((elections) => {
         this.elections = elections;
+        this.filterByCategory(this.category);
       });
     });
   }
@@ -73,29 +71,11 @@ export class ElectionsListComponent implements OnInit {
     this.router.navigate(['/election-list', id]);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateElectionDialogComponent, {
-      data: {
-        organizationId: '',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {});
-  }
-
-  hasElectionCreatorRole() {
-    return Roles.ELECTION_CREATOR;
-  }
-
-  hasAdminRole() {
-    return Roles.ADMIN;
-  }
-
   transformEnum(value: string): string {
     return value
-      .toLowerCase() // Convert to lowercase
-      .replace(/_/g, ' ') // Replace underscores with spaces
-      .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize first letter of each word
+      .toLowerCase()
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, char => char.toUpperCase());
   }
 
   applyFilter(event: Event): void {
@@ -103,12 +83,32 @@ export class ElectionsListComponent implements OnInit {
     const filterValue = inputElement.value;
 
     if (!filterValue) {
-      this.elections = [...this.personalizedElections];
+      this.filterByCategory(this.category);
     } else {
       const trimmedFilterValue = filterValue.trim().toLowerCase();
       this.elections = this.personalizedElections.filter((election) =>
         election.electionName.toLowerCase().includes(trimmedFilterValue)
       );
+    }
+  }
+
+  filterByCategory(category: string) {
+    if (category) {
+      this.elections = this.personalizedElections.filter(election => election.category.toLowerCase() === category.toLowerCase());
+    } else {
+      this.elections = [...this.personalizedElections];
+    }
+  }
+
+  extractTitle(category: any){
+    if(category === ElectionCategory.ENTERTAINMENT_AWARD){
+      this.title = 'Entertainment Awards';
+    }else if(category === ElectionCategory.GOVERNMENT_ELECTION){
+      this.title = 'Government Elections'
+    }else if(category === ElectionCategory.SPORT_AWARD){
+      this.title = 'Sport Awards'
+    }else{
+      this.title = 'Others'
     }
   }
 }

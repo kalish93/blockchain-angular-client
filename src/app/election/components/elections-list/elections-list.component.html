@@ -1,6 +1,13 @@
+<h1 >Current Elections</h1>
 <div class="list-header">
-  <h1>Current Elections</h1>
-  <button
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-bar">
+      <mat-label>Search Elections</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput (input)="applyFilter($event)" placeholder="Search by name">
+    </mat-form-field>
+  </div>
+<button
     *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]"
     mat-raised-button
     color="primary"
