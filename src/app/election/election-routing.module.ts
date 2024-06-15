@@ -5,6 +5,7 @@ import { ELECTION_HOME, ELECTION_LIST } from "../core/constants/routes";
 import { ElectionHomeComponent } from "./components/election-home/election-home.component";
 import { ElectionDetailComponent } from "./components/election-detail/election-detail.component";
 import { EmailVerifiedGuard } from "../auth/services/email-verified.guard";
+import { CategorizedElectionsComponent } from "./components/categorized-elections/categorized-elections.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: `${ELECTION_LIST}/:id`,
     component: ElectionDetailComponent,
+    canActivate: [EmailVerifiedGuard]
+  },
+  {
+    path: `${ELECTION_LIST}/categories/:category`,
+    component: CategorizedElectionsComponent,
     canActivate: [EmailVerifiedGuard]
   },
 ];

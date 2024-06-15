@@ -1,21 +1,10 @@
-<h1 >Current Elections</h1>
-<div class="list-header">
+<h1 >{{title}}</h1>
   <div class="search-container">
     <mat-form-field appearance="outline" class="search-bar">
       <mat-label>Search Elections</mat-label>
       <mat-icon matPrefix>search</mat-icon>
       <input matInput (input)="applyFilter($event)" placeholder="Search by name">
     </mat-form-field>
-  </div>
-<button
-    *appHasRole="[hasAdminRole(), hasElectionCreatorRole()]"
-    mat-raised-button
-    color="primary"
-    class="create-election-button"
-    (click)="openDialog()"
-  >
-    Create Election
-  </button>
 </div>
 <div class="container" *ngIf="elections.length > 0">
   <div class="election-cards">
@@ -35,6 +24,6 @@
 </div>
 <div class="no-elections" *ngIf="elections.length === 0">
   <img class="no-election-img" src="assets/svg/no_elections.svg" alt="vote image" />
-  <p>No elections are available for you currently.</p>
+  <p>No elections are available in this category.</p>
 </div>
 

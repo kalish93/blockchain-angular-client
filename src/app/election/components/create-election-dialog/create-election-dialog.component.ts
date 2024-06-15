@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ElectionFacade } from '../../facades/election.facade';
 import {
   MAT_DIALOG_DATA,
@@ -18,8 +18,8 @@ export class CreateElectionDialogComponent {
   electionForm: FormGroup;
   selectedFiles: Map<string, File> = new Map();
   candidateForm = this.fb.group({
-    name: [''],
-    description: [''],
+    name: ['', Validators.required],
+    description: ['', Validators.required],
   });
   categories = ElectionCategory
 
@@ -31,10 +31,10 @@ export class CreateElectionDialogComponent {
   ) {
     this.electionForm = this.fb.group({
       organizationId: [data.organizationId],
-      title: [''],
-      description: [],
-      endTime: [''],
-      endDate: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      endTime: ['', Validators.required],
+      endDate: ['', Validators.required],
       category: [ElectionCategory.OTHERS],
       candidates: this.fb.array([]),
     });

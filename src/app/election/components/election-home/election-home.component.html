@@ -11,7 +11,7 @@
   <!-- <app-created-elections></app-created-elections> -->
   <h1 class="categories-title">Categories</h1>
   <div class="catagories">
-    <mat-card class="card card-odd">
+    <mat-card class="card card-odd" (click)="selectCategory('GOVERNMENT_ELECTION')">
       <div class="card-content">
         <img
           src="../../../../assets/images/government.png"
@@ -22,7 +22,7 @@
       </div>
     </mat-card>
 
-    <mat-card class="card card-even">
+    <mat-card class="card card-even" (click)="selectCategory('ENTERTAINMENT_AWARD')" >
       <div class="card-content">
         <img
           src="../../../../assets/images/award.png"
@@ -33,7 +33,7 @@
       </div>
     </mat-card>
 
-    <mat-card class="card card-odd">
+    <mat-card class="card card-odd" (click)="selectCategory('SPORT_AWARD')">
       <div class="card-content">
         <img
           src="../../../../assets/images/sports.png"
@@ -44,7 +44,7 @@
       </div>
     </mat-card>
 
-    <mat-card class="card card-even">
+    <mat-card class="card card-even" (click)="selectCategory('OTHERS')">
       <div class="card-content">
         <img
           src="../../../../assets/images/others.png"

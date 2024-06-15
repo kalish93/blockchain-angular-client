@@ -3,6 +3,7 @@ import { BlockchainService } from '../../services/blockchain.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateElectionDialogComponent } from '../create-election-dialog/create-election-dialog.component';
 import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-election-home',
@@ -12,7 +13,8 @@ import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
 export class ElectionHomeComponent {
   constructor(
     private blockService: BlockchainService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
 
@@ -26,5 +28,9 @@ export class ElectionHomeComponent {
     dialogRef.afterClosed().subscribe((result) => {
       // ... handle result if dialog returns value
     });
+  }
+
+  selectCategory(category: any){
+    this.router.navigate(['/election-list/categories', category]);
   }
 }
