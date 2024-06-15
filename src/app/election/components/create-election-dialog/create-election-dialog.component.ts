@@ -6,6 +6,7 @@ import {
   MatDialog,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { ElectionCategory } from '../../models/election.model';
 
 @Component({
   selector: 'app-create-election-dialog',
@@ -22,6 +23,7 @@ export class CreateElectionDialogComponent {
     name: [''],
     description: [''],
   });
+  categories = ElectionCategory
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +37,7 @@ export class CreateElectionDialogComponent {
       description: [],
       endTime: [''],
       endDate: [''],
+      category: [ElectionCategory.OTHERS],
       candidates: this.fb.array([]),
     });
   }
@@ -130,6 +133,7 @@ export class CreateElectionDialogComponent {
       formData.append('description', this.electionForm.value.description);
       formData.append('endTime', endTimeUnix.toString());
       formData.append('organizationId', this.electionForm.value.organizationId);
+      formData.append('category', this.electionForm.value.category);
 
       this.electionForm.value.candidates.forEach(
         (candidate: any, index: number) => {
@@ -151,5 +155,12 @@ export class CreateElectionDialogComponent {
       this.electionFacade.dispatchCreateElection(formData);
       this.dialogRef.close();
     }
+  }
+
+  transformEnum(value: string): string {
+    return value
+      .toLowerCase()                        // Convert to lowercase
+      .replace(/_/g, ' ')                   // Replace underscores with spaces
+      .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
   }
 }

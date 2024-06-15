@@ -51,7 +51,14 @@
         />
       </div>
     </div>
-
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories | keyvalue" [value]="category.value">
+          {{ transformEnum(category.value) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div formArrayName="candidates">
       <h3>Candidates</h3>
       <div
