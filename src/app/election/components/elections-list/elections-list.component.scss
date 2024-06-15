@@ -1,136 +1,39 @@
-.container{
-  max-width: 80vw;
-  margin: auto;
-}
-
-.list-header{
- display: flex;
- flex-direction: row;
- align-items: center;
- justify-content: flex-end;
- gap: 15rem;
-}
-.election-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.election-card {
-  width: calc(33.33% - 20px);
-  margin-bottom: 20px;
-  border-radius: 8px;
-  background-color: #fff;
-  border-radius: 8px;
-}
-
-.candidate-container {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.candidate-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.candidate-details {
-  flex: 1;
-}
-
-mat-card-header{
-  text-align: center;
-  justify-content: center;
-}
-
-.mat-card-actions {
-  display: flex;
-  justify-content: center;
-}
-
-
-.vote-btn
-{
-  background-color: #7C8CC7;
-  color: white;
-  padding: 10px;
-  border-radius: 15px;
-}
-
-.candidate-card{
-  box-shadow: none;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 10px;
-}
-
-
-.title-container{
-  align-self: self-start;
-}
-
-// =================
-
-
-mat-card{
+mat-card {
   max-width: 300px;
-  max-height: 440px;
+  height: 460px;
   min-width: 300px;
   min-height: 300px;
   display: flex;
-  gap: 1rem;
+  gap: 0.7rem;
 
-  mat-card-content{
+  mat-card-content {
     flex-grow: 1;
     text-align: justify;
-    margin: 1rem auto 1rem auto;
+    margin: 0;
+    min-height: 100px;
   }
 
-  .mat-card-actions{
-    // display: block;
+  .mat-card-actions {
     width: 100%;
-    button{
+
+    button {
       width: 90%;
     }
   }
 }
 
-.no-elections{
-  text-align: center;
+.election-cards {
+  width: 90%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10rem;
-  justify-content: center;
-}
-
-.no-election-img{
-  width: 20%;
-}
-
-.create-election-button{
-  background-color: #7C8CC7;
-}
-
-.search-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-bar{
-  width: 50vw;
-}
-
-h1{
-  text-align: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .election-image {
   width: 100%;
-  height: 200px;
+  // height: 200px;
+  min-height: 200px;
+  max-height: 200px;
   object-fit: contain;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -140,11 +43,18 @@ h1{
 .mat-mdc-card-header{
   margin: 0;
   padding: 0;
-  width: min-content;
-  margin-left: 1rem;
+
 }
 
 .mat-mdc-card-title, .election-name{
   margin: 0;
   padding: 0;
+}
+
+.category{
+  margin: 0;
+  padding: 0;
+  color: #7C8CC7;
+  font-style: italic;
+  font-size: 0.8rem;
 }

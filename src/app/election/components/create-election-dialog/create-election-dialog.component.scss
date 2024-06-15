@@ -1,214 +1,304 @@
-.main{
-    max-height: 90vh;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 450px;
+/* Resetting default margin and padding, and preventing horizontal overflow */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-h2{
-    font-weight: 700;
-    font-size: 2rem;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-form{
-    display: flex;
-    flex-direction: column;
+/* Styling for the main container */
+.main {
+  max-height: 90vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 450px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Centering the main container */
+  box-sizing: border-box; /* Including padding and border in element's total width and height */
 }
 
+/* Styling for headings */
+h2 {
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Styling for form elements */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for candidate form */
 .candidate-form {
-    position: relative;
-    margin-bottom: 15px;
+  position: relative;
+  margin-bottom: 15px;
 }
 
+/* Styling for remove candidate button */
 .remove-candidate-btn {
-    border: none;
-    background-color: #f1b872;
-    color: white;
-    cursor: pointer;
+  border: none;
+  background-color: #f1b872;
+  color: white;
+  cursor: pointer;
 }
 
-.candidate-action-btns{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    align-items: center;
+/* Styling for candidate action buttons container */
+.candidate-action-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.action-btn{
-    display: flex;
-    flex-direction: row;
-    margin: 1rem 0;
-    gap: .5rem;
-    align-items: flex-end;
-    justify-content: flex-end;
+/* Styling for general action buttons container */
+.action-btn {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0;
+  gap: 0.5rem;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.cancel-btn{
+/* Styling for cancel button */
+.cancel-btn {
   background-color: #c6c7cb;
   color: white;
 }
 
+/* Styling for form elements container */
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.candidates{
-    margin: 1rem 0rem;
+/* Styling for candidates section */
+.candidates {
+  margin: 1rem 0;
 }
 
-.candidate-actn-btn{
-    display: flex;
-    flex-direction: row;
-
-    button{
-        flex-grow: 1;
-    }
+/* Styling for candidate action buttons container */
+.candidate-actn-btn {
+  display: flex;
+  flex-direction: row;
 }
 
-
-.card{
-    margin: 1rem 0;
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    border-radius: 4px;
-    background: #fff;
-    box-shadow: 0 1.5px 3px rgba(38, 38, 38, 0.16), 0 1.5px 3px rgba(18, 18, 18, 0.23);
-    .card-main{
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-        gap: 1rem;
-        padding: 0 1rem;
-
-        img{
-            margin: .5rem 0;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-grow: 0;
-        }
-
-        .card-content{
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            gap: .5rem;
-            h4{
-                margin: 0;
-                flex-grow: 0;
-            }
-            p{
-                margin: 0;
-                flex-grow: 1;
-                text-align: justify;
-                overflow:hidden;
-            }
-        }
-    }
-
-    button{
-        align-self: flex-end;
-        margin: .5rem;
-    }
+/* Styling for candidate action button */
+.candidate-actn-btn button {
+  flex-grow: 1;
 }
 
+/* Styling for individual cards */
+.card {
+  margin: 1rem 0;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1.5px 3px rgba(38, 38, 38, 0.16), 0 1.5px 3px rgba(18, 18, 18, 0.23);
+}
+
+/* Styling for main content within cards */
+.card-main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  gap: 1rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Styling for images within cards */
+.card-main img {
+  margin: 0.5rem 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-grow: 0;
+}
+
+/* Styling for content within cards */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+/* Styling for heading within cards */
+.card-content h4 {
+  margin: 0;
+  flex-grow: 0;
+}
+
+/* Styling for paragraphs within cards */
+.card-content p {
+  margin: 0;
+  flex-grow: 1;
+  text-align: justify;
+  overflow: hidden;
+}
+
+/* Styling for buttons within cards */
+.card button {
+  align-self: flex-end;
+  margin: 0.5rem;
+}
+
+/* Styling for file upload container */
 .file-upload-container {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
+/* Styling for file upload button */
 .file-upload-btn {
-    background-color: white;
-    color: #7C8CC7;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border: 2px solid #7C8CC7;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  background-color: white;
+  color: #7c8cc7;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: 2px solid #7c8cc7;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
+/* Hover styling for file upload button */
 .file-upload-btn:hover {
-    background-color: #9ba6cf;
-    color: white;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border: 2px solid #7C8CC7;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+  background-color: #9ba6cf;
+  color: white;
 }
 
-.file-upload-btn.disabled{
-    border: none;
-    color: rgb(50, 50, 50);
-}
-
-.file-upload-text {
-    color: #888;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-
-}
-
+/* Disabled styling for file upload button */
 .file-upload-btn.disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    pointer-events: none;
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
+/* Styling for file upload text */
+.file-upload-text {
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+/* Styling for time picker input */
 .time-picker {
   padding: 17px 10px;
-  border: .3px solid rgba(46, 45, 45, 0.5);
+  border: 0.3px solid rgba(46, 45, 45, 0.5);
   border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Styling for date and time section */
 .date-and-time {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
 
+/* Styling for end date input */
 .end-date {
   width: 80%;
 }
 
-.submit-btn{
-  background-color: #7C8CC7;
+/* Styling for submit button */
+.submit-btn {
+  background-color: #7c8cc7;
   color: white;
 }
 
+/* Styling for image preview */
 .image-preview img {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    border-radius: 8px;
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
+/* Styling for image upload success message */
 .image-upload-success {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 14px;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
+/* Styling for image preview container */
 .image-preview {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  /* Adjusting padding for smaller screens */
+  .main {
+    padding: 1rem;
+  }
+
+  /* Stacking date and time inputs vertically on smaller screens */
+  .date-and-time {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Ensuring full width for end date input on smaller screens */
+  .end-date {
+    width: 100%;
+  }
+
+  /* Stacking action buttons vertically on smaller screens */
+  .action-btn {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  /* Adjusting file upload button for smaller screens */
+  .file-upload-btn {
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Adjusting file upload text for smaller screens */
+  .file-upload-text {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  /* Stacking candidate action buttons vertically on smaller screens */
+  .candidate-action-btns {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .time-picker {
+    padding: 17px 10px;
+    border: 0.3px solid rgba(46, 45, 45, 0.5);
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+  }
 }

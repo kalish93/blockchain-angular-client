@@ -15,6 +15,7 @@ mat-toolbar{
     display: flex;
     align-items: center;
     justify-content: center;
+    // max-width: 100vh;
 }
 
 .ballot-box-container {
@@ -106,4 +107,24 @@ button[mat-icon-button] {
   right: 0;
   z-index: 999; /* Ensure it's above other content */
 }
+
+@media screen and (max-width: 768px) {
+  .ballot-box-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content:end;
+    align-items: end;
+    background-color: #7C8CC7;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    top: -7rem;
+    left: -2rem;
+    box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+}
+
 

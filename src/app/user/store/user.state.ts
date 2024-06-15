@@ -42,6 +42,7 @@ export class UserState {
         this.store.dispatch(new GetUsers());
         this.oprationStatus.displayStatus('User registered successfully', successStyle)
         this.store.dispatch(new SetProgressOff());
+        window.location.reload()
       }),
     );
   }

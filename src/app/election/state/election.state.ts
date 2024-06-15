@@ -118,6 +118,7 @@ export class ElectionState {
       successStyle
     );
     this.store.dispatch(new SetProgressOff());
+    window.location.reload()
   }
 
   @Action(GetAllElections)
