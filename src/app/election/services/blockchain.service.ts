@@ -31,19 +31,19 @@ export class BlockchainService {
   public checkWalletConnection(){
       return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
-  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[], endTime: any){
+  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[], endTime: any, category: any){
     await this.getAccounts();
     try{
       //if(this.checkWalletConnection()){
 
-        const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates, endTime)
+        const gasEstimate = await this.contract.methods.createElection(electionName,organizationId,description, candidates, endTime, category)
                                                       .estimateGas({ from: this.accounts[0]})
-      let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).send({
+      let transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime, category).send({
         from: this.accounts[0],
         gas: gasEstimate
       });
 
-      transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime).call({
+      transaction = await this.contract.methods.createElection(electionName,organizationId,description, candidates,endTime, category).call({
         from: this.accounts[0],
         gas: gasEstimate
       });
