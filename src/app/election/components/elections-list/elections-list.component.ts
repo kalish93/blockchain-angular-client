@@ -96,4 +96,18 @@ export class ElectionsListComponent implements OnInit{
       .replace(/_/g, ' ')                   // Replace underscores with spaces
       .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
   }
+
+  applyFilter(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const filterValue = inputElement.value;
+
+    if (!filterValue) {
+      this.elections = [...this.personalizedElections];
+    } else {
+      const trimmedFilterValue = filterValue.trim().toLowerCase();
+      this.elections = this.personalizedElections.filter((election) =>
+        election.electionName.toLowerCase().includes(trimmedFilterValue)
+      );
+    }
+  }
 }

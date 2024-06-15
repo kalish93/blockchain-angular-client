@@ -10,6 +10,7 @@ import { ElectionsListComponent } from './components/elections-list/elections-li
 import { ElectionDetailComponent } from './components/election-detail/election-detail.component';
 import { CreatedElectionsComponent } from './components/created-elections/created-elections.component';
 import { CandidateDescriptionDialogComponent } from './components/candidate-description-dialog/candidate-description-dialog.component';
+import { CategorizedElectionsComponent } from './components/categorized-elections/categorized-elections.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CandidateDescriptionDialogComponent } from './components/candidate-desc
     ElectionDetailComponent,
     CreatedElectionsComponent,
     CandidateDescriptionDialogComponent,
+    CategorizedElectionsComponent
   ],
   imports: [
     CommonModule,

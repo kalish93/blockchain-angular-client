@@ -34,7 +34,7 @@ export class CreateMemberDialogComponent {
     this.state.connect('selectedOrganization', this.organizationFacade.selectedOrganization$);
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
