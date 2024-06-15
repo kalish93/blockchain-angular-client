@@ -7,6 +7,7 @@ import {
   GetElectionDetial,
   GetPersolanizedElections,
   GetElectionData,
+  GetOrganizationElections,
 } from './election.action';
 import { BlockchainService } from '../services/blockchain.service';
 import { ElectionService } from '../services/election.service';
@@ -17,6 +18,7 @@ import { ImageUploadService } from '../services/image-upload.service';
 import { forkJoin, map, tap } from 'rxjs';
 import { OperationStatusService } from '../../core/services/operation-status.service';
 import { successStyle } from '../../core/services/status-style-names';
+import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
 
 export interface ElectionStateModel {
   // inprogress: boolean;
@@ -24,6 +26,7 @@ export interface ElectionStateModel {
   electionDetail: any;
   personalizedElections: any[];
   electionData: any;
+  organizationElections: any[];
 }
 
 const ELECTION_STATE_TOKEN = new StateToken<ElectionStateModel>(
@@ -36,6 +39,7 @@ const defaults: ElectionStateModel = {
   electionDetail: {},
   personalizedElections: [],
   electionData: {},
+  organizationElections: []
 };
 
 @State<ElectionStateModel>({
@@ -57,6 +61,7 @@ export class ElectionState {
     { setState, patchState, getState }: StateContext<ElectionStateModel>,
     { election }: CreateElection
   ) {
+    this.store.dispatch(new SetProgressOn());
     const uploadRequests = [];
     for (let i = 0; election.has(`candidates[${i}][name]`); i++) {
       if (election.has(`candidates[${i}][image]`)) {
@@ -90,19 +95,21 @@ export class ElectionState {
     const state = getState();
     patchState({
       personalizedElections: [createdElection, ...state.personalizedElections],
+      organizationElections: [createdElection, ...state.organizationElections],
     });
     this.operationStatusService.displayStatus(
       'Election created successfully',
       successStyle
     );
+    this.store.dispatch(new SetProgressOff());
   }
 
   @Action(GetAllElections)
   async getAllElections({ patchState }: StateContext<ElectionStateModel>) {
-    // setState({ inprogress: true });
+    this.store.dispatch(new SetProgressOn());
     const elections = await this.blockchainService.getAllElections();
-    console.log('GetAllElections elections', elections);
     patchState({ elections: elections });
+    // this.store.dispatch(new SetProgressOff());
   }
 
   getUserIdFromToken(): string | null {
@@ -122,8 +129,7 @@ export class ElectionState {
     { patchState }: StateContext<ElectionStateModel>,
     { electionId }: GetElectionDetial
   ) {
-    // setState({ inprogress: true });
-
+    this.store.dispatch(new SetProgressOn());
     const comingElection = await this.blockchainService.getSingleElection(
       electionId,
       this.getUserIdFromToken()!
@@ -137,10 +143,9 @@ export class ElectionState {
       endTime: comingElection.endTime,
       timeCreated: comingElection.timeCreated,
     };
-    console.log('GetElectionDetial election', election);
-    console.log('GetElectionDetial electionName', election.electionName);
 
     patchState({ electionDetail: election });
+    this.store.dispatch(new SetProgressOff());
   }
 
   @Action(VoteForCandidate)
@@ -148,7 +153,7 @@ export class ElectionState {
     { setState, getState }: StateContext<ElectionStateModel>,
     { votorId, electionId, candidateId }: VoteForCandidate
   ) {
-    // setState({ inprogress: true });
+    this.store.dispatch(new SetProgressOn());
     await this.blockchainService.voteForCandidate(
       votorId,
       electionId,
@@ -171,6 +176,7 @@ export class ElectionState {
       'Vote recorded successfully',
       successStyle
     );
+    this.store.dispatch(new SetProgressOff());
   }
 
   @Action(GetPersolanizedElections)
@@ -178,11 +184,12 @@ export class ElectionState {
     { patchState }: StateContext<ElectionStateModel>,
     { organizationIds }: GetPersolanizedElections
   ) {
-    // setState({ inprogress: true });
+    this.store.dispatch(new SetProgressOn());
     const elections = await this.blockchainService.getPersonalizedElections(
       organizationIds
     );
     patchState({ personalizedElections: elections });
+    this.store.dispatch(new SetProgressOff());
   }
 
   @Action(GetElectionData)
@@ -190,10 +197,26 @@ export class ElectionState {
     { patchState }: StateContext<ElectionStateModel>,
     { electionId, createdTime, endedTime }: GetElectionData
   ) {
-    this.electionService
-      .getRecordedData(electionId, createdTime, endedTime)
-      .subscribe((data) => {
-        patchState({ electionData: data });
-      });
+    this.store.dispatch(new SetProgressOn());
+   return this.electionService
+      .getRecordedData(electionId, createdTime, endedTime).pipe(
+        tap((data: any)=>{
+          patchState({ electionData: data });
+
+          this.store.dispatch(new SetProgressOff());
+        })
+
+      )
+
+  }
+
+  @Action(GetOrganizationElections)
+  async getOrganizationElections({ patchState }: StateContext<ElectionStateModel>,
+  { organizationId }: GetOrganizationElections
+  ) {
+    this.store.dispatch(new SetProgressOn());
+    const elections = await this.blockchainService.getOrganizationElections(organizationId);
+    patchState({ organizationElections: elections });
+    // this.store.dispatch(new SetProgressOn());
   }
 }

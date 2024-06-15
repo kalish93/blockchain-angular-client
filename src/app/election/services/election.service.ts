@@ -17,13 +17,8 @@ export class ElectionService {
   constructor(private http: HttpClient) {}
 
   convertUnixToFormattedDate(unixTimestamp: number | bigint): string {
-    console.log('Received Unix Timestamp:', unixTimestamp); // Debugging line
-
     const timestampInMs = Number(unixTimestamp) * 1000; // Ensure it is converted to a number if it's a bigint and convert to milliseconds
-    console.log('Converted to Milliseconds:', timestampInMs); // Debugging line
-
     const date = new Date(timestampInMs); // Convert Unix timestamp to milliseconds
-    console.log('Converted Date:', date); // Debugging line
 
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -36,7 +31,6 @@ export class ElectionService {
       .slice(0, 2); // Get first 2 digits of milliseconds
 
     const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
-    console.log('Formatted Date:', formattedDate); // Debugging line
 
     return formattedDate;
   }

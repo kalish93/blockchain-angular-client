@@ -3,6 +3,7 @@ import { GeneralStatistics } from "../models/general-statistics";
 import { GetGeneralStatistics } from "./statistics.action";
 import { BlockchainService } from "../services/blockchain.service";
 import { Injectable } from "@angular/core";
+import { SetProgressOff, SetProgressOn } from "../../core/store/progress-status.actions";
 
 export interface StaticticsStateModel {
     generalStatistics: GeneralStatistics | undefined;
@@ -30,10 +31,11 @@ export class StatisticsState {
     { setState }: StateContext<StaticticsStateModel>,
     {}: GetGeneralStatistics
   ) {
+    this.store.dispatch(new SetProgressOn());
     const generalStatistics =
       await this.blockchainService.getGeneralStatistics();
-    console.log(generalStatistics, 'generalStatistics');
     setState({ generalStatistics });
+    // this.store.dispatch(new SetProgressOff());
     return;
   }
 }

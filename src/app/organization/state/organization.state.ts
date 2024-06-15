@@ -41,7 +41,7 @@ export class OrganizationState {
   ) { }
 
   @Action(CreateOrganization)
-  async createOrganization({ setState }: StateContext<OrganizationStateModel>,
+  createOrganization({ setState }: StateContext<OrganizationStateModel>,
     { organization }: CreateOrganization) {
     this.store.dispatch(new SetProgressOn());
     return this.organizationService.createOrganization(organization).pipe(
@@ -61,6 +61,7 @@ export class OrganizationState {
 
   @Action(GetOrganizations)
   getOrganizations({ setState }: StateContext<OrganizationStateModel>) {
+    this.store.dispatch(new SetProgressOn());
     return this.organizationService.getOrganizations().pipe(
       tap((organizations: Organization[]) => {
         setState(
@@ -68,6 +69,7 @@ export class OrganizationState {
             organizations,
           }),
         );
+        this.store.dispatch(new SetProgressOff());
       }),
     );
   }
@@ -75,6 +77,7 @@ export class OrganizationState {
   @Action(GetOrganizationDetail)
   getOrganizationDetail({ setState }: StateContext<OrganizationStateModel>,
     { organizationId }: GetOrganizationDetail) {
+      this.store.dispatch(new SetProgressOn());
     return this.organizationService.getOrganization(organizationId).pipe(
       tap((organization: OrganizationWithMembers) => {
         setState(
@@ -82,6 +85,7 @@ export class OrganizationState {
             organization,
           }),
         );
+        this.store.dispatch(new SetProgressOff());
       }),
     );
   }

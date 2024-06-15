@@ -52,21 +52,15 @@ export class ElectionsListComponent implements OnInit{
         }
 
   ngOnInit(): void {
-    // this.electionFacade.dispatchGetAllElections();
-    // this.elections$.subscribe((elections) => {
-    //   console.log(elections);
-    //   this.elections = elections;
-    // });
+
     this.accessToken$.subscribe((token)=>{
-      this.decodedToken = jwtDecode(token);
-      this.decodedToken.organizations.forEach((organization: { id: any; }) => {
-        return this.organizationIds.push(organization.id as never);
-      });
-    })
-    this.electionFacade.dispatchGetPersonalizedElections(this.organizationIds)
+    this.decodedToken = jwtDecode(token);
+
+    this.electionFacade.dispatchGetPersonalizedElections(this.decodedToken.organizations);
     this.personalizedElections$.subscribe((elections)=>{
       this.elections = elections
     })
+  })
   }
 
 
@@ -85,7 +79,6 @@ export class ElectionsListComponent implements OnInit{
     );
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
     });
   }
 

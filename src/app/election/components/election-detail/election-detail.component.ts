@@ -78,13 +78,15 @@ export class ElectionDetailComponent implements OnInit {
     });
 
     this.electionDetail$.subscribe((electionDetail) => {
-      console.log('electionDetail', electionDetail);
       this.electionDetail = electionDetail;
-      this.electionFacade.dispatchGetElectionData(
-        electionDetail.electionId,
-        electionDetail.timeCreated,
-        electionDetail.endTime
-      );
+      if(this.electionDetail){
+
+        this.electionFacade.dispatchGetElectionData(
+          electionDetail.electionId,
+          electionDetail.timeCreated,
+          electionDetail.endTime
+        );
+      }
 
       if (this.electionDetail && this.electionDetail.endTime) {
         this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
@@ -99,9 +101,10 @@ export class ElectionDetailComponent implements OnInit {
     });
 
     this.electionData$.subscribe((electionData) => {
-      console.log('electionData', electionData);
       this.electionData = electionData;
-      this.processElectionData(electionData);
+      if(this.electionData){
+        this.processElectionData(electionData);
+      }
     });
   }
 
@@ -142,10 +145,8 @@ export class ElectionDetailComponent implements OnInit {
               this.electionId,
               id
             );
-            console.log('Vote successful!', this.electionId, this);
           }
         } catch (e) {
-          console.error('Error voting:', e);
         }
       }
     });
