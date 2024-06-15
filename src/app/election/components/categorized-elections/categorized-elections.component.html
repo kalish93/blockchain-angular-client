@@ -9,16 +9,33 @@
 <div class="container" *ngIf="elections.length > 0">
   <div class="election-cards">
     <div *ngFor="let election of elections" class="election-card">
-    <mat-card (click)="navigateToDetail(election.electionId)">
-      <mat-card-header>
-        <mat-card-title ><h2 class="election-name">{{ election.electionName }}</h2></mat-card-title>
-      </mat-card-header>
-      <p>Category: {{transformEnum(election.category)}}</p>
-      <mat-card-content>{{ election.description.length > 100 ? (election.description | slice: 0:150) + '...' : election.description }}</mat-card-content>
-      <mat-card-actions class="mat-card-actions">
-        <button class="vote-btn" mat-button>Vote now</button>
-      </mat-card-actions>
-    </mat-card>
+    <mat-card
+        class="election-card"
+        (click)="navigateToDetail(election.electionId)"
+      >
+        <img
+          class="election-image"
+          [src]="imageBaseUrl + '/' + election.electionImage"
+          alt="Election Image"
+        />
+        <mat-card-header>
+          <mat-card-title>
+            <h2 class="election-name">{{ election.electionName }}</h2>
+            
+          </mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          {{
+            election.description.length > 100
+              ? (election.description | slice : 0 : 150) + "..."
+              : election.description
+          }}
+        </mat-card-content>
+        <mat-card-actions class="mat-card-actions">
+          <button class="vote-btn" mat-button>Vote now</button>
+        </mat-card-actions>
+      </mat-card>
   </div>
 </div>
 </div>

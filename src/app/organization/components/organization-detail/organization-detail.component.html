@@ -14,7 +14,14 @@
     </div>
     <div class="side-header">
       <div class="add-buttons">
-        <button class="actions-btn" mat-flat-button [matMenuTriggerFor]="menu"  *ngIf="decodedToken.id === organization?.userId">Actions</button>
+        <button
+          class="actions-btn"
+          mat-flat-button
+          [matMenuTriggerFor]="menu"
+          *ngIf="decodedToken.id === organization?.userId"
+        >
+          Actions
+        </button>
         <mat-menu #menu="matMenu">
           <button
             mat-menu-item
@@ -47,7 +54,7 @@
           <button
             mat-menu-item
             (click)="openCreateElectionDialog()"
-            *ngIf="decodedToken.id === organization?.userId"
+            *ngIf="decodedToken.id === organization?.userId && organization?.isActive"
           >
             Create Election
           </button>
@@ -75,22 +82,39 @@
 
 <div class="list-header">
   <h1 class="elections-list-header">Elections</h1>
-  </div>
-  <div class="elections-container" *ngIf="organizationElections.length > 0">
-    <div class="election-cards">
-      <div *ngFor="let election of organizationElections" class="election-card">
-      <mat-card (click)="navigateToDetail(election.electionId)">
+</div>
+<div class="elections-container" *ngIf="organizationElections.length > 0">
+  <div class="election-cards">
+    <div *ngFor="let election of organizationElections" class="election-card">
+      <mat-card
+        class="election-card"
+        (click)="navigateToDetail(election.electionId)"
+      >
+        <img
+          class="election-image"
+          [src]="imageBaseUrl + '/' + election.electionImage"
+          alt="Election Image"
+        />
         <mat-card-header>
-          <mat-card-title ><h2 class="election-name">{{ election.electionName }}</h2></mat-card-title>
+          <mat-card-title>
+            <h2 class="election-name">{{ election.electionName }}</h2>
+          </mat-card-title>
         </mat-card-header>
-        <mat-card-content>{{ election.description.length > 100 ? (election.description | slice: 0:150) + '...' : election.description }}</mat-card-content>
+
+        <mat-card-content>
+          {{
+            election.description.length > 100
+              ? (election.description | slice : 0 : 150) + "..."
+              : election.description
+          }}
+        </mat-card-content>
         <mat-card-actions class="mat-card-actions">
           <button class="vote-btn" mat-button>Vote now</button>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
-  </div>
-  <div class="no-elections" *ngIf="organizationElections.length === 0">
-    <p>No elections are available.</p>
-  </div>
+</div>
+<div class="no-elections" *ngIf="organizationElections.length === 0">
+  <p>No elections are available.</p>
+</div>
