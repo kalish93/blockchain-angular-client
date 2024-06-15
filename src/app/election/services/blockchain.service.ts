@@ -31,7 +31,7 @@ export class BlockchainService {
   public checkWalletConnection(){
       return  Boolean(window?.ethereum && this.accounts.length > 0);
   }
-  public async createElection (electionName: string, electionImage: string, organizationId: string, description:string, candidates: any[], endTime: any, category: any){
+  public async createElection (electionName: string, organizationId: string, description:string, candidates: any[], endTime: any, category: any, electionImage: string,){
     await this.getAccounts();
     try{
       //if(this.checkWalletConnection()){

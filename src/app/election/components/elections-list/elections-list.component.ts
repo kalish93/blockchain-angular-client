@@ -103,10 +103,11 @@ export class ElectionsListComponent implements OnInit {
     const filterValue = inputElement.value;
 
     if (!filterValue) {
-      this.elections = [...this.personalizedElections];
+      this.elections = [...this.elections];
+      this.electionFacade.dispatchGetPersonalizedElections(this.organizationIds);
     } else {
       const trimmedFilterValue = filterValue.trim().toLowerCase();
-      this.elections = this.personalizedElections.filter((election) =>
+      this.elections = this.elections.filter((election) =>
         election.electionName.toLowerCase().includes(trimmedFilterValue)
       );
     }

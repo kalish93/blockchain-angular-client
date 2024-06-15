@@ -88,7 +88,7 @@ export class OrganizationDetailComponent {
   }
 
   openCreateMemberDialog() {
-    this.dialog.open(CreateMemberDialogComponent, SIDE_DIALOG_CONFIG);
+    this.dialog.open(CreateMemberDialogComponent);
 
   }
 
