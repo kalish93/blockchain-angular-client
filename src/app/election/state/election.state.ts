@@ -89,7 +89,8 @@ export class ElectionState {
       (election.get('organizationId') as string) ?? '',
       election.get(`description`) as string,
       electionData || [],
-      election.get(`endTime`)
+      election.get(`endTime`),
+      election.get(`category`),
     );
 
     const state = getState();

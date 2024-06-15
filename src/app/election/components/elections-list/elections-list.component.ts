@@ -89,4 +89,11 @@ export class ElectionsListComponent implements OnInit{
   hasAdminRole(){
     return Roles.ADMIN
   }
+
+  transformEnum(value: string): string {
+    return value
+      .toLowerCase()                        // Convert to lowercase
+      .replace(/_/g, ' ')                   // Replace underscores with spaces
+      .replace(/\b\w/g, char => char.toUpperCase()); // Capitalize first letter of each word
+  }
 }
