@@ -1,13 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
-import { CreateOrganization, GetOrganizations, GetOrganizationDetail,CreateMember, SetSelectedOrganization, GetMyOrganizations, UploadMembers, DownloadTemplateCsv, DownloadTemplateXlsx } from './organization.action';
+import {
+  CreateOrganization,
+  GetOrganizations,
+  GetOrganizationDetail,
+  CreateMember,
+  SetSelectedOrganization,
+  GetMyOrganizations,
+  UploadMembers,
+  DownloadTemplateCsv,
+  DownloadTemplateXlsx,
+  ToggleOrginazationStatus,
+} from './organization.action';
 import { OrganizationService } from '../services/organization.service';
-import { Member, Organization, OrganizationWithMembers } from '../models/organization.model';
+import {
+  Member,
+  Organization,
+  OrganizationWithMembers,
+} from '../models/organization.model';
 import { tap } from 'rxjs';
 import { insertItem, patch } from '@ngxs/store/operators';
 import { OperationStatusService } from '../../core/services/operation-status.service';
 import { successStyle } from '../../core/services/status-style-names';
-import { SetProgressOff, SetProgressOn } from '../../core/store/progress-status.actions';
+import {
+  SetProgressOff,
+  SetProgressOn,
+} from '../../core/store/progress-status.actions';
 
 export interface OrganizationStateModel {
   organizations: Organization[];
@@ -25,7 +43,6 @@ const defaults: OrganizationStateModel = {
   myOrganizations: [],
   organization: undefined,
   selectedOrganization: undefined,
-
 };
 
 @State<OrganizationStateModel>({
@@ -37,8 +54,8 @@ export class OrganizationState {
   constructor(
     private organizationService: OrganizationService,
     private store: Store,
-    private operationStatusService: OperationStatusService,
-  ) { }
+    private operationStatusService: OperationStatusService
+  ) {}
 
   @Action(CreateOrganization)
   createOrganization({ setState }: StateContext<OrganizationStateModel>,
@@ -50,13 +67,15 @@ export class OrganizationState {
           patch({
             organizations: insertItem(createdOrganization),
             myOrganizations: insertItem(createdOrganization),
-          }),
+          })
         );
         this.store.dispatch(new SetProgressOff());
-        this.operationStatusService.displayStatus('Organization created successfully', successStyle)
-      }),
+        this.operationStatusService.displayStatus(
+          'Organization created successfully',
+          successStyle
+        );
+      })
     );
-
   }
 
   @Action(GetOrganizations)
@@ -67,7 +86,7 @@ export class OrganizationState {
         setState(
           patch({
             organizations,
-          }),
+          })
         );
         this.store.dispatch(new SetProgressOff());
       }),
@@ -83,7 +102,7 @@ export class OrganizationState {
         setState(
           patch({
             organization,
-          }),
+          })
         );
         this.store.dispatch(new SetProgressOff());
       }),
@@ -91,8 +110,10 @@ export class OrganizationState {
   }
 
   @Action(CreateMember)
-  createMember({ setState }: StateContext<OrganizationStateModel>,
-    { member }: CreateMember) {
+  createMember(
+    { setState }: StateContext<OrganizationStateModel>,
+    { member }: CreateMember
+  ) {
     this.store.dispatch(new SetProgressOn());
     return this.organizationService.createMember(member).pipe(
       tap((createdMember: Member) => {
@@ -101,65 +122,117 @@ export class OrganizationState {
             organization: patch({
               members: insertItem(createdMember),
             }),
-          }),
+          })
         );
         this.store.dispatch(new SetProgressOff());
-        this.operationStatusService.displayStatus('Member created successfully', successStyle)
-      }),
+        this.operationStatusService.displayStatus(
+          'Member created successfully',
+          successStyle
+        );
+      })
     );
   }
 
   @Action(SetSelectedOrganization)
-  setSelectedOrganization({setState}: StateContext<OrganizationStateModel>, {organization}: SetSelectedOrganization){
-    setState(patch({
-      selectedOrganization: organization
-    }))
+  setSelectedOrganization(
+    { setState }: StateContext<OrganizationStateModel>,
+    { organization }: SetSelectedOrganization
+  ) {
+    setState(
+      patch({
+        selectedOrganization: organization,
+      })
+    );
   }
 
   @Action(GetMyOrganizations)
-  getMyOrganizations({ setState }: StateContext<OrganizationStateModel>,
-    {userId}: GetMyOrganizations) {
+  getMyOrganizations(
+    { setState }: StateContext<OrganizationStateModel>,
+    { userId }: GetMyOrganizations
+  ) {
     this.store.dispatch(new SetProgressOn());
     return this.organizationService.getmyOrganizations(userId).pipe(
       tap((organizations: Organization[]) => {
         setState(
           patch({
             myOrganizations: organizations,
-          }),
+          })
         );
         this.store.dispatch(new SetProgressOff());
-      }),
+      })
     );
   }
 
   @Action(UploadMembers)
-  uploadMembers({ getState, setState }: StateContext<OrganizationStateModel>,
-  { file, organizationId }: UploadMembers) {
-  this.store.dispatch(new SetProgressOn());
-  return this.organizationService.uploadMembers(file, organizationId).pipe(
-    tap((createdMembers) => {
-      const state = getState();
-      const newMembers = [...state.organization!.members, ...createdMembers];
-      setState(
-        patch({
-          organization: patch({
-            members: newMembers,
-          }),
-        }),
+  uploadMembers(
+    { getState, setState }: StateContext<OrganizationStateModel>,
+    { file, organizationId }: UploadMembers
+  ) {
+    this.store.dispatch(new SetProgressOn());
+    return this.organizationService.uploadMembers(file, organizationId).pipe(
+      tap((createdMembers) => {
+        const state = getState();
+        const newMembers = [...state.organization!.members, ...createdMembers];
+        setState(
+          patch({
+            organization: patch({
+              members: newMembers,
+            }),
+          })
+        );
+        this.store.dispatch(new SetProgressOff());
+        this.operationStatusService.displayStatus(
+          'Members Uploaded successfully',
+          successStyle
+        );
+      })
+    );
+  }
+
+  @Action(DownloadTemplateCsv)
+  downloadTemplateCsv({}: StateContext<OrganizationStateModel>) {
+    return this.organizationService.downloadTemplateCsv();
+  }
+
+  @Action(DownloadTemplateXlsx)
+  downloadTemplateXlsx({}: StateContext<OrganizationStateModel>) {
+    return this.organizationService.downloadTemplateXlsx();
+  }
+
+  @Action(ToggleOrginazationStatus)
+  toggleOrganizationStatus(
+    { setState, getState }: StateContext<OrganizationStateModel>,
+    { organizationId }: ToggleOrginazationStatus
+  ) {
+    this.store.dispatch(new SetProgressOn());
+    return this.organizationService
+      .toggleOrganizationStatus(organizationId)
+      .pipe(
+        tap((updatedOrganization: Organization) => {
+          const updateOrganizationInList = (
+            organizationList: Organization[]
+          ) => {
+            return organizationList.map((org) =>
+              org.id === organizationId
+                ? { ...org, isActive: updatedOrganization.isActive }
+                : org
+            );
+          };
+
+          setState(
+            patch({
+              organizations: updateOrganizationInList(getState().organizations),
+              myOrganizations: updateOrganizationInList(
+                getState().myOrganizations
+              ),
+            })
+          );
+          this.store.dispatch(new SetProgressOff());
+          this.operationStatusService.displayStatus(
+            'Organization status changed successfully',
+            successStyle
+          );
+        })
       );
-      this.store.dispatch(new SetProgressOff());
-      this.operationStatusService.displayStatus('Members Uploaded successfully', successStyle)
-    }),
-  );
-}
-
-@Action(DownloadTemplateCsv)
-downloadTemplateCsv({}: StateContext<OrganizationStateModel>) {
-  return this.organizationService.downloadTemplateCsv();
-}
-
-@Action(DownloadTemplateXlsx)
-downloadTemplateXlsx({}: StateContext<OrganizationStateModel>) {
-  return this.organizationService.downloadTemplateXlsx();
-}
+  }
 }
