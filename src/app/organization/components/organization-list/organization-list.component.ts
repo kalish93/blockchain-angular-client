@@ -4,7 +4,6 @@ import { OrganizationFacade } from '../../facades/organizations.facades';
 import { RxState } from '@rx-angular/state';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateOrganizationDialogComponent } from '../create-organization-dialog/create-organization-dialog.component';
-import { SIDE_DIALOG_CONFIG } from '../../../core/constants/dialog-config';
 import { Router } from '@angular/router';
 import { ORGANIZATION_LIST } from '../../../core/constants/routes';
 import { filter, startWith } from 'rxjs';
@@ -83,7 +82,7 @@ export class OrganizationListComponent implements OnInit {
     this.router.navigate([`${ORGANIZATION_LIST}/${organization.id}`]);
   }
   openCreateOrganizationDialog() {
-    this.dialog.open(CreateOrganizationDialogComponent, SIDE_DIALOG_CONFIG);
+    this.dialog.open(CreateOrganizationDialogComponent);
   }
 
 

@@ -100,12 +100,12 @@ export class ElectionState {
     const electionData = await forkJoin(uploadRequests).toPromise();
     const createdElection = await this.blockchainService.createElection(
       election.get(`title`) as string,
-      electionImageUrl as string,
       (election.get('organizationId') as string) ?? '',
       election.get(`description`) as string,
       electionData || [],
       election.get(`endTime`),
-      election.get(`category`)
+      election.get(`category`),
+      electionImageUrl as string,
     );
 
     const state = getState();
