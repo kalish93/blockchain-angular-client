@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDialogComponent } from '../../../shared/shared-components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ interface ElectionDetailComponentState {
   styleUrls: ['./election-detail.component.scss'],
   providers: [RxState],
 })
-export class ElectionDetailComponent implements OnInit {
+export class ElectionDetailComponent implements OnInit, OnDestroy {
   electionId: string | undefined;
   electionDetail: any;
   electionData$ = this.state.select('electionData');
@@ -36,6 +36,7 @@ export class ElectionDetailComponent implements OnInit {
   hasEnded: boolean = false;
   multi: any[] = [];
   pieData: any[] = [];
+  private intervalId: any;
 
   // options for ngx-charts
   view: [number, number] = [700, 400];
@@ -73,26 +74,26 @@ export class ElectionDetailComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.electionId = params['id'];
       if (this.electionId) {
-        this.electionFacade.dispatchGetElectionDetail(this.electionId);
+        this.fetchElectionDetails();
       }
     });
 
+    this.intervalId = setInterval(() => {
+      if (this.electionId) {
+        this.fetchElectionDetails();
+        this.fetchElectionData();
+      }
+    }, 20000);
+
     this.electionDetail$.subscribe((electionDetail) => {
       this.electionDetail = electionDetail;
-      if(this.electionDetail){
-
-        this.electionFacade.dispatchGetElectionData(
-          electionDetail.electionId,
-          electionDetail.timeCreated,
-          electionDetail.endTime
-        );
+      if (this.electionDetail) {
+        this.fetchElectionData();
+        if (this.electionDetail.endTime) {
+          this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
+        }
+        this.processPieData();
       }
-
-      if (this.electionDetail && this.electionDetail.endTime) {
-        this.hasEnded = Date.now() > Number(this.electionDetail.endTime);
-      }
-
-      this.processPieData();
     });
 
     this.accessToken$.subscribe((token) => {
@@ -102,10 +103,32 @@ export class ElectionDetailComponent implements OnInit {
 
     this.electionData$.subscribe((electionData) => {
       this.electionData = electionData;
-      if(this.electionData){
+      if (this.electionData) {
         this.processElectionData(electionData);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  fetchElectionDetails(): void {
+    if (this.electionId) {
+      this.electionFacade.dispatchGetElectionDetail(this.electionId);
+    }
+  }
+
+  fetchElectionData(): void {
+    if (this.electionDetail) {
+      this.electionFacade.dispatchGetElectionData(
+        this.electionDetail.electionId,
+        this.electionDetail.timeCreated,
+        this.electionDetail.endTime
+      );
+    }
   }
 
   processElectionData(data: any) {
@@ -147,6 +170,7 @@ export class ElectionDetailComponent implements OnInit {
             );
           }
         } catch (e) {
+          console.error(e);
         }
       }
     });
