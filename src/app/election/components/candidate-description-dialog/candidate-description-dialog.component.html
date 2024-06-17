@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{ data.name }}</h2>
 <mat-dialog-content>
-  <img class="candidate-image" src="http://localhost:3000/{{ data.imgUrl }}" alt="Candidate Image" />
+  <img class="candidate-image" src="{{imageBaseUrl}}/{{ data.imgUrl }}" alt="Candidate Image" />
   <p class="candidate-description">{{ data.Description }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>

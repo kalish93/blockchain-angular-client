@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   generalStatistics: GeneralStatistics | undefined;
   generalStatistics$ = this.blockchainFacade.generalStatistics$;
 
-  view: [number, number] = [700, 400];
+  view: [number, number] = [600, 300];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
