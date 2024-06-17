@@ -6,7 +6,7 @@ import {
   Member,
 } from '../models/organization.model';
 import { Observable } from 'rxjs';
-import { ORGANIZATIONURL } from '../../core/constants/api-endpoints';
+import { IMAGE_BASE_URL, ORGANIZATIONURL } from '../../core/constants/api-endpoints';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +61,7 @@ export class OrganizationService {
   }
 
   downloadTemplateCsv(): void {
-    const url = 'http://localhost:3000/templates/template.csv';
+    const url = `${{IMAGE_BASE_URL}}/templates/template.csv`;
     this.http.get(url, { responseType: 'blob' }).subscribe((response: Blob) => {
       const blob = new Blob([response], { type: 'text/csv' });
       const fileUrl = URL.createObjectURL(blob);
@@ -73,7 +73,7 @@ export class OrganizationService {
   }
 
   downloadTemplateXlsx(): void {
-    const url = 'http://localhost:3000/templates/template.xlsx';
+    const url = `${{IMAGE_BASE_URL}}/templates/template.xlsx`;
     this.http.get(url, { responseType: 'blob' }).subscribe((response: Blob) => {
       const blob = new Blob([response], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
